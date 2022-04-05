@@ -1,0 +1,19 @@
+{
+  "name": "pg22ap_cowboysvsaliens",
+  "version": "1.0.0",
+  "description": "Classic Angry Birds with a new theme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vfs-sct/PG22AP_CowboysVsAliens.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vfs-sct/PG22AP_CowboysVsAliens/issues"
+  },
+  "homepage": "https://github.com/vfs-sct/PG22AP_CowboysVsAliens#readme"
+}
