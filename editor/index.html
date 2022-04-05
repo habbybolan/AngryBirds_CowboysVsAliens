@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Level Editor</title>
+        <link rel="stylesheet" type="text/css" href="./css/style-base.css">
+        <link rel="stylesheet" type="text/css" href="./css/style-grid-editor.css">
+        <link rel="stylesheet" type="text/css" href="./css/style-grid-selector.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/buzz/1.2.1/buzz.min.js"></script>
+    </head>
+
+    <body>
+
+        <!-- Page for editing a level -->
+        <section id="level-editor-page" class="grid-wrapper">
+
+            <!-- main editor window -->
+            <main id="level-editor" class="grid-row-main grid-column-main">
+                <section id="editor-area">
+                </section>
+            </main>
+
+            <!-- Level info side bar -->
+            <div id="level-info-bar" class="grid-sidebar-left grid-row-main side-bar">
+
+                <!-- Page for choosing a level to edit -->
+                <section id="level-selector-section">
+
+                    <!-- List of levels -->
+                    <div style="background-color: rgb(125, 125, 250);" class="flex-wrapper-column "> 
+                        <button id="delete-level-button">Delete level</button>
+                        <button id="add-level-button">Add Level</button>
+                        <button id="edit-level-button">Edit Level</button>
+                        <div id="level-list" class="selector "></div>
+                        
+                    </div>
+                </section>
+                
+            </div>
+
+            <!-- prefab info (Create and Update) side bar -->
+            <div id="prefab-info-bar" class="grid-sidebar-right grid-row-main side-bar">
+
+                <div id="prefab-info-container" class="flex-wrapper-column">
+
+                    <div id="level-info-box" class="flex-wrapper-column info-box">
+                        <!-- Level info box data -->
+                        <form>
+                            <div class="info-content">
+                                <div class="info-tag">Name:</div>
+                                <input id="level-name" type="text" class="info-input text-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag">Projectiles:</div>
+                                <input id="level-info-projectiles" type="number" class="info-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag-not-editable"># Targets:</div>
+                                <div id="level-info-num-targets" class="info-not-editable"></div>
+                            </div>
+                            <div class="info-content">
+                            <div class="info-tag-not-editable"># Collidables:</div>
+                                <div id="level-info-num-collidables" class="info-not-editable"></div> 
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag-not-editable">Filename:</div>
+                                <div id="level-info-filename" class="info-not-editable"></div>
+                            </div>
+                        </form>
+
+                        <div class="info-content flex-wrapper-center">
+                            <button id="save-level-button">Save Level</button>
+                        </div>
+                    </div>
+                
+                    <div id="prefab-info-box" class="flex-wrapper-column info-box">
+                        <!-- Prefab info box data -->
+                        <form>
+                            <div class="info-content">
+                                <div class="info-tag">Name:</div>
+                                <input id="prefab-info-name" type="text" class="info-input text-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag">Width:</div>
+                                <input id="prefab-info-width" type="number" class="info-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag">Height:</div>
+                                <input id="prefab-info-height" type="number" class="info-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag">Bounce:</div>
+                                <input id="prefab-info-bounce" type="number" class="info-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag">Mass:</div>
+                                <input id="prefab-info-mass" type="number" class="info-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag">Friction:</div>
+                                <input id="prefab-info-friction" type="number" class="info-input">
+                            </div>
+                            <div class="info-content">
+                                <div class="info-tag">Shape:</div>
+                                <div id="prefab-info-shape" class="info-dropdown"></div>
+                            </div>
+                            <div id="prefab-info-shape-dropdown" class="prefab-dropdown-container"></div>
+                            <div class="info-content">
+                                <div class="info-tag">Texture:</div>
+                                <div id="prefab-info-texture" class="info-dropdown"></div>
+                            </div>
+                            <div id="prefab-info-texture-dropdown" class="prefab-dropdown-container"></div>
+                            <div class="info-content">
+                                <div class="info-tag">Type:</div>
+                                <div id="prefab-info-type"class="info-dropdown"></div>
+                            </div>
+                            <div id="prefab-info-type-dropdown" class="prefab-dropdown-container"></div>
+                            <div class="info-content">
+                                <div class="info-tag-not-editable">Filename:</div>
+                                <div id="prefab-info-filename" class="info-not-editable"></div>
+                            </div>
+                        </form>
+
+                        <!-- Buttons for updating/deleting/creating a prefab -->
+                        <div>
+                            <button id="create-prefab"  class="prefab-button">Create</button>
+                            <button id="save-prefab" style="display: none" class="prefab-button">Save</button>
+                            <button id="cancel-prefab" style="display: none" class="prefab-button">Cancel</button>
+                            <button id="delete-prefab" style="display: none" class="prefab-button">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id="prefab-container" class="flex-wrapper-row grid-row-tail grid-column-full">
+            </div>
+            
+            <!-- Bar for displaying messages -->
+            <div id="message-bar" class="grid-row-foot grid-column-full flex-wrapper-center"></div>
+
+            <!-- Cover screen on selecting a prefab to faciliate unselecting it when clicking elsewhere-->
+            <div id="select-cover-screen" style="display: none" class="grid-row-full grid-column-full"></div>
+
+            <div id="garbage-can"></div>
+        </section>
+
+        <script type="module" src="./scripts/index.js"></script>
+    </body>
+    
+    
+
+</html>

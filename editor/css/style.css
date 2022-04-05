@@ -1,0 +1,28 @@
+.collidable {
+    z-index: 2;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.target {
+    z-index: 3;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.draggable {
+}
+
+.placed {
+    position: absolute;
+}
+
+#editor-area {
+    width: 100%;
+    height: 75%;
+    background-color: grey;
+}
+
+.disable-mouse-events {
+    pointer-events: none;
+}

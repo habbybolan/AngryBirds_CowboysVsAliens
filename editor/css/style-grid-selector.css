@@ -1,0 +1,37 @@
+/* Copyright (C) Nicholas Johnson */
+.grid-wrapper-selector {
+    grid-template-columns: 1fr 6fr;
+}
+    .grid-left-selector {
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+    .grid-right-selector {
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+
+.selector {
+    height: 100vh;
+}
+
+.level-list-element {
+    text-align: center;
+}
+
+#edit-level-button {
+}
+
+#level-editor-preview {
+    height: 720px;
+    width: 1280px;
+    background-color: grey;
+}
+
+.selected-level {
+    color: blue;
+}
+
+.unselected-level {
+    color: white;
+}

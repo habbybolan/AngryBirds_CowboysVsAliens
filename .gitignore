@@ -5,4 +5,6 @@
 **/node_modules/*
 *.swatch
 *.swatches
+./editor/data
 
+/editor/data/*.json

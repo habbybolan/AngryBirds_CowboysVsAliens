@@ -1,0 +1,182 @@
+/* @copyright 2014-2022, Vancouver Film School */
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1280px 1fr;
+    grid-template-rows: 720px 1fr 2em;
+}
+
+    /* Columns */
+    .grid-sidebar-left {
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+    .grid-column-main {
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+    .grid-sidebar-right {
+        grid-column-start: 3;
+        grid-column-end: 4;
+    }
+    .grid-column-full {
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+
+    /* Rows */
+    .grid-row-main {
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+    .grid-row-tail {
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    .grid-row-foot {
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+    .grid-row-full {
+        grid-row-start: 1;
+        grid-row-end: 4;
+    }
+
+.show {
+    display: grid;
+}
+
+.hide {
+    display: none;
+}
+
+#editor-area {
+    height: 100% !important;
+    width: 100%;
+}
+
+.side-bar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#level-info-bar {
+}
+
+#prefab-info-bar {
+   
+}
+
+#prefab-info-box {
+    z-index: 100;
+}
+
+.info-box {
+    height: fit-content;
+    width: fit-content;
+    padding: 5px 5px 5px 5px;
+    font-size: .7em;
+    background-color: black;
+}
+
+.prefab-box-select {
+    background-color: green !important;
+}
+
+.prefab-box-create-new {
+    background-color: blue !important;
+}
+
+.info-input {
+    display: inline-block;
+    width: 100px;
+    height: 20px;
+    background-color: gray;
+}
+
+.info-tag {
+    display: inline-block;
+}
+
+.info-tag-not-editable {
+    display: inline-block;
+    width: fit-content;
+}
+
+.info-not-editable {
+    display: inline-block;
+    width: fit-content;
+}
+
+.info-dropdown {
+    display: inline-block;
+    width: fit-content;
+}
+
+.info-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#message-bar {
+    
+}
+
+.prefab-button {
+    height: 35px;
+    width: 80px;
+}
+
+.prefab-selected {
+    z-index: 100 !important;
+    border: 2px red solid;
+}
+
+#select-cover-screen {
+    height: 100vh !important;
+    width: 100vw !important;
+    z-index: 90;
+    background: rgba(99, 99, 99, 0.623);
+}
+
+.text-input {
+    font-size: .8em;
+}
+
+.prefab-dropdown-container {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.dropdown-item {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    background-color: grey;
+}
+
+.dropdown-item:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+#garbage-can {
+    background-image: url("../images/garbage-can.png");
+    position: absolute;
+    height: 150px;
+    width: 120px;
+    bottom: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 2;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+
+#prefab-info-container {
+    justify-content: space-evenly;
+}
+
