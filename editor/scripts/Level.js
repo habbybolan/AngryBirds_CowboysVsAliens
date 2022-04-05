@@ -17,6 +17,9 @@ export default class Level {
 
         this.data = { ...sourceData }
 
+        this.collidableCount = 0
+        this.targetCount = 0
+
         delete this.data.entities; // TODO: this seems bad?
 
         if (!sourceData) {
@@ -28,11 +31,6 @@ export default class Level {
 
         this.data.collidables = []           // Collidable GameObjects
         this.data.targets = []               // target GameObjects
-
-
-        // max shots
-        // background image
-        // 1/2/3 start score
     }
 
     serialize() {
@@ -56,19 +54,55 @@ export default class Level {
     }
 
     /**
-     * Add a new game object to the level at position x, y
-     * @param {JSON} sourceData                 {id: int, type: string, x: int, y: int, enitityTypesEnum entityType}
+     * Add a new game object to the level at position x, y from prefab view data
+     * @param {JQuery} $prefabView   Prefab view to create GameObject from    
+     * @param {int} x               X position to place GameObject
+     * @param {int} y               Y position to place GameObject 
+     * @returns                     Newly created GameObject
      */
-    addGameObject(sourceData) {
-        let gameObject = new GameObject(sourceData) // New object to insert into level
-
-        // inserting a collidable object
-        if (sourceData.type == enitityTypesEnum.COLLIDABLE) {
-            this.data.collidables.push(gameObject);
-        // otherwise inserting a target object
+     addGameObjectFromPrefab($prefabView, x, y) {
+        let type = $prefabView.hasClass(enitityTypesEnum.COLLIDABLE) ? enitityTypesEnum.COLLIDABLE : enitityTypesEnum.TARGET
+        let newObject = new GameObject()
+        newObject.initiateFromPrefab($prefabView, x, y, this.getNewGameObjectID(type), type)
+        
+        if (type == enitityTypesEnum.COLLIDABLE) {
+            this.data.collidables.push(newObject)
         } else {
-            this.data.targets.push(gameObject);
+            this.data.targets.push(newObject)
         }
+        return newObject;
+    }
+
+    /**
+     * Add a list of game objects 
+     * @param {JSON} listOfObjects  List of data for GameObjects to add
+     * @returns                     List of GameObjects that were added
+     */
+    addGameObjectsFromData(listOfObjects) {
+        let gameObjectsAdded = []   // keep track of objects added for returning
+        for (let gameObjectData of listOfObjects) {
+            let type = gameObjectData.type
+            let newGameObject = new GameObject();
+            newGameObject.initiateFromRawData(gameObjectData, this.getNewGameObjectID(type))
+            if (type == enitityTypesEnum.COLLIDABLE) {
+                this.collidables.push(newGameObject)
+            } else {
+                this.targets.push(newGameObject)
+            }
+            gameObjectsAdded.push(newGameObject);
+        }
+        return gameObjectsAdded;
+    }
+
+    /**
+     * Get a valid id for a new GameObject to add to level
+     * @param {enitityTypesEnum} type   GameObject type
+     * @returns                         New valid id
+     */
+    getNewGameObjectID(type) {
+        return type == enitityTypesEnum.COLLIDABLE ? 
+                `${enitityTypesEnum.COLLIDABLE}-${this.collidableCount++}` : 
+                `${enitityTypesEnum.TARGET}-${this.targetCount++}`
     }
 
     /**

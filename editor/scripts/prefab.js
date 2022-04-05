@@ -109,6 +109,7 @@ export default class Prefab {
         return `prefab-${Prefab.staticIndex++}`
     }
 
+
     // getters / setters
 
     get mass() { return this.data.mass }
@@ -123,6 +124,8 @@ export default class Prefab {
     get filename() { return this.data.filename }   
     get name() { return this.data.name }
     get shape() { return this.data.shape }
+
+    get AllDdata() { return this.data }
 }
 
 Prefab.staticIndex = 0;

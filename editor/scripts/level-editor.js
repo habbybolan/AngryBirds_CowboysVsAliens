@@ -55,8 +55,7 @@ export default class LevelEditor {
         $("#editor-area").empty()
         $("#prefab-container").empty()
 
-        this.collidableCount = 0
-        this.targetCount = 0
+        
         this.prefabCollidables = []
         this.prefabTargets = []
 
@@ -89,6 +88,7 @@ export default class LevelEditor {
             let resLevel = await $.post('api/load', { data })
             resLevel = JSON.parse(resLevel);
             
+            console.log(resLevel.payload.entities)
             if (!resLevel.error) {
                 this.level = new Level(resLevel.payload);
                 collidablesData = resLevel.payload.entities.collidables
@@ -126,11 +126,18 @@ export default class LevelEditor {
                 this.addPrefabToView(prefab);
             }
 
-            // load level collidable objects
-            this.loadSavedCollidableLevelObjects(collidablesData);
-            
-            // load level target objects
-            this.loadSavedTargetLevelObjects(targetsData)
+            let collidableObjects = this.level.addGameObjectsFromData(collidablesData)
+            for (let collidable of collidableObjects) {
+                $("#editor-area").append(collidable.view)
+                this.setDraggableHandlers(collidable.view)
+                this.placeObject(collidable.view, collidable.x, collidable.y)
+            }
+            let targetObjects = this.level.addGameObjectsFromData(targetsData)
+            for (let target of targetObjects) {
+                $("#editor-area").append(target.view)
+                this.setDraggableHandlers(target.view)
+                this.placeObject(target.view, target.x, target.y)
+            }
         }
         this.disableMouseEvents(false)
     }
@@ -296,35 +303,19 @@ export default class LevelEditor {
         // If  placing new object in editor
         if (!$draggable.hasClass("placed")) {
 
-            // Create new collidable/target object and add to stored level
-            if ($draggable.hasClass(enitityTypesEnum.COLLIDABLE))
-                $obj = $(`<div id="${enitityTypesEnum.COLLIDABLE}-${this.collidableCount++}" draggable = "true" class="placed"></div>`)
-            else
-                $obj = $(`<div id="${enitityTypesEnum.TARGET}-${this.targetCount++}" draggable = "true" class="placed"></div>`)
+            
+            let newGameObject = this.level.addGameObjectFromPrefab($draggable, locX, locY)
+            $obj = newGameObject.view
 
             // place new object into level
             $("#editor-area").append($obj)
             // Attach the drag/drop handlers to the new object 
             this.setDraggableHandlers($obj)
 
-            // add the game object to the level data
-            this.level.addGameObject(
-            {
-                "id": $obj.attr("id"), 
-                "name": $draggable.attr("name"), 
-                "x": locX, "y": locY, 
-                "type": $draggable.hasClass(enitityTypesEnum.COLLIDABLE) ? enitityTypesEnum.COLLIDABLE : enitityTypesEnum.TARGET
-            }) 
-
         // otherwise, update the postition of the exising game object in level data
         } else {
             this.level.updateGameObjectLocation($draggable.attr("id"), locX, locY, $draggable.hasClass(enitityTypesEnum.COLLIDABLE) ? enitityTypesEnum.COLLIDABLE : enitityTypesEnum.TARGET)
         }
-
-        // Add the original dragged object's style and classes to the currently dragged object
-        $obj
-            .prop("style", $draggable.attr("style"))
-            .addClass($draggable.attr("class"))
 
         // calculate offset from cursor position dropped at
         $obj.offset({left: locX + $('#editor-area').offset().left, top: locY + $('#editor-area').offset().top})

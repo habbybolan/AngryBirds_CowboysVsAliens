@@ -17,8 +17,8 @@ export default class PrefabTarget extends Prefab{
                             name=${sourceData.name} 
                             type=${sourceData.type} 
                             style="height: ${sourceData.height}px; 
-                            width: ${sourceData.width}px; 
-                            background-image: url(${sourceData.texture});" 
+                                width: ${sourceData.width}px; 
+                                background-image: url(${sourceData.texture});" 
                             draggable="true" 
                             class="${enitityTypesEnum.TARGET} draggable">
                         </div>`)
