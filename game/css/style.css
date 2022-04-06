@@ -1,0 +1,7 @@
+/** Styles for Angry Pigs COpyright (C) 2022 Scott Henshaw */
+.console {
+    background-color: antiquewhite;
+    color: #333;
+    min-height: 3em;
+    border: 2px solid black;
+}

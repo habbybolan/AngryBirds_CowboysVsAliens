@@ -24,27 +24,6 @@ class Server {
             response.sendFile(indexFile, { title: 'Form Demo' })
         });
 
-        this.api.post('/api/validate/:userid', (request, response) => {
-
-            // let result = { error: -1 };
-
-            // // handle edges from form
-            // let params = request.params; // data attached in the url /api/:name/:id
-            // let query = request.query;   // data attached as a PHP param String
-            // let data = request.body;     // data attached as JSON data
-
-            // // DO work to validate the request data
-            // let filename = `./data/${params.userid}/${data.file}.json`;
-
-            // // Open a file to write to
-
-
-            // // write that body.levelData to the file
-
-            // result.error = 0;
-            // this.respondToClient(result, response);
-        });
-
         this.api.post('/api/loadBackgrounds', (request, response) => {
             let result = { error: 1 }
 

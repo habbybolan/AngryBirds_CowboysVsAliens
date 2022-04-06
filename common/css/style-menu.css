@@ -1,0 +1,60 @@
+/* @copyright 2014-2022, Scott Henshaw, Vancouver Film School */
+/* Flexbox menus */
+.menu {
+    display: flex;
+    justify-content: center;
+}
+
+.menu>.dropdown {
+    /* The container <div> - needed to position the dropdown content */
+    flex: auto;
+    position: relative;
+}
+
+.dropbtn {
+    /* Dropdown Button */
+    background-color: var(--light);
+    color: var(--dark);
+    padding: 16px;
+    font-size: 22px;
+    border: none;
+    width: 100%;
+}
+
+.dropdown-content {
+    /* Dropdown Content (Hidden by Default) */
+    display: none;
+    position: absolute;
+    background-color: var(--none);
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content li {
+    /* Links inside the dropdown */
+    list-style-type: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content li:hover {
+    /* Change color of dropdown links on hover */
+    background-color: var(--highlight);
+}
+
+.dropdown:hover .dropdown-content {
+    /* Show the dropdown menu on hover */
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    background-color: #3e8e41;
+}
+
+.menu-item {
+    list-style-type: none;
+}

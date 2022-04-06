@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Angry Pigs</title>
+
+        <meta name="description" content="Angry Pigs">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8">
+
+        <link rel="icon" type="image/ico" href="/common/images/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="/common/css/style-base.css">
+        <link rel="stylesheet" type="text/css" href="/common/css/style-grid.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+    </head>
+
+    <body class="grid-wrapper">
+        <nav class="panel grid-row-top grid-column-head">
+        </nav>
+
+        <main id="wrapper" class="grid-row-main grid-column-full">
+            <section id="high-scores" class=""></section>
+            <section id="game-screen" class="dom-canvas">
+                <!-- <canvas id="debug-canvas" class="game-size"></canvas> -->
+                <div id="game-area" class="item play-area game-size dom-canvas">
+                    <!-- Content loaded dynamically -->
+                    <div id="bird1" class="entity birdie"></div>
+                </div>
+            </section>
+        </main>
+
+
+        <section id="my-console" class="grid-row-tail grid-column-main console"></section>
+
+        <script type="module" src="./main.js"></script>
+    </body>
+</html>
