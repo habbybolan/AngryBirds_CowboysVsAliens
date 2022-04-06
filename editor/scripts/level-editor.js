@@ -88,7 +88,6 @@ export default class LevelEditor {
             let resLevel = await $.post('api/load', { data })
             resLevel = JSON.parse(resLevel);
             
-            console.log(resLevel.payload.entities)
             if (!resLevel.error) {
                 this.level = new Level(resLevel.payload);
                 collidablesData = resLevel.payload.entities.collidables
@@ -103,43 +102,47 @@ export default class LevelEditor {
         let resPrefabs = await $.post('api/get_object_list')
         resPrefabs = JSON.parse(resPrefabs);
         if (!resPrefabs.error) {
-
-            // Loop through all retrieved prefabs and load them into the editor
-            for (let prefabData of resPrefabs.payload) {
-
-                let data = JSON.stringify({name: prefabData.filename, type: "object"})
-                let resPrefab = await $.post('api/load', { data })
-                resPrefab = JSON.parse(resPrefab)
-
-                let prefab;
-                // Setup the collidable prefab
-                if (resPrefab.payload.type == "collidable") {
-                    prefab = new PrefabCollidable(resPrefab.payload)
-                    this.prefabCollidables.push(prefab)
-                // setup the target prefab
-                } else if (resPrefab.payload.type == "target") {
-                    prefab = new PrefabTarget(resPrefab.payload)
-                    this.prefabTargets.push(prefab)
-                }
-
-                // add prefab to view and set event handlers
-                this.addPrefabToView(prefab);
-            }
-
-            let collidableObjects = this.level.addGameObjectsFromData(collidablesData)
-            for (let collidable of collidableObjects) {
-                $("#editor-area").append(collidable.view)
-                this.setDraggableHandlers(collidable.view)
-                this.placeObject(collidable.view, collidable.x, collidable.y)
-            }
-            let targetObjects = this.level.addGameObjectsFromData(targetsData)
-            for (let target of targetObjects) {
-                $("#editor-area").append(target.view)
-                this.setDraggableHandlers(target.view)
-                this.placeObject(target.view, target.x, target.y)
-            }
+            await this.loadPrefabs(resPrefabs.payload)
         }
+
+        // Load level gameObjects
+        this.loadLevelObjects(collidablesData)
+        this.loadLevelObjects(targetsData)
+
         this.disableMouseEvents(false)
+    }
+
+    async loadPrefabs(prefabDataList) {
+        // Loop through all retrieved prefabs and load them into the editor
+        for (let prefabData of prefabDataList) {
+
+            let data = JSON.stringify({name: prefabData.filename, type: "object"})
+            let resPrefab = await $.post('api/load', { data })
+            resPrefab = JSON.parse(resPrefab)
+
+            let prefab;
+            // Setup the collidable prefab
+            if (resPrefab.payload.type == "collidable") {
+                prefab = new PrefabCollidable(resPrefab.payload)
+                this.prefabCollidables.push(prefab)
+            // setup the target prefab
+            } else if (resPrefab.payload.type == "target") {
+                prefab = new PrefabTarget(resPrefab.payload)
+                this.prefabTargets.push(prefab)
+            }
+
+            // add prefab to view and set event handlers
+            this.addPrefabToView(prefab);
+        }
+    }
+
+    loadLevelObjects(gameObjectData) {
+        let gameObjectList = this.level.addGameObjectsFromData(gameObjectData)
+        for (let gameObject of gameObjectList) {
+            $("#editor-area").append(gameObject.view)
+            this.setDraggableHandlers(gameObject.view)
+            this.placeObject(gameObject.view, gameObject.x, gameObject.y)
+        }
     }
 
     addPrefabToView(prefab) {
