@@ -14,8 +14,8 @@ export default class PrefabTarget extends Prefab{
 
         this.data.id = this.getNewIndex()
         this.$view = $(`<div id="${this.data.id}" 
-                            name=${sourceData.name} 
-                            type=${sourceData.type} 
+                            name="${sourceData.name}" 
+                            type="${sourceData.type}" 
                             style="height: ${sourceData.height}px; 
                                 width: ${sourceData.width}px; 
                                 background-image: url(${sourceData.texture});" 

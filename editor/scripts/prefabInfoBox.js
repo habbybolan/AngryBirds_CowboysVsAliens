@@ -251,7 +251,6 @@ export default class prefabInfoBox {
             this.onLeavePrefabSave();
             // can add the prefab to the view instantly if creating a new one
             if (bNewPrefab) {
-                console.log("add to level editor")
                 this.levelEditor.addPrefabToView(prefabSaved);
             }
         } 
