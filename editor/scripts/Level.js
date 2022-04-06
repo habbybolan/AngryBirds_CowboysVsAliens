@@ -20,7 +20,7 @@ export default class Level {
         this.collidableCount = 0
         this.targetCount = 0
 
-        delete this.data.entities; // TODO: this seems bad?
+        delete this.data.entities; 
 
         if (!sourceData) {
             this.data.filename = undefined;                   
@@ -29,8 +29,8 @@ export default class Level {
             this.data.cannon = {x: 0, y: 0};   
         }
 
-        this.data.collidables = []           // Collidable GameObjects
-        this.data.targets = []               // target GameObjects
+        this.data.collidables = []  // Collidable GameObjects
+        this.data.targets = []      // target GameObjects
     }
 
     serialize() {
@@ -222,8 +222,11 @@ export default class Level {
     get name() { return this.data.name }
     get projectiles() { return this.data.projectiles }
     get cannon() { return this.data.cannon }
+    get background() { return this.data.background }
+    get allBackground() { return this.backgroundList }
 
     set filename(val) { this.data.filename = val }
     set name(val) { this.data.name = val }
     set projectiles(val) { this.data.projectiles = val }
+    set background(val) { this.data.background = val }
 }

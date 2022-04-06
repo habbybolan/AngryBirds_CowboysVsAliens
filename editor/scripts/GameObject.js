@@ -2,7 +2,7 @@
 
 export default class GameObject {
 
-    
+    // Empty constructor, use initiate... methods to create object
     constructor() {}
 
     /**
@@ -38,12 +38,12 @@ export default class GameObject {
     initiateFromRawData(sourceData, id) {
         this.data = sourceData
         this.data.id = id
-        // Convert wx to x
+        // Convert wx to x for targets
         if (this.data.wx) {
             this.data.x = this.data.wx
             delete this.data.wx
         }
-        // Convert wy to y
+        // Convert wy to y for targets
         if (this.data.wy) {
             this.data.y = this.data.wy
             delete this.data.wy

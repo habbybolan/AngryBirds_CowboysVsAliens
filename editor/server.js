@@ -45,6 +45,10 @@ class Server {
             // this.respondToClient(result, response);
         });
 
+        this.api.post('api/loadBackground', (request, response) => {
+            let result = { error: 1 }
+        })
+
         this.api.post('/api/delete', (request, response) => {
              
             let result = { error: 1 }
