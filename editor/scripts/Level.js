@@ -38,7 +38,8 @@ export default class Level {
         let levelJSON = {filename: this.data.filename,
                         name: this.data.name,
                         projectiles: this.data.projectiles,
-                        cannon: this.data.cannon}
+                        cannon: this.data.cannon,
+                        background: this.data.background}
         levelJSON.entities = {targets: [], collidables: []}
 
         // serialize target data
@@ -71,6 +72,40 @@ export default class Level {
             this.data.targets.push(newObject)
         }
         return newObject;
+    }
+
+    /**
+     * Load all possible background images can be applied to level, and display the current background image.
+     * If no background image exists, set as first loaded (Case for newly created levels)
+     */
+    async loadBackgroundImagesAndDisplay() {
+        let responseString = await $.post('api/loadBackgrounds');
+        let response = JSON.parse(responseString);
+        if (!response.error) {
+            this.backgroundImages = response.payload;
+
+            // if The level has no background image, default to first one loaded
+            if (!this.data.background && this.backgroundImages.length > 0)
+                this.data.background = this.backgroundImages[0]
+        }
+    }
+
+    selectNewBackgroundImage(index) {
+        this.background = this.backgroundImages[index]
+    }
+
+    backgroundImageDisplayString(index) {
+        return this.backgroundImageDisplayStringFromULR(this.backgroundImages[index])
+    }
+
+    selectedBackgroundImageDisplayString() {
+        if (!this.data.background)
+            return ""
+        return this.backgroundImageDisplayStringFromULR(this.data.background)
+    }
+
+    backgroundImageDisplayStringFromULR(url) {
+        return url.substring(url.lastIndexOf("/") + 1)
     }
 
     /**

@@ -50,6 +50,7 @@
 }
 
 #editor-area {
+    z-index: 3;
     height: 100% !important;
     width: 100%;
 }
@@ -58,13 +59,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-#level-info-bar {
-}
-
-#prefab-info-bar {
-   
 }
 
 #prefab-info-box {
@@ -119,10 +113,6 @@
     justify-content: space-between;
 }
 
-#message-bar {
-    
-}
-
 .prefab-button {
     height: 35px;
     width: 80px;
@@ -175,8 +165,12 @@
     margin-right: 10px;
 }
 
-
 #prefab-info-container {
     justify-content: space-evenly;
+}
+
+#editor-area {
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 

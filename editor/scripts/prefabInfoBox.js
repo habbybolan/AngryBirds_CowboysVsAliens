@@ -86,6 +86,8 @@ export default class prefabInfoBox {
      * @param {Array}  list                 List of Strings to populate dropdown data with
      */
      prefabDropdownHandler($textSelector, $dropdownContainer, list) {
+         if ($dropdownContainer.children().length > 0)
+            return
         // create dropdown menu for texture
         for (let item of list) {
             let $dropdownData = $(`<div class="dropdown-item">${item}</div>`)

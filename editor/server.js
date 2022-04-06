@@ -45,8 +45,15 @@ class Server {
             // this.respondToClient(result, response);
         });
 
-        this.api.post('api/loadBackground', (request, response) => {
+        this.api.post('/api/loadBackgrounds', (request, response) => {
             let result = { error: 1 }
+
+            let backgroundList = fs.readdirSync('./images/backgrounds')
+                                    .map((imageName) => '../images/backgrounds/' + imageName)
+            result.payload = backgroundList;
+
+            result.error = 0
+            this.respondToClient(result, response)
         })
 
         this.api.post('/api/delete', (request, response) => {

@@ -72,7 +72,32 @@ export default class LevelEditor {
         $('#level-info-num-targets').text(this.level.targets.length)
         $('#level-info-num-collidables').text(this.level.collidables.length)
         $('#level-info-filename').text(this.level.filename ? this.level.filename : "")
+        // level background
+        $('#level-info-background').text(this.level.selectedBackgroundImageDisplayString())
+        $('#level-info-background').on('click', (event => this.levelBackgroundEvent()))
     } 
+
+    levelBackgroundEvent() {
+        if ($('#level-info-background-dropdown').children().length > 0)
+            return
+        // create dropdown menu for texture
+        for (let i = 0; i <  this.level.backgroundImages.length; i++) {
+            let background = this.level.backgroundImageDisplayString(i)
+            let $dropdownData = $(`<div class="dropdown-item">${background}</div>`)
+            $dropdownData.on('click', event => {
+                
+                // set text and remove dropdown
+                $('#level-info-background').text(background)
+                $('#level-info-background-dropdown').empty()
+                
+                this.level.selectNewBackgroundImage(i)
+                this.displaySelectedBackgroundImage()
+            })
+            $('#level-info-background-dropdown').append($dropdownData)
+        }
+        // close dropdown if hovered off
+        $('#level-info-background-dropdown').mouseleave(() => $('#level-info-background-dropdown').empty())
+    }
 
     /**
      * @param {String} filename     Name of file if loading saved level, undefined if new level being created
@@ -97,6 +122,9 @@ export default class LevelEditor {
         } else {
             this.level = new Level()
         }
+
+        await this.level.loadBackgroundImagesAndDisplay()
+        this.displaySelectedBackgroundImage()
         
         // Load prefab data
         let resPrefabs = await $.post('api/get_object_list')
@@ -110,6 +138,11 @@ export default class LevelEditor {
         this.loadLevelObjects(targetsData)
 
         this.disableMouseEvents(false)
+    }
+
+    displaySelectedBackgroundImage() {
+        if (this.level.background)
+            $('#editor-area').css('background-image', `url("${this.level.background}")`)
     }
 
     async loadPrefabs(prefabDataList) {
@@ -149,64 +182,6 @@ export default class LevelEditor {
         $("#prefab-container").append(prefab.view)
         this.setDraggableHandlers(prefab.view) 
         this.prefabInfoBox.setPrefabOnClick(prefab)
-    }
-
-    /**
-     * Load any previously saved collidable objects in level using the loaded prefabs
-     */
-     loadSavedCollidableLevelObjects(collidableData) {
-        // prevent iterating over empty object
-        if (!collidableData)
-            return;
-
-        // place all saved collidables
-        for (let collidable of collidableData) {
-            let $prefab = this.getCollidablePrefab(collidable.name);
-            if ($prefab)
-                this.placeObject($prefab, collidable.x, collidable.y)
-        }
-    }
-
-    /**
-     * Load any previously saved target objects in level using the loaded prefabs
-     */
-    loadSavedTargetLevelObjects(targetData) {
-        // prevent iterating over empty object
-        if (!targetData)
-            return;
-
-        // place all saved targets
-        for (let target of targetData) {
-            let $prefab = this.getTargetPrefab(target.name);
-            if ($prefab)
-                this.placeObject($prefab, target.wx, target.wy);
-        }
-    }
-
-    /**
-     * Get the collidable prefab that has name attribute
-     * @param {String} name     The prefab attribute type
-     * @returns                 The collidable prefab with type attribute
-     */
-    getCollidablePrefab(name) {
-        for (let prefab of this.prefabCollidables) {
-            if (prefab.view.attr("name") == name)
-                return prefab.view;
-        }
-        //throw `No prefab of ${type}`;
-    }
-
-    /**
-     * Get the target prefab that has name attribute
-     * @param {String} name     The prefab attribute type
-     * @returns                 The target prefab with type attribute
-     */
-    getTargetPrefab(name) {
-        for (let prefab of this.prefabTargets) {
-            if (prefab.view.attr("name") == name)
-                return prefab.view;
-        }
-        //throw `No prefab of ${type}`;
     }
 
     onSaveLevel() {
