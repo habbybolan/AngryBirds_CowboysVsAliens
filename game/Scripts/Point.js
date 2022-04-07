@@ -31,7 +31,7 @@ export default class Point {
         }
     }
 
-    fromSCreen(top, left) {
+    fromScreen(top, left) {
 
         // update X, Y from a given positon
     }

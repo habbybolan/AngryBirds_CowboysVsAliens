@@ -12,7 +12,7 @@ class Game {
         this.tick = 0;
 
         this.$view = $("#game-area")
-        this.world = new World(this.$view);
+        this.world = new World(this.$view, 'level-1');
         
 
         // Initialize the app behind a splash screen

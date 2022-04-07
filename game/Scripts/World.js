@@ -3,10 +3,11 @@
 
 import Physics from '../common/libs/Physics.js'
 import Point from './Point.js'
+import Level from './Level.js'
 
 export default class World {
 
-    constructor($view) {
+    constructor($view, filenameSelected) {
 
         // Setup view and model and properties
         this.$view = $view
@@ -16,10 +17,12 @@ export default class World {
         const gravityVector = new Physics.Vec2(0, Physics.GRAVITY)
         this.model = new Physics.World(gravityVector)
 
-        this.collidableList = []
-
         // create walls and floor
-        this.createBoundaries()
+        //this.createBoundaries()
+
+        // initiate level
+        this.Level = new Level($view, this.model)
+        //this.Level.LoadLevel(filenameSelected)
 
         // TODL Future - add listeners for physical collisions
     }
@@ -27,9 +30,9 @@ export default class World {
     createBoundaries() {
         // Create floor
         let p = new Point()
-        p.fromSCreen(this.screenHeight, this.screenWidth / 2)
+        p.fromScreen(this.screenHeight, this.screenWidth / 2)
         let delta = new Point()
-        delta.fromSCreen(10, this.screenWidth)
+        delta.fromScreen(10, this.screenWidth)
         this.createWalls()
 
         // right wall
@@ -43,9 +46,6 @@ export default class World {
     }
 
     createWalls(x = 0, y = 0, dx = 10, dy = 10) {
-        // Create walls and floor at sides of screen
-        //      Model for a static body that things can bounce off
-        
         
         // Create rigid body
         const bodyDef = new Physics.BodyDef()
@@ -80,9 +80,6 @@ export default class World {
     }
 
     render() {
-        // TODO: re-render/update the css for everything 
-        this.collidableList.forEach(collidable => {
-            collidable.render()
-        })
+        
     }
 }

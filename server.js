@@ -24,7 +24,7 @@ const PORT = 4000;
 // Simplify this...
 class Server {
 
-    constructor( api, port = PORT ) {
+    constructor(api, port = PORT) {
 
         this.api = Express();
         this.router = Express.Router();
@@ -184,7 +184,7 @@ class Server {
                 "type": "object" | "level", // one of these two key strings
                 "payload": "JSONString" // actual data in JSON format 
             }       
-                */
+            */
             const payload = data.payload
             const type = data.type
             const name = data.name
@@ -237,12 +237,12 @@ class Server {
     }
 
 
-    dataPath( userid ) {
+    dataPath(userid) {
 
         return `${Path.dirname( FileSystem.realpathSync(__filename))}/data/${userid}`
     }
 
-    handleListenerError( error ) {
+    handleListenerError(error) {
         // Listen on provided port, on all network interfaces
         if (error.syscall !== 'listen')
             throw error;
