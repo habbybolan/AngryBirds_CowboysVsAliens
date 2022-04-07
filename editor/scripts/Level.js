@@ -85,13 +85,13 @@ export default class Level {
             this.backgroundImages = response.payload;
 
             // if The level has no background image, default to first one loaded
-            if (this.backgroundImages.length > 0)
+            if (!this.data.background && this.backgroundImages.length > 0)
                 this.data.background = this.backgroundImages[0]
         }
     }
 
     selectNewBackgroundImage(index) {
-        this.background = this.backgroundImages[index]
+        this.data.background = this.backgroundImages[index]
     }
 
     backgroundImageDisplayString(index) {
