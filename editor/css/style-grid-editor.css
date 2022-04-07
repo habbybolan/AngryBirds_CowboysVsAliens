@@ -152,7 +152,7 @@
 }
 
 #garbage-can {
-    background-image: url("../images/garbage-can.png");
+    background-image: url("../../images/garbage-can.png");
     position: absolute;
     height: 150px;
     width: 120px;

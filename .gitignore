@@ -7,3 +7,4 @@
 *.swatches
 
 /editor/data/*.json
+/data/*.json

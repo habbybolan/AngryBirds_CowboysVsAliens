@@ -19,11 +19,6 @@ class Server {
                 .use(Express.urlencoded({ extended: false }))
                 .use(Express.static(Path.join( __dirname, '.')));
 
-        this.api.get('/', (request, response) => {
-            const indexFile = Path.join(__dirname, 'index.html');
-            response.sendFile(indexFile, { title: 'Form Demo' })
-        });
-
         this.api.post('/api/loadBackgrounds', (request, response) => {
             let result = { error: 1 }
 

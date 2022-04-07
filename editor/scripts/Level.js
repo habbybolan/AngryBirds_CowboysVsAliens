@@ -79,13 +79,13 @@ export default class Level {
      * If no background image exists, set as first loaded (Case for newly created levels)
      */
     async loadBackgroundImagesAndDisplay() {
-        let responseString = await $.post('api/loadBackgrounds');
+        let responseString = await $.post('/api/loadBackgrounds');
         let response = JSON.parse(responseString);
         if (!response.error) {
             this.backgroundImages = response.payload;
 
             // if The level has no background image, default to first one loaded
-            if (!this.data.background && this.backgroundImages.length > 0)
+            if (this.backgroundImages.length > 0)
                 this.data.background = this.backgroundImages[0]
         }
     }
@@ -177,7 +177,7 @@ export default class Level {
         data.name = payload.filename
 
         data = JSON.stringify(data);
-        $.post('api/save', {data})
+        $.post('/api/save', {data})
             .then(responseString => JSON.parse(responseString))
             .then(response => {
                 if (!response.error) {

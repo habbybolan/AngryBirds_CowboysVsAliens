@@ -43,7 +43,7 @@ export default class LevelSelector {
             return;
 
         let data = JSON.stringify({name: this.getFilenameWithoutExtension(this.levelList[this.selectedIndex].filename), type: "level"}) 
-        $.post(`api/delete`, {data})
+        $.post(`/api/delete`, {data})
         .then(responseString => JSON.parse(responseString))
         .then(response => {
             if (!response.error) {
@@ -79,7 +79,7 @@ export default class LevelSelector {
         this.levelList = [];    // List of all loaded levels
         this.selectedIndex = 0; // Current selected level
 
-        $.post('api/get_level_list')
+        $.post('/api/get_level_list')
             .then(responseString => JSON.parse(responseString))
             .then(response => {
             

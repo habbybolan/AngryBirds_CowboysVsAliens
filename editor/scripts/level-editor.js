@@ -110,7 +110,7 @@ export default class LevelEditor {
         // if not a new level created, load saved level
         if (filename) {
             let data = JSON.stringify({type: "level", name: filename})
-            let resLevel = await $.post('api/load', { data })
+            let resLevel = await $.post('/api/load', { data })
             resLevel = JSON.parse(resLevel);
             
             if (!resLevel.error) {
@@ -127,7 +127,7 @@ export default class LevelEditor {
         this.displaySelectedBackgroundImage()
         
         // Load prefab data
-        let resPrefabs = await $.post('api/get_object_list')
+        let resPrefabs = await $.post('/api/get_object_list')
         resPrefabs = JSON.parse(resPrefabs);
         if (!resPrefabs.error) {
             await this.loadPrefabs(resPrefabs.payload)
@@ -142,7 +142,7 @@ export default class LevelEditor {
 
     displaySelectedBackgroundImage() {
         if (this.level.background)
-            $('#editor-area').css('background-image', `url("${this.level.background}")`)
+            $('#editor-area').css('background-image', `url(${this.level.background})`)
     }
 
     async loadPrefabs(prefabDataList) {
@@ -150,7 +150,7 @@ export default class LevelEditor {
         for (let prefabData of prefabDataList) {
 
             let data = JSON.stringify({name: prefabData.filename, type: "object"})
-            let resPrefab = await $.post('api/load', { data })
+            let resPrefab = await $.post('/api/load', { data })
             resPrefab = JSON.parse(resPrefab)
 
             let prefab;

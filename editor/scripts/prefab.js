@@ -27,7 +27,7 @@ export default class Prefab {
         data.name = payload.filename
 
         data = JSON.stringify(data)
-        $.post('api/save', {data})
+        $.post('/api/save', {data})
         .then(responseString => JSON.parse(responseString))
         .then(response => {
             if (!response.error) {
@@ -55,7 +55,7 @@ export default class Prefab {
      */
     onDelete(callback) {
         let data = JSON.stringify({name: this.getFilenameWithoutExtension(this.data.filename), type: "object"}) 
-        $.post(`api/delete`, {data})
+        $.post(`/api/delete`, {data})
             .then(responseString => JSON.parse(responseString))
             .then(response => {
                 if (!response.error) {
