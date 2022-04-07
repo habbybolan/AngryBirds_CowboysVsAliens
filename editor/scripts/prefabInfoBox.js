@@ -78,7 +78,6 @@ export default class prefabInfoBox {
         else
         {
             $("#prefab-info-texture").text(textureList[0])
-            console.log(textureList[0])
         }
     }
 
