@@ -12,6 +12,7 @@ export default class PrefabTarget extends Prefab{
     constructor( sourceData ) {
         super(sourceData);
 
+        console.log(sourceData.texture)
         this.data.id = this.getNewIndex()
         this.$view = $(`<div id="${this.data.id}" 
                             name="${sourceData.name}" 

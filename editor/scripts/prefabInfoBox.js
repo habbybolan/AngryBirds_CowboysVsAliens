@@ -76,7 +76,10 @@ export default class prefabInfoBox {
         if (textureList.length == 0)
             $("#prefab-info-texture").text("")
         else
+        {
             $("#prefab-info-texture").text(textureList[0])
+            console.log(textureList[0])
+        }
     }
 
     /**
@@ -90,6 +93,7 @@ export default class prefabInfoBox {
             return
         // create dropdown menu for texture
         for (let item of list) {
+            
             let $dropdownData = $(`<div class="dropdown-item">${item}</div>`)
             $dropdownData.on('click', event => {
                 
@@ -134,9 +138,9 @@ export default class prefabInfoBox {
         $('#prefab-info-mass').val(10)
         $('#prefab-info-friction').val(.2)
         $('#prefab-info-shape').text("square")
-        $('#prefab-info-texture').text("./images/brick-square.png")
         $('#prefab-info-type').text("collidable")
         $('#prefab-info-filename').text("---")
+        this.updatePrefabInfoBoxTexture()
     }
 
     enterSavePrefabMode(bSaveMode) {

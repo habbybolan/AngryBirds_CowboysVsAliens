@@ -53,7 +53,7 @@ class Server {
             let result = { error: 1 }
 
             let backgroundList = fs.readdirSync('./images/backgrounds')
-                                    .map((imageName) => '../images/backgrounds/' + imageName)
+                                    .map((imageName) => '/images/backgrounds/' + imageName)
             result.payload = backgroundList;
 
             result.error = 0
