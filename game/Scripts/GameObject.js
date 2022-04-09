@@ -39,11 +39,12 @@ export default class GameObject {
         const bodyDef = new Physics.BodyDef()
         bodyDef.type = Physics.Body.b2_dynamicBody
         
+        let width = this.data.width / Physics.WORLD_SCALE
+        let height = this.data.height / Physics.WORLD_SCALE
+        
         // Create the shape
         let p = Point.pixelsToMeters(this.data.x, this.data.y)
-        console.log(p)
-        bodyDef.position.Set(p.left, p.top)
-        const centerVector = new Physics.Vec2(p.left, p.top)
+        bodyDef.position.Set(p.left + width/2, p.top + height/2)
         
         // Add to world
         let gameObjectBody = this.world.CreateBody(bodyDef)
@@ -53,7 +54,7 @@ export default class GameObject {
         fixtureDef.density = 10
         fixtureDef.restitution = 0.1
         fixtureDef.shape = new Physics.PolygonShape()
-        fixtureDef.shape.SetAsBox(1, 1, centerVector, 0)
+        fixtureDef.shape.SetAsBox(width / 2, height / 2)
         gameObjectBody.CreateFixture(fixtureDef)
 
         this.body = gameObjectBody
@@ -64,10 +65,11 @@ export default class GameObject {
     }
 
     render() {
-        //console.log(this.point.left, this.point.up)
         let vec = this.body.GetPosition()
         let point = Point.metersToPixels(vec.x, vec.y)
-        this.$view.offset({left: point.left + $('#game-area').offset().left, top: point.top + $('#game-area').offset().top})
+        let x = point.left + $('#game-area').offset().left - this.data.width / 2
+        let y = point.top + $('#game-area').offset().top - this.data.height / 2
+        this.$view.offset({ left: x, top: y })
     }
 
     get id() { return this.data.id }

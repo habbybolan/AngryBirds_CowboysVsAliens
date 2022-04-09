@@ -11,73 +11,78 @@ export default class World {
 
         // Setup view and model and properties
         this.$view = $view
-        this.screenWidth = this.$view.width()
-        this.screenHeight = this.$view.height()
 
         const gravityVector = new Physics.Vec2(0, Physics.GRAVITY)
         this.model = new Physics.World(gravityVector)
 
         // create walls and floor
-        //this.createBoundaries()
+        this.createBoundaries()
 
         // initiate level
         this.level = new Level(this.$view, this.model)
         this.level.LoadLevel(filenameSelected)
-        //this.Level.LoadLevel(filenameSelected)
 
         // TODL Future - add listeners for physical collisions
     }
 
     createBoundaries() {
-        // Create floor
 
         // ceiling
-        let topCoords = Point.pixelsToMeters(this.screenWidth / 2, 0)
-        this.createWalls(topCoords.left, topCoords.top, Point.SCREEN_METERS.WIDTH, 10)
+        this.createWalls(Point.SCREEN.WIDTH / 2, 0, Point.SCREEN_METERS.WIDTH, 0)
 
         // floor
-        let downCoords = Point.pixelsToMeters(this.screenWidth / 2, this.screenHeight)
-        this.createWalls(downCoords.left, downCoords.top, Point.SCREEN_METERS.WIDTH, 10)
+        this.createWalls(Point.SCREEN.WIDTH / 2, Point.SCREEN.HEIGHT, Point.SCREEN_METERS.WIDTH, 0)
 
         // Left wall
-        let leftCoords = Point.pixelsToMeters(0, this.screenHeight / 2)
-        this.createWalls(leftCoords, left, leftCoords.top, 10, Point.SCREEN_METERS.HEIGHT)
+        this.createWalls(0, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT)
 
         // Right wall
-        let rightCoords = Point.pixelsToMeters(this.screenWidth, this.screenHeight / 2)
-        this.createWalls(rightCoords.left, rightCoords.top, 10, Point.SCREEN_METERS.HEIGHT)
+        this.createWalls(Point.SCREEN.WIDTH, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT)
     }
 
     /**
      * Creates the 4 boundaries around the level
-     * @param {Int} x   x-coord in meters
-     * @param {Int} y   y-coord in meters
+     * @param {Int} x   x-coord in pixels
+     * @param {Int} y   y-coord in pixels
      * @param {Int} dx  width in meters
      * @param {Int} dy  height in meters
-     * @returns 
+     * @returns         Created boundary wall
      */
     createWalls(x = 0, y = 0, dx = 10, dy = 10) {
         
+        let meterCoords = Point.pixelsToMeters(x, y)
+
         // Create rigid body
         const bodyDef = new Physics.BodyDef()
         bodyDef.type = Physics.Body.b2_staticBody
+
+        // create shape 
+        bodyDef.position.Set(meterCoords.left, meterCoords.top)
+        const centerVector = new Physics.Vec2(meterCoords.left, meterCoords.top)
+        
+        // add to world
+        let wallBody = this.model.CreateBody(bodyDef)
 
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
         fixtureDef.density = 10
         fixtureDef.restitution = 0.1
         fixtureDef.shape = new Physics.PolygonShape()
-        
-        // Create the shape
-        bodyDef.position.Set(x, y)
-        const centerVector = new Physics.Vec2(x, y)
         fixtureDef.shape.SetAsBox(dx, dy, centerVector, 0)
-
-        let wallBody = this.model.CreateBody(bodyDef)
         wallBody.CreateFixture(fixtureDef)
 
+        // let vec = wallBody.GetPosition()
+        // let point = Point.metersToPixels(vec.x, vec.y)
+        // console.log(`(${point.left},${point.top}): width: ${dx} height: ${dy}`)
+        // let $wallView = $(`<div class="wall"></div>`)
+        // $wallView.css('width', dx * 20)
+        // $wallView.css('height', dy * 20)
+        // let wx = point.left + $('#game-area').offset().left
+        // let wy = point.top + $('#game-area').offset().top
+        // $wallView.offset({ left: wx, top: wy })
+        // this.$view.append(this.$wallView)
+
         return wallBody
-        
     }
 
     update() {

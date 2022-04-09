@@ -37,7 +37,7 @@ export default class Point {
     }
 
     static SCREEN_METERS = {
-        HEIGHT: this.Height / Physics.WORLD_SCALE,
-        WIDTH: this.WIDTH / Physics.WORLD_SCALE
+        HEIGHT: this.SCREEN.HEIGHT / Physics.WORLD_SCALE,
+        WIDTH: this.SCREEN.WIDTH / Physics.WORLD_SCALE
     }
 }
