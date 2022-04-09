@@ -25,6 +25,8 @@ export default class Level {
         let data = JSON.stringify({type: "level", name: filename})
         let resLevel = await $.post('/api/load', { data })
         resLevel = JSON.parse(resLevel);
+
+        console.log(resLevel)
         
         if (!resLevel.error) {
             this.level = new Level(resLevel.payload);
@@ -42,7 +44,7 @@ export default class Level {
      addGameObjectsFromData(listOfObjects) {
         for (let gameObjectData of listOfObjects) {
             let type = gameObjectData.type
-            let newGameObject = new GameObject(this.world);
+            let newGameObject = new GameObject(this.world, this.$view);
             newGameObject.initiateFromRawData(gameObjectData)
             if (type == enitityTypesEnum.COLLIDABLE) {
                 this.data.collidableList.push(newGameObject)

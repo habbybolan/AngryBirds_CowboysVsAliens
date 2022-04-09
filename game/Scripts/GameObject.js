@@ -10,8 +10,9 @@ export default class GameObject {
      * 
      * @param {WorldContoller} world 
      */
-    constructor(world) {
+    constructor(world, $worldView) {
         this.world = world;
+        this.$worldView = $worldView
     }
 
      /**
@@ -22,38 +23,40 @@ export default class GameObject {
       initiateFromRawData(sourceData) {
         this.data = sourceData
 
-        // targets use (wx, wy) collidables (x, y)
-        this.data.point = new Point(
-            this.data.wx ? this.data.wx : this.data.x, 
-            this.data.wy ? this.data.wy : this.data.y)
+        this.data.x = this.data.wx ? this.data.wx : this.data.x
+        this.data.y = this.data.wy ? this.data.wy : this.data.y
 
+        // Create gameObject view
         this.$view = $(`<div id="${this.data.id}" 
                             type="${this.data.type}" 
                             class="gameobject ${this.data.type}"
                             style="height: ${sourceData.height}px; 
                                 width: ${sourceData.width}px; 
                                 background-image: url(${this.data.texture});" ></div>`)
-        this.$view.append(gameObject.view)
+        this.$worldView.append(this.$view)
 
         // Create rigid body
         const bodyDef = new Physics.BodyDef()
-        bodyDef.type = Physics.Body.b2_staticBody
-
+        bodyDef.type = Physics.Body.b2_dynamicBody
+        
+        // Create the shape
+        let p = Point.pixelsToMeters(this.data.x, this.data.y)
+        console.log(p)
+        bodyDef.position.Set(p.left, p.top)
+        const centerVector = new Physics.Vec2(p.left, p.top)
+        
+        // Add to world
+        let gameObjectBody = this.world.CreateBody(bodyDef)
+        
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
         fixtureDef.density = 10
         fixtureDef.restitution = 0.1
         fixtureDef.shape = new Physics.PolygonShape()
-        
-        // Create the shape
-        bodyDef.position.Set(x, y)
-        const centerVector = new Physics.Vec2(x, y)
-        fixtureDef.shape.SetAsBox(dx, dy, centerVector, 0)
+        fixtureDef.shape.SetAsBox(1, 1, centerVector, 0)
+        gameObjectBody.CreateFixture(fixtureDef)
 
-        let wallBody = this.model.CreateBody(bodyDef)
-        wallBody.CreateFixture(fixtureDef)
-
-        this.body = wallBody
+        this.body = gameObjectBody
     }
 
     update() {
@@ -61,7 +64,10 @@ export default class GameObject {
     }
 
     render() {
-        
+        //console.log(this.point.left, this.point.up)
+        let vec = this.body.GetPosition()
+        let point = Point.metersToPixels(vec.x, vec.y)
+        this.$view.offset({left: point.left + $('#game-area').offset().left, top: point.top + $('#game-area').offset().top})
     }
 
     get id() { return this.data.id }

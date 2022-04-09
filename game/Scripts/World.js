@@ -21,7 +21,8 @@ export default class World {
         //this.createBoundaries()
 
         // initiate level
-        this.Level = new Level($view, this.model)
+        this.level = new Level(this.$view, this.model)
+        this.level.LoadLevel(filenameSelected)
         //this.Level.LoadLevel(filenameSelected)
 
         // TODL Future - add listeners for physical collisions
@@ -29,22 +30,32 @@ export default class World {
 
     createBoundaries() {
         // Create floor
-        let p = new Point()
-        p.fromScreen(this.screenHeight, this.screenWidth / 2)
-        let delta = new Point()
-        delta.fromScreen(10, this.screenWidth)
-        this.createWalls()
 
-        // right wall
-        this.createWalls()
+        // ceiling
+        let topCoords = Point.pixelsToMeters(this.screenWidth / 2, 0)
+        this.createWalls(topCoords.left, topCoords.top, Point.SCREEN_METERS.WIDTH, 10)
 
-        // Up wall
-        this.createWalls()
+        // floor
+        let downCoords = Point.pixelsToMeters(this.screenWidth / 2, this.screenHeight)
+        this.createWalls(downCoords.left, downCoords.top, Point.SCREEN_METERS.WIDTH, 10)
 
-        // Down wall
-        this.createWalls()
+        // Left wall
+        let leftCoords = Point.pixelsToMeters(0, this.screenHeight / 2)
+        this.createWalls(leftCoords, left, leftCoords.top, 10, Point.SCREEN_METERS.HEIGHT)
+
+        // Right wall
+        let rightCoords = Point.pixelsToMeters(this.screenWidth, this.screenHeight / 2)
+        this.createWalls(rightCoords.left, rightCoords.top, 10, Point.SCREEN_METERS.HEIGHT)
     }
 
+    /**
+     * Creates the 4 boundaries around the level
+     * @param {Int} x   x-coord in meters
+     * @param {Int} y   y-coord in meters
+     * @param {Int} dx  width in meters
+     * @param {Int} dy  height in meters
+     * @returns 
+     */
     createWalls(x = 0, y = 0, dx = 10, dy = 10) {
         
         // Create rigid body
@@ -80,6 +91,6 @@ export default class World {
     }
 
     render() {
-        
+        this.level.render()
     }
 }

@@ -3,41 +3,41 @@
 
 import Physics from "../../common/libs/Physics.js";
 
-const SCREEN = {
-    HEIGHT: 720,
-    WIDTH: 1280
-}
-
-const HALF = {
-    HEIGHT: SCREEN.HEIGHT /2,
-    WIDTH: SCREEN.WIDTH /2
-}
-
-
+/**
+ * Holds Screen sizes and converting from pixel and meters
+ */
 export default class Point {
-
-    constructor(x = 0, y = 0) {
-
-        // default coords in World Space
-        this._x = x;
-        this._y = y;
-    }
-
-    asScreen() {
+    
+    // convert from meters to screen pixels
+    static metersToPixels(x, y) {
 
         return {
-            x: this.left,
-            y: this.right
+            left: (x * Physics.WORLD_SCALE) + this.HALF.WIDTH,
+            top: (y * Physics.WORLD_SCALE ) + this.HALF.HEIGHT
         }
     }
 
-    fromScreen(top, left) {
+    // Convert from screen pixels to game meters
+    static pixelsToMeters(x, y) {
 
-        // update X, Y from a given positon
+        return {
+            left: (x - this.HALF.WIDTH) / Physics.WORLD_SCALE,
+            top: (y - this.HALF.HEIGHT) / Physics.WORLD_SCALE
+        }
+    }
+    
+    static SCREEN = {
+        HEIGHT: 720,
+        WIDTH: 1280
     }
 
-    get x() { return this._x }
-    get y() { return this._y }
-    get left() { return this.x * Physics.WORLD_SCALE + (0.5 * HALF.WIDTH) }
-    get right() {return HALF.HEIGHT - (this.y * Physics.WORLD_SCALE)}
+    static HALF = {
+        HEIGHT: this.SCREEN.HEIGHT /2,
+        WIDTH: this.SCREEN.WIDTH /2
+    }
+
+    static SCREEN_METERS = {
+        HEIGHT: this.Height / Physics.WORLD_SCALE,
+        WIDTH: this.WIDTH / Physics.WORLD_SCALE
+    }
 }

@@ -9,28 +9,21 @@
         <meta charset="utf-8">
 
         <link rel="icon" type="image/ico" href="/common/images/favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="/common/css/style-base.css">
-        <link rel="stylesheet" type="text/css" href="/common/css/style-grid.css">
         <link rel="stylesheet" type="text/css" href="./css/style.css">
     </head>
 
-    <body class="grid-wrapper">
-        <nav class="panel grid-row-top grid-column-head">
-        </nav>
+    <body class="game-grid-wrapper">
 
-        <main id="wrapper" class="grid-row-main grid-column-full">
-            <section id="high-scores" class=""></section>
-            <section id="game-screen" class="dom-canvas">
-                <!-- <canvas id="debug-canvas" class="game-size"></canvas> -->
-                <div id="game-area" class="item play-area game-size dom-canvas">
-                    <!-- Content loaded dynamically -->
-                    <div id="bird1" class="entity birdie"></div>
-                </div>
-            </section>
-        </main>
+        <div class="grid-column-left grid-row-top"></div>
+        <div class="grid-column-right grid-row-top"></div>
 
+        <div class="grid-column-left grid-row-main"></div>
+        <div class="grid-column-right grid-row-main"></div>
 
-        <section id="my-console" class="grid-row-tail grid-column-main console"></section>
+        <section id="game-screen" class="grid-column-middle grid-row-main">
+            <div id="game-area">
+            </div>
+        </section>
 
         <script type="module" src="./main.js"></script>
     </body>

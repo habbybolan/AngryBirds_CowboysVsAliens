@@ -8,11 +8,8 @@ class Game {
 
     constructor() {
 
-        // some properties for the game application
-        this.tick = 0;
-
         this.$view = $("#game-area")
-        this.world = new World(this.$view, 'level-1');
+        this.world = new World(this.$view, 'level-0');
         
 
         // Initialize the app behind a splash screen
@@ -20,9 +17,6 @@ class Game {
 
         // Choose a level
         this.chooseLevel('level-1')
-
-        // TODO: Load leveland generate world
-        this.loadlevel('level-1')
 
         // TODO: Run simulation
         this.run()
@@ -39,14 +33,6 @@ class Game {
         // TODO: Get the level from the server if exists 
     }
 
-    loadlevel(leveName) {
-
-        // TODO; Ask the server for the level data
-        // TODO: Post request to server for level
-        // TODO: Walk through the level data and create game objects
-        // TODO: Create game object here
-    }
-
     initSplash() {
 
         // TODO: Initialize the splash screen, wait for play now pressed
@@ -56,7 +42,6 @@ class Game {
 
         // redraw the entire scene by telling each thing in the scene to render itself
         this.world.render()
-        $("#my-console").html(`Running ${this.tick++}`)
     }
 
     run( deltaTime ) {
