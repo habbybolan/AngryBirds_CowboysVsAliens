@@ -44,17 +44,25 @@ export default class GameObject {
         
         // Create the shape
         let p = Point.pixelsToMeters(this.data.x, this.data.y)
-        bodyDef.position.Set(p.left + width/2, p.top + height/2)
+        bodyDef.position.Set(p.left + width / 2, p.top + height / 2)
         
         // Add to world
         let gameObjectBody = this.world.CreateBody(bodyDef)
         
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
-        fixtureDef.density = 10
-        fixtureDef.restitution = 0.1
-        fixtureDef.shape = new Physics.PolygonShape()
-        fixtureDef.shape.SetAsBox(width / 2, height / 2)
+        fixtureDef.density = this.data.mass
+        fixtureDef.restitution = this.data.bounce
+        fixtureDef.friction = this.data.friction
+
+        if (this.data.shape == "square") {
+            fixtureDef.shape = new Physics.PolygonShape()
+            fixtureDef.shape.SetAsBox(width / 2, height / 2)
+        } else {
+            fixtureDef.shape = new Physics.CircleShape()
+            fixtureDef.shape.m_radius = width / 2
+        }
+        
         gameObjectBody.CreateFixture(fixtureDef)
 
         this.body = gameObjectBody
@@ -67,6 +75,7 @@ export default class GameObject {
     render() {
         let vec = this.body.GetPosition()
         let point = Point.metersToPixels(vec.x, vec.y)
+        
         let x = point.left + $('#game-area').offset().left - this.data.width / 2
         let y = point.top + $('#game-area').offset().top - this.data.height / 2
         this.$view.offset({ left: x, top: y })

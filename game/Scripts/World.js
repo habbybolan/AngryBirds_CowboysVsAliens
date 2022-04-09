@@ -28,16 +28,16 @@ export default class World {
     createBoundaries() {
 
         // ceiling
-        this.createWalls(Point.SCREEN.WIDTH / 2, 0, Point.SCREEN_METERS.WIDTH, 0)
+        this.createWalls(Point.SCREEN.WIDTH / 2, 0, Point.SCREEN_METERS.WIDTH / 2, 0)
 
         // floor
-        this.createWalls(Point.SCREEN.WIDTH / 2, Point.SCREEN.HEIGHT, Point.SCREEN_METERS.WIDTH, 0)
+        this.createWalls(Point.SCREEN.WIDTH / 2, Point.SCREEN.HEIGHT, Point.SCREEN_METERS.WIDTH / 2, 0)
 
         // Left wall
-        this.createWalls(0, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT)
+        this.createWalls(0, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT / 2)
 
         // Right wall
-        this.createWalls(Point.SCREEN.WIDTH, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT)
+        this.createWalls(Point.SCREEN.WIDTH, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT / 2)
     }
 
     /**
@@ -66,21 +66,11 @@ export default class World {
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
         fixtureDef.density = 10
-        fixtureDef.restitution = 0.1
+        fixtureDef.restitution = .5
+        fixtureDef.friction = .5
         fixtureDef.shape = new Physics.PolygonShape()
         fixtureDef.shape.SetAsBox(dx, dy, centerVector, 0)
         wallBody.CreateFixture(fixtureDef)
-
-        // let vec = wallBody.GetPosition()
-        // let point = Point.metersToPixels(vec.x, vec.y)
-        // console.log(`(${point.left},${point.top}): width: ${dx} height: ${dy}`)
-        // let $wallView = $(`<div class="wall"></div>`)
-        // $wallView.css('width', dx * 20)
-        // $wallView.css('height', dy * 20)
-        // let wx = point.left + $('#game-area').offset().left
-        // let wy = point.top + $('#game-area').offset().top
-        // $wallView.offset({ left: wx, top: wy })
-        // this.$view.append(this.$wallView)
 
         return wallBody
     }
