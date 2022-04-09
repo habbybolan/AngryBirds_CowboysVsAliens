@@ -16,9 +16,10 @@ class Game {
         this.initSplash()
 
         // Choose a level
-        this.chooseLevel('level-1')
+        this.chooseLevel()
 
-        // TODO: Run simulation
+        // TODO: Nick
+        //      Run simulation after selecting a level to load inside ChooseLevel
         this.run()
     }
 
@@ -28,14 +29,15 @@ class Game {
         this.world.update()
     }
 
-    chooseLevel(levelName) {
-
-        // TODO: Get the level from the server if exists 
+    chooseLevel() {
+        // TODO: Nick
+        //      Get the level from the server if exists 
     }
 
     initSplash() {
 
-        // TODO: Initialize the splash screen, wait for play now pressed
+        // TODO: Nick
+        //      Initialize the splash screen, wait for play now pressed
     }
 
     render( deltaTime ) {
@@ -46,16 +48,30 @@ class Game {
 
     run( deltaTime ) {
 
+        let currgameState = this.world.CurrGameState()
+        // TODO: Andre
+        //      Check Curr state if game
+        //            Send to methods gotoLoseScreen() or gotoWinScreen() based on state of game
+        //            Stop game from simulating/rendering if won/lost
+
         this.update( deltaTime );
         this.render( deltaTime );
 
         window.requestAnimationFrame( deltaTime => { this.run( deltaTime )})
     }
+
+    gotoLoseScreen() {
+        // TODO: Nick
+    }   
+
+     gotoWinScreen() {
+         // TODO: Nick
+     }
 }
 
 // Main entry point for application
-// $(window).on('DOMContentLoaded', event => {
+//$(window).on('DOMContentLoaded', event => {
 
     const game = new Game();
     game.run();
-// })
+//})

@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Scott Henshaw
+// Copyright (C) 2022 Nicholas Johnson
 'use strict';
 
 import Physics from '../common/libs/Physics.js'
@@ -7,12 +7,15 @@ import Point from './Point.js'
 export default class GameObject {
 
     /**
-     * 
-     * @param {WorldContoller} world 
+     * @param {b2World} world 
+     * @param {}
      */
     constructor(world, $worldView) {
         this.world = world;
         this.$worldView = $worldView
+
+        // TODO: Based on Mass?
+        this.health = 10
     }
 
      /**
@@ -46,9 +49,6 @@ export default class GameObject {
         let p = Point.pixelsToMeters(this.data.x, this.data.y)
         bodyDef.position.Set(p.left + width / 2, p.top + height / 2)
         
-        // Add to world
-        let gameObjectBody = this.world.CreateBody(bodyDef)
-        
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
         fixtureDef.density = this.data.mass
@@ -61,15 +61,27 @@ export default class GameObject {
         } else {
             fixtureDef.shape = new Physics.CircleShape()
             fixtureDef.shape.m_radius = width / 2
-        }
+        }        
         
+        // Add to world
+        let gameObjectBody = this.world.CreateBody(bodyDef)
         gameObjectBody.CreateFixture(fixtureDef)
 
         this.body = gameObjectBody
     }
 
-    update() {
-        // Note: won't do much
+    /**
+     * Deals with OnHit Event
+     * @param {b2Vec2} direction    Direction vector of object that hit this 
+     * @param {float} velocity      Vecloty of object that hit this (will velocity data be stored in direction???)
+     * @param {float} mass          Mass of object that hit this 
+     * @returns {Boolean}           True if object was destroyed, false otherwise
+     */
+    OnHit(direction, velocity, mass) {
+        // TODO: Andre
+        //  Im not sure if this OnHit will be usedful, but I was thinking the level would call this when finding a collision that happened
+        //  Could maybe pass an object that hit it, or b2WorldManifold that I believe holds the contact point and normal if you need it
+        return false;
     }
 
     render() {

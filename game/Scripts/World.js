@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Scott Henshaw
+// Copyright (C) 2022 Nicholas Johnson
 'use strict';
 
 import Physics from '../common/libs/Physics.js'
@@ -7,6 +7,10 @@ import Level from './Level.js'
 
 export default class World {
 
+    /**
+     * @param {JQuery} $view                GameScreen view
+     * @param {String} filenameSelected     Filename of selected level to load
+     */
     constructor($view, filenameSelected) {
 
         // Setup view and model and properties
@@ -83,9 +87,32 @@ export default class World {
 
         // TODO: remove later - for early testing how things are moving
         this.model.ClearForces()
+
+        this.level.update()
+    }
+
+    /**
+     * Gets the current game state, either lost, won, or running
+     * @returns {JSON}  State of game 
+     *                      {state: GAME_STATE, score: float, levelData: {any end of game JSON data to put, such as num projectiles left...}},
+     *                      score only passed at GAME_STATE = WON
+     */
+    CurrGameState() {
+        // TODO: Andre
+        //          Check the level for the current game state of being won/lost/running
     }
 
     render() {
         this.level.render()
     }
+    
+    /**
+    * Enum for current game state
+    */
+    static GAME_STATE = {
+        WON: 0,
+        LOST: 1,
+        RUNNING: 2
+    }
 }
+
