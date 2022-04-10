@@ -24,7 +24,7 @@ export default class Cannon {
 
     update() {
         // TODO: Andre
-        //      Destroy any bullet based on some condition (like moving slowly)
+        //      Destroy any bullet based on some condition (like moving slowly, time...)
     }
 
 

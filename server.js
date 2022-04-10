@@ -305,7 +305,10 @@ class Server {
             for (let prefab of prefabs) {
                 if (prefab.name == levelObjects[i].name) {
                     this.convertRestitutionToBounce(prefab)
+                    let gameObjectId = levelObjects[i].id
                     levelObjects[i] = { ...levelObjects[i], ...prefab }
+                    // prevent prefab from updating the gameobject id
+                    levelObjects[i].id = gameObjectId
                     break;
                 }
             }

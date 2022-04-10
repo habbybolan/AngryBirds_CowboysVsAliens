@@ -32,6 +32,7 @@ class Game {
     chooseLevel() {
         // TODO: Nick
         //      Get the level from the server if exists 
+        //      Create separate class to deal with selecting a level that sends a callback on level selected back here
     }
 
     initSplash() {

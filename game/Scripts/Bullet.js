@@ -7,14 +7,14 @@ import Point from './Point.js'
 export default class Bullet {
 
     constructor(world, $worldView, position, mass) {
-        this.world = world;
+        this.world = world
         this.$worldView = $worldView
 
         this.CreateBulletObject(position, mass)
     }
 
     /**
-     * 
+     * Create a bullet at a position with no initial force
      * @param {b2Vec2} position     Position to shoot bullet from
      * @param {float} mass          Mass of bullet
      */
@@ -44,6 +44,8 @@ export default class Bullet {
         fixtureDef.restitution = 0.1
         fixtureDef.friction = 0.1
 
+        // TODO: Andre
+        //          Shape if bullet? (Circle, Oval, Polygon...)
         if (this.data.shape == "square") {
             fixtureDef.shape = new Physics.PolygonShape()
             fixtureDef.shape.SetAsBox(width / 2, height / 2)
