@@ -71,7 +71,7 @@ export default class GameObject {
     }
 
     /**
-     * Deals with OnHit Event
+     * Deals with OnHit Event, dealing damage to GameObject
      * @param {b2Vec2} direction    Direction vector of object that hit this 
      * @param {float} velocity      Vecloty of object that hit this (will velocity data be stored in direction???)
      * @param {float} mass          Mass of object that hit this 
@@ -88,9 +88,41 @@ export default class GameObject {
         let vec = this.body.GetPosition()
         let point = Point.metersToPixels(vec.x, vec.y)
         
+        // center coordinates of GameObject
         let x = point.left + $('#game-area').offset().left - this.data.width / 2
         let y = point.top + $('#game-area').offset().top - this.data.height / 2
-        this.$view.offset({ left: x, top: y })
+
+        // rotate around the origin of the GameObject view
+        //this.$view.css('transform', `rotate(${this.body.GetAngle() * Physics.RAD_2_DEG}deg)`)
+        
+        //console.log(`(${this.$view.position().left}, ${this.$view.position().top})`)
+        this.$view.css('transform', ``)
+        // if (this.data.type == "target")
+        //     console.log(`(${this.$view.position().left}, ${this.$view.position().top})`)
+
+        // get top top-left coord of box if origin of box placed at origin of world
+        // let xRot = this.data.width / 2
+        // let yRot = this.data.height / 2
+
+        // let angle = this.body.GetAngle();
+        // // rotate vector coord by angle rotation
+        // let newX = xRot * Math.cos(angle) - yRot * Math.sin(angle)
+        // let newY = xRot * Math.sin(angle) + yRot * Math.cos(angle)
+        //console.log(`(${newX}, ${newY})`)
+        // if (this.data.type == "target")
+        //     console.log(`(${newX}, ${newY}) with radians ${this.body.GetAngle()}`)
+        
+        // move to center of GameObject plus rotation offset
+        //this.$view.offset({ left: x + newX, top: y + newY })
+        this.$view.offset({ left: x, top: y})
+        this.$view.css('transform', `rotate(${this.body.GetAngle() * Physics.RAD_2_DEG}deg)`)
+
+        // console.log(`
+        // ele: (${this.$view.position().left - $('#game-area').offset().left}, ${this.$view.position().top - $('#game-area').offset().top}) 
+        // game: (${x - this.data.width/2 - $('#game-area').offset().left}, ${y-this.data.height/2 - $('#game-area').offset().top})`)
+        
+        // let centerX = point.left + $('#game-area').offset().left
+        // let centerY = point.top + $('#game-area').offset().top 
     }
 
     get id() { return this.data.id }

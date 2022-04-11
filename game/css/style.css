@@ -9,12 +9,15 @@
 }
 
 #game-area {
+    
+    position: relative;
     width: 100%;
     height: 100%;
     background-color: rgb(183, 184, 233);
 }
 
 .gameobject {
+    position:absolute;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -62,4 +65,8 @@
 
 .wall {
     background-color: rebeccapurple;
+}
+
+#whole-game-screen {
+    background-color: rgb(175, 218, 255);
 }
