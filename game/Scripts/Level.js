@@ -20,7 +20,7 @@ export default class Level {
 
         this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
 
-        this.cannon.OnShoot();
+        //this.cannon.OnShoot();
 
         
     }
@@ -87,7 +87,7 @@ export default class Level {
     }
 
     update() {
-        
+
         this.cannon.update();
         // check for all collisions and proceess them
         this.CheckCollisions()

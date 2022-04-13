@@ -17,9 +17,9 @@ export default class Cannon {
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
         this.bulletList = []                // List of bullets currently in the level
 
-        this.bullet = new Bullet(this.world, this.$worldView)
         
         
+        document.querySelector('#game-area').addEventListener("click", this.OnShoot)
     }
 
         
@@ -34,13 +34,20 @@ export default class Cannon {
         // TODO: Andre
         //      Destroy any bullet based on some condition (like moving slowly, time...)
         //console.log(this.OnShoot.cannonPos)
-        this.bullet.update();
+        
+        if(this.bullet != null)
+        {
+            this.bullet.update();
+        }
+        
     }
 
 
-    OnShoot() {
+    OnShoot = () => {
         // TODO: Andre
         //          Shoot with certain force and direction
+
+        this.bullet = new Bullet(this.world, this.$worldView)
 
         let positionX = $('#game-area').offset().left
         let positionY = $('#game-area').offset().top //- $('#game-area').height() + 10;
@@ -53,10 +60,6 @@ export default class Cannon {
 
         //apply impulse to bullet
         this.bullet.ShootBullet(1000, 0, cannonPos, 45)
-        
-
-        
-        
         
     }
 }
