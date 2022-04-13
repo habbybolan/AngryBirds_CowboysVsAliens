@@ -31,9 +31,8 @@ export default class Cannon {
     }
 
 
-    OnShoot() {
+    OnShoot(force) {
         // TODO: Andre
-        //          Create a bullet with certain position and mass
         //          Shoot with certain force and direction
 
         //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
@@ -57,8 +56,8 @@ export default class Cannon {
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
         fixtureDef.density = 1
-        fixtureDef.restitution = 1
-        fixtureDef.friction = 3
+        fixtureDef.restitution = 0.3
+        fixtureDef.friction = 0.7
         fixtureDef.shape = new Physics.CircleShape()
         fixtureDef.shape.m_radius = width / 2
         
