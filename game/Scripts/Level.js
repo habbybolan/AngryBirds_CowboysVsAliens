@@ -83,7 +83,7 @@ export default class Level {
     }
 
     update() {
-        this.cannon.update()
+        this.cannon.OnShoot();
 
         // check for all collisions and proceess them
         this.CheckCollisions()
