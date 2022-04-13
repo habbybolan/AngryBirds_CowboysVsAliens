@@ -59,11 +59,15 @@ export default class Bullet {
     }
     
    
-    ShootBullet(force, direction, position) {
+    ShootBullet(force, direction, position, angle) {
         // TODO: Andre
         //      Apply inital force in direction to this.body
         
-        this.body.ApplyForce(new Physics.Vec2(force, direction), position)
+        this.body.ApplyForce(new Physics.Vec2(force, direction), position);
+        //this.body.ApplyAngularImpulse(angle);
+        
+        
+        
     }
 
     Render() {

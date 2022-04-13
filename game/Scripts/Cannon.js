@@ -52,7 +52,7 @@ export default class Cannon {
         this.bullet.CreateBulletObject(cannonPos, 0.3)
 
         //apply impulse to bullet
-        this.bullet.ShootBullet(10, 0, cannonPos)
+        this.bullet.ShootBullet(1000, 0, cannonPos, 45)
         
 
         
