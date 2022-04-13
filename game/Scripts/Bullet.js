@@ -24,8 +24,6 @@ export default class Bullet {
     //          Force can be placed in the direction vector as magnitude??
 
         //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
-        let positionX = $('#game-area').offset().left
-        let positionY = $('#game-area').offset().top //- $('#game-area').height();
         
         // Create rigid body
         const bodyDef = new Physics.BodyDef()
@@ -35,12 +33,12 @@ export default class Bullet {
         let height = 70 / Physics.WORLD_SCALE
 
         // Create the shape
-        let p = Point.pixelsToMeters(positionX, positionY)
+        let p = Point.pixelsToMeters(position.x, position.y)
         bodyDef.position.Set(p.left + width / 2, p.top + height / 2)
         
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
-        fixtureDef.density = 1
+        fixtureDef.density = mass
         fixtureDef.restitution = 0.3
         fixtureDef.friction = 0.7
         fixtureDef.shape = new Physics.CircleShape()
@@ -52,16 +50,20 @@ export default class Bullet {
         this.body = gameObjectBody
 
         console.log("Object created")
+        console.log(this.body.GetPosition())
+    }
+
+    update()
+    {
+        console.log(this.body.GetPosition())
     }
     
-    /**
-     * Apply the inital force to the bullet
-     * @param {float} force         Initial force of bullet 
-     * @param {b2Vec2} direction    Direction for bullet to apply force to
-     */
-    ShootBullet(force, direction) {
+   
+    ShootBullet(force, direction, position) {
         // TODO: Andre
         //      Apply inital force in direction to this.body
+        
+        this.body.ApplyForce(new Physics.Vec2(force, direction), position)
     }
 
     Render() {

@@ -114,5 +114,7 @@ export default class Level {
         //      Apply collision with OnHit() method in GameObject??
         //      Deal with if object is destroyed, remove from world and remove from list in this class
         //      This collision logic and dealing with it is probably going to be your bigget task
+
+        //this.listener = new Physics.Listener;
     }
 }
