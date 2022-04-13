@@ -27,7 +27,7 @@ export default class Cannon {
     update() {
         // TODO: Andre
         //      Destroy any bullet based on some condition (like moving slowly, time...)
-        //console.log(this.body)
+        console.log(this.body.position)
     }
 
 
@@ -38,7 +38,7 @@ export default class Cannon {
 
         //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
         let cannonX = $('#game-area').offset().left
-        let cannonY = $('#game-area').offset().top - $('#game-area').height();
+        let cannonY = $('#game-area').offset().top //- $('#game-area').height();
         
         // Create rigid body
         const bodyDef = new Physics.BodyDef()
@@ -47,7 +47,9 @@ export default class Cannon {
         let width = 70 / Physics.WORLD_SCALE
         let height = 70 / Physics.WORLD_SCALE
         
-        
+        console.log(cannonX)
+        console.log(cannonY)
+
         // Create the shape
         let p = Point.pixelsToMeters(cannonX, cannonY)
         bodyDef.position.Set(p.left + width / 2, p.top + height / 2)
@@ -55,7 +57,7 @@ export default class Cannon {
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
         fixtureDef.density = 10
-        fixtureDef.restitution = 100
+        fixtureDef.restitution = 10
         fixtureDef.friction = 30
         fixtureDef.shape = new Physics.CircleShape()
         fixtureDef.shape.m_radius = width / 2
@@ -65,6 +67,8 @@ export default class Cannon {
     
         this.body = gameObjectBody
 
-        //console.log(bodyDef.position)
+        this.body.position = bodyDef.position
+        
+        this.body.DebugDraw
     }
 }

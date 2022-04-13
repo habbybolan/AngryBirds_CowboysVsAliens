@@ -19,6 +19,10 @@ export default class Level {
         this.data.targetList = []      // target GameObjects
 
         this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
+
+        this.cannon.OnShoot();
+
+        console.log(this.world)
     }
 
     /**
@@ -34,7 +38,7 @@ export default class Level {
         resLevel = JSON.parse(resLevel);
         
         if (!resLevel.error) {
-            this.level = new Level(resLevel.payload);
+            //this.level = new Level(resLevel.payload);
             collidablesData = resLevel.payload.entities.collidables
             targetsData = resLevel.payload.entities.targets
         }
@@ -83,8 +87,8 @@ export default class Level {
     }
 
     update() {
-        this.cannon.OnShoot();
-
+        
+        this.cannon.update();
         // check for all collisions and proceess them
         this.CheckCollisions()
     }
