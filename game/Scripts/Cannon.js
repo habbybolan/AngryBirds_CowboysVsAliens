@@ -27,7 +27,7 @@ export default class Cannon {
     update() {
         // TODO: Andre
         //      Destroy any bullet based on some condition (like moving slowly, time...)
-        console.log(this.body.position)
+        console.log(this.body.GetPosition())
     }
 
 
@@ -56,9 +56,9 @@ export default class Cannon {
         
         // Create fixture
         const fixtureDef = new Physics.FixtureDef()
-        fixtureDef.density = 10
-        fixtureDef.restitution = 10
-        fixtureDef.friction = 30
+        fixtureDef.density = 1
+        fixtureDef.restitution = 1
+        fixtureDef.friction = 3
         fixtureDef.shape = new Physics.CircleShape()
         fixtureDef.shape.m_radius = width / 2
         
@@ -67,8 +67,8 @@ export default class Cannon {
     
         this.body = gameObjectBody
 
-        this.body.position = bodyDef.position
         
-        this.body.DebugDraw
+        
+        
     }
 }

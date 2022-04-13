@@ -22,7 +22,7 @@ export default class Level {
 
         this.cannon.OnShoot();
 
-        console.log(this.world)
+        
     }
 
     /**
