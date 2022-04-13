@@ -3,6 +3,7 @@
 
 import Physics from '../common/libs/Physics.js'
 import Point from './Point.js'
+import Bullet from './Bullet.js';
 
 export default class Cannon {
 
@@ -14,6 +15,8 @@ export default class Cannon {
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
         this.bulletList = []                // List of bullets currently in the level
+
+        this.bullet = new Bullet(this.world, this.$worldView)
         
     }
 
@@ -27,44 +30,16 @@ export default class Cannon {
     update() {
         // TODO: Andre
         //      Destroy any bullet based on some condition (like moving slowly, time...)
-        console.log(this.body.GetPosition())
+        //console.log(this.bullet.Point)
     }
 
 
-    OnShoot(force) {
+    OnShoot() {
         // TODO: Andre
         //          Shoot with certain force and direction
 
-        //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
-        let cannonX = $('#game-area').offset().left
-        let cannonY = $('#game-area').offset().top //- $('#game-area').height();
+        this.bullet.CreateBulletObject()
         
-        // Create rigid body
-        const bodyDef = new Physics.BodyDef()
-        bodyDef.type = Physics.Body.b2_dynamicBody
-        
-        let width = 70 / Physics.WORLD_SCALE
-        let height = 70 / Physics.WORLD_SCALE
-        
-        console.log(cannonX)
-        console.log(cannonY)
-
-        // Create the shape
-        let p = Point.pixelsToMeters(cannonX, cannonY)
-        bodyDef.position.Set(p.left + width / 2, p.top + height / 2)
-        
-        // Create fixture
-        const fixtureDef = new Physics.FixtureDef()
-        fixtureDef.density = 1
-        fixtureDef.restitution = 0.3
-        fixtureDef.friction = 0.7
-        fixtureDef.shape = new Physics.CircleShape()
-        fixtureDef.shape.m_radius = width / 2
-        
-        let gameObjectBody = this.world.CreateBody(bodyDef)
-        gameObjectBody.CreateFixture(fixtureDef)
-    
-        this.body = gameObjectBody
 
         
         
