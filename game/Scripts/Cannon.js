@@ -15,6 +15,8 @@ export default class Cannon {
         this.angle = 45;
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
+
+        //DO THIS NOW! 
         this.bulletList = []                // List of bullets currently in the level
 
         

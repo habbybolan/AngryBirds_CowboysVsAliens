@@ -26,9 +26,10 @@ export default class Bullet {
 
         //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
         
+        //TODO: make a list of bullets in cannon
         let cannonData = {
             shape: "circle",
-            id: "test-ball",
+            id: "test-ball", //make unique
             width: 70,
             height: 70,
             x: position.x,
