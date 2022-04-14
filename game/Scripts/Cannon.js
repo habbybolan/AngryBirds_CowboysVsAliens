@@ -49,8 +49,8 @@ export default class Cannon {
 
         this.bullet = new Bullet(this.world, this.$worldView)
 
-        let positionX = $('#game-area').offset().left
-        let positionY = $('#game-area').offset().top //- $('#game-area').height() + 10;
+        let positionX = 0
+        let positionY = Point.SCREEN_METERS.HEIGHT
 
         // let cannonPos = new b2Vec2(positionX, positionY)
         const cannonPos = new Physics.Vec2(positionX, positionY)
