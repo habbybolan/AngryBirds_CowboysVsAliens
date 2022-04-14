@@ -4,6 +4,7 @@
 import Physics from '../common/libs/Physics.js'
 import Point from './Point.js'
 import Level from './Level.js'
+import GameObject from './GameObject.js';
 
 export default class World {
 
@@ -23,6 +24,7 @@ export default class World {
         this.createBoundaries()
 
         // initiate level
+        console.log("world created")
         this.level = new Level(this.$view, this.model)
         this.level.LoadLevel(filenameSelected)
 
@@ -30,53 +32,43 @@ export default class World {
     }
 
     createBoundaries() {
-
+        this.boundaryList = [] // [ceiling, floor, leftWall, rightWall]
         // ceiling
-        this.createWalls(Point.SCREEN.WIDTH / 2, 0, Point.SCREEN_METERS.WIDTH / 2, 0)
+        this.boundaryList.push(this.createWalls($('#game-area').width() / 2, 0, Point.SCREEN.WIDTH, 0))
 
         // floor
-        this.createWalls(Point.SCREEN.WIDTH / 2, Point.SCREEN.HEIGHT, Point.SCREEN_METERS.WIDTH / 2, 0)
+        this.boundaryList.push(this.createWalls($('#game-area').width() / 2, $('#game-area').height(), Point.SCREEN.WIDTH, 0))
 
         // Left wall
-        this.createWalls(0, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT / 2)
+        this.boundaryList.push(this.createWalls(0, $('#game-area').height() / 2, 0, Point.SCREEN.HEIGHT))
 
         // Right wall
-        this.createWalls(Point.SCREEN.WIDTH, Point.SCREEN.HEIGHT / 2, 0, Point.SCREEN_METERS.HEIGHT / 2)
+        this.boundaryList.push(this.createWalls($('#game-area').width(), $('#game-area').height() / 2, 0, Point.SCREEN.HEIGHT))
     }
 
     /**
      * Creates the 4 boundaries around the level
-     * @param {Int} x   x-coord in pixels
-     * @param {Int} y   y-coord in pixels
-     * @param {Int} dx  width in meters
-     * @param {Int} dy  height in meters
-     * @returns         Created boundary wall
+     * @param {Int} x       x-coord in pixels
+     * @param {Int} y       y-coord in pixels
+     * @param {Int} dx      width in meters
+     * @param {Int} dy      height in meters
+     * @returns             Created boundary world object
      */
     createWalls(x = 0, y = 0, dx = 10, dy = 10) {
-        
-        let meterCoords = Point.pixelsToMeters(x, y)
 
-        // Create rigid body
-        const bodyDef = new Physics.BodyDef()
-        bodyDef.type = Physics.Body.b2_staticBody
-
-        // create shape 
-        bodyDef.position.Set(meterCoords.left, meterCoords.top)
-        const centerVector = new Physics.Vec2(meterCoords.left, meterCoords.top)
-        
-        // add to world
-        let wallBody = this.model.CreateBody(bodyDef)
-
-        // Create fixture
-        const fixtureDef = new Physics.FixtureDef()
-        fixtureDef.density = 10
-        fixtureDef.restitution = .5
-        fixtureDef.friction = .5
-        fixtureDef.shape = new Physics.PolygonShape()
-        fixtureDef.shape.SetAsBox(dx, dy, centerVector, 0)
-        wallBody.CreateFixture(fixtureDef)
-
-        return wallBody
+        let wallData = {
+            shape: "square",
+            width: dx,
+            height: dy,
+            x: x,
+            y: y,
+            density: 10,
+            friction: .5,
+            restitution: .5
+        }
+        let boundaryObject = new GameObject(this.model);
+        boundaryObject.CreateGameObject(wallData, true, true);
+        return boundaryObject
     }
 
     update() {

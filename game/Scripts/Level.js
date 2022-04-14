@@ -102,6 +102,7 @@ export default class Level {
         for (let target of this.data.targetList) {
             target.render();
         }
+        this.cannon.render()
     }
 
     /**

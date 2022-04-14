@@ -28,6 +28,10 @@ export default class Cannon {
         //      Render movement on arrow keys held down / follow mouse to have (Gun?) visually follow
         //      Create graphic for the level of power to use (or functionality to choose)
         //      Stop cannon movement if no projectiles left 
+        if(this.bullet != null)
+        {
+            this.bullet.render()
+        }
     }
 
     update() {
@@ -39,7 +43,6 @@ export default class Cannon {
         {
             this.bullet.update();
         }
-        
     }
 
 
@@ -47,19 +50,20 @@ export default class Cannon {
         // TODO: Andre
         //          Shoot with certain force and direction
 
+        // TODO: ANDRE: REMOVE THIS.BULLET, PLACE INSIDE ARRAY
         this.bullet = new Bullet(this.world, this.$worldView)
 
-        let positionX = 0
-        let positionY = Point.SCREEN_METERS.HEIGHT
+        let positionX = 70
+        let positionY = Point.HALF.HEIGHT - 70
 
         // let cannonPos = new b2Vec2(positionX, positionY)
         const cannonPos = new Physics.Vec2(positionX, positionY)
 
         //create bullet at cannons position
-        this.bullet.CreateBulletObject(cannonPos, 0.3)
+        this.bullet.CreateBulletObject(cannonPos, 20)
 
         //apply impulse to bullet
-        this.bullet.ShootBullet(1000, 0, cannonPos, 45)
+        this.bullet.ShootBullet(new Physics.Vec2(300000, -80000), cannonPos)
         
     }
 }

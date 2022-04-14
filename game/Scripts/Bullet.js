@@ -2,6 +2,7 @@
 'use strict';
 
 import Physics from '../common/libs/Physics.js'
+import GameObject from './GameObject.js';
 import Point from './Point.js'
 
 export default class Bullet {
@@ -25,52 +26,35 @@ export default class Bullet {
 
         //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
         
-        // Create rigid body
-        const bodyDef = new Physics.BodyDef()
-        bodyDef.type = Physics.Body.b2_dynamicBody
-        
-        let width = 70 / Physics.WORLD_SCALE
-        let height = 70 / Physics.WORLD_SCALE
-
-        // Create the shape
-        let p = Point.pixelsToMeters(position.x, position.y)
-        bodyDef.position.Set(p.left + width / 2, p.top + height / 2)
-        
-        // Create fixture
-        const fixtureDef = new Physics.FixtureDef()
-        fixtureDef.density = mass
-        fixtureDef.restitution = 0.3
-        fixtureDef.friction = 0.7
-        fixtureDef.shape = new Physics.CircleShape()
-        fixtureDef.shape.m_radius = width / 2
-        
-        let gameObjectBody = this.world.CreateBody(bodyDef)
-        gameObjectBody.CreateFixture(fixtureDef)
-    
-        this.body = gameObjectBody
-
-        console.log("Object created")
-        console.log(this.body.GetPosition())
+        let cannonData = {
+            shape: "circle",
+            id: "test-ball",
+            width: 70,
+            height: 70,
+            x: position.x,
+            y: position.y,
+            mass: mass,
+            texture: "/images/cannonball.png",
+            friction: .7,
+            bounce: .5
+        }
+        this.bulletObject = new GameObject(this.world, this.$worldView)
+        this.bulletObject.CreateGameObject(cannonData, false)
     }
 
     update()
     {
-        console.log(this.body.GetPosition())
+        //console.log(this.bulletObject.body.GetPosition())
     }
     
    
-    ShootBullet(force, direction, position, angle) {
-        // TODO: Andre
-        //      Apply inital force in direction to this.body
-        
-        this.body.ApplyForce(new Physics.Vec2(force, direction), position);
-        //this.body.ApplyAngularImpulse(angle);
-        
-        
-        
+    ShootBullet(force, position) {
+        let p = Point.pixelsToMeters(position.x, position.y)
+        let newP = new Physics.Vec2(p.left, p.top)
+        this.bulletObject.body.ApplyForce(force, newP);
     }
 
-    Render() {
-        // TODO: Nick
+    render() {
+        this.bulletObject.render()
     }
 }
