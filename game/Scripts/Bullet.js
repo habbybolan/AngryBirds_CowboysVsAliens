@@ -34,17 +34,19 @@ export default class Bullet {
         let cannonData = {
             shape: "circle",
             id: this.index, //make unique
-            width: 70,
-            height: 70,
+            type: "bullet",
+            width: 30,
+            height: 30,
             x: position.x,
             y: position.y,
             mass: mass,
             texture: "/images/cannonball.png",
             friction: .7,
-            bounce: .5
+            bounce: 0.5
         }
         this.bulletObject = new GameObject(this.world, this.$worldView)
         this.bulletObject.CreateGameObject(cannonData, false)
+        this.index++
         
     }
 
@@ -62,6 +64,7 @@ export default class Bullet {
     }
 
     render() {
-        this.bulletObject.render()
+        if(this.bulletObject != null)
+            this.bulletObject.render()
     }
 }
