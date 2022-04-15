@@ -11,7 +11,7 @@ export default class Bullet {
         this.world = world
         this.$worldView = $worldView
 
-        this.index = index;
+        this.index = index
 
         
 

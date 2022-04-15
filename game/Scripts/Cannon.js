@@ -16,8 +16,6 @@ export default class Cannon {
         this.id = 0;
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
-
-        this.bullet = new Bullet(this.world, this.$worldView, this.id)
         
         const bulletList = []                // List of bullets currently in the level
 
@@ -34,20 +32,19 @@ export default class Cannon {
         //      Render movement on arrow keys held down / follow mouse to have (Gun?) visually follow
         //      Create graphic for the level of power to use (or functionality to choose)
         //      Stop cannon movement if no projectiles left 
-        if(this.bullet != null)
-        {
-            this.bullet.render()
-        }
+        
+        this.bulletList.forEach(element => {
+            element.render();
+        });
     }
 
     update() {
         // TODO: Andre
         //      Destroy any bullet based on some condition (like moving slowly, time...)
         
-        if(this.bullet != null)
-        {
-            this.bullet.update();
-        }
+        this.bulletList.forEach(element => {
+            element.update();
+        });
     }
 
 
@@ -60,16 +57,16 @@ export default class Cannon {
         let positionX = 30
         let positionY = Point.HALF.HEIGHT + 200
 
-        this.id = this.bullet.index;
+        //this.id = this.bullet.index;
         // let cannonPos = new b2Vec2(positionX, positionY)
         const cannonPos = new Physics.Vec2(positionX, positionY)
 
         //create bullet at cannons position
-        this.bullet.CreateBulletObject(cannonPos, 10)
-
-        this.bulletList.push(this.bullet)
-
-        //increase bullet is
+        
+        let bullet = new Bullet(this.world, this.$worldView, this.id)
+        
+        bullet.CreateBulletObject(cannonPos, 10)
+        this.bulletList.push(bullet)
 
         //add the bullet to an array
         //this.bulletList.push(this.bullet)
@@ -77,7 +74,7 @@ export default class Cannon {
         console.log(this.bulletList)
 
         //apply impulse to bullet
-        this.bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
+        bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
         
     }
 }
