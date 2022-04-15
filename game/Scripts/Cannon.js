@@ -17,9 +17,10 @@ export default class Cannon {
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
 
         //DO THIS NOW! 
-        this.bulletList = []                // List of bullets currently in the level
+        const bulletList = []                // List of bullets currently in the level
 
-        
+        this.bulletList = bulletList;
+        this.id = 0;
         
         document.querySelector('#game-area').addEventListener("click", this.OnShoot)
     }
@@ -53,7 +54,11 @@ export default class Cannon {
         //          Shoot with certain force and direction
 
         // TODO: ANDRE: REMOVE THIS.BULLET, PLACE INSIDE ARRAY
-        this.bullet = new Bullet(this.world, this.$worldView)
+        
+        this.bullet = new Bullet(this.world, this.$worldView, this.id)
+        
+        this.id = this.bullet.index;
+        
 
         let positionX = 70
         let positionY = Point.HALF.HEIGHT - 70
@@ -63,6 +68,14 @@ export default class Cannon {
 
         //create bullet at cannons position
         this.bullet.CreateBulletObject(cannonPos, 20)
+
+        //increase bullet id
+        this.id++
+
+        //add the bullet to an array
+        this.bulletList.push(this.id)
+        
+        console.log(this.bulletList)
 
         //apply impulse to bullet
         this.bullet.ShootBullet(new Physics.Vec2(300000, -80000), cannonPos)

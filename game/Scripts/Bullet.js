@@ -7,9 +7,13 @@ import Point from './Point.js'
 
 export default class Bullet {
 
-    constructor(world, $worldView, position, mass) {
+    constructor(world, $worldView, index, position, mass) {
         this.world = world
         this.$worldView = $worldView
+
+        this.index = index;
+
+        
 
         //this.CreateBulletObject(position, mass)
     }
@@ -29,7 +33,7 @@ export default class Bullet {
         //TODO: make a list of bullets in cannon
         let cannonData = {
             shape: "circle",
-            id: "test-ball", //make unique
+            id: this.index, //make unique
             width: 70,
             height: 70,
             x: position.x,
@@ -41,6 +45,7 @@ export default class Bullet {
         }
         this.bulletObject = new GameObject(this.world, this.$worldView)
         this.bulletObject.CreateGameObject(cannonData, false)
+        
     }
 
     update()
@@ -52,6 +57,7 @@ export default class Bullet {
     ShootBullet(force, position) {
         let p = Point.pixelsToMeters(position.x, position.y)
         let newP = new Physics.Vec2(p.left, p.top)
+        
         this.bulletObject.body.ApplyForce(force, newP);
     }
 
