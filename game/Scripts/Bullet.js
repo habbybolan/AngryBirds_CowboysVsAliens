@@ -15,7 +15,7 @@ export default class Bullet {
 
         
 
-        //this.CreateBulletObject(position, mass)
+        
     }
 
     /**
@@ -25,15 +25,10 @@ export default class Bullet {
      */
     CreateBulletObject(position, mass) {
 
-    // TODO: Should there be a separate force and direction?
-    //          Force can be placed in the direction vector as magnitude??
-
-        //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
-        
-        //TODO: make a list of bullets in cannon
+        //bullet data
         let cannonData = {
             shape: "circle",
-            id: this.index, //make unique
+            id: this.index, 
             type: "bullet",
             width: 30,
             height: 30,
@@ -44,15 +39,18 @@ export default class Bullet {
             friction: .7,
             bounce: 0.5
         }
+        //make bullet a gameobject
         this.bulletObject = new GameObject(this.world, this.$worldView)
+        //create bullet
         this.bulletObject.CreateGameObject(cannonData, false)
+        //increase id
         this.index++
         
     }
 
     update()
     {
-        //console.log(this.bulletObject.body.GetPosition())
+    
     }
     
    
@@ -64,7 +62,10 @@ export default class Bullet {
     }
 
     render() {
+        //render
         if(this.bulletObject != null)
+        {
             this.bulletObject.render()
+        }
     }
 }
