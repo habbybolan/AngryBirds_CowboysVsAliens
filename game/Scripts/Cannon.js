@@ -16,13 +16,10 @@ export default class Cannon {
         this.id = 0;
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
-        
-        const bulletList = []                // List of bullets currently in the level
 
-        this.bulletList = bulletList;
+        this.bulletList = []
         
-        
-        document.querySelector('#game-area').addEventListener("click", this.OnShoot)
+        $('#game-area').on("click", this.OnShoot)
 
     }
 
@@ -51,6 +48,7 @@ export default class Cannon {
 
     OnShoot = () => {
 
+        console.log(this.bulletList)
         //cannon pos x and y
         let positionX = 30
         let positionY = Point.HALF.HEIGHT + 200

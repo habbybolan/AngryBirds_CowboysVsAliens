@@ -7,15 +7,11 @@ import Point from './Point.js'
 
 export default class Bullet {
 
-    constructor(world, $worldView, index, position, mass) {
+    constructor(world, $worldView, id) {
         this.world = world
         this.$worldView = $worldView
 
-        this.index = index
-
-        
-
-        //this.CreateBulletObject(position, mass)
+        this.id = id
     }
 
     /**
@@ -30,10 +26,9 @@ export default class Bullet {
 
         //In Theory, i want to grab the cannon pos and its angle and launch an object from that point
         
-        //TODO: make a list of bullets in cannon
         let cannonData = {
             shape: "circle",
-            id: this.index, //make unique
+            id: this.id,
             type: "bullet",
             width: 30,
             height: 30,
@@ -46,8 +41,6 @@ export default class Bullet {
         }
         this.bulletObject = new GameObject(this.world, this.$worldView)
         this.bulletObject.CreateGameObject(cannonData, false)
-        this.index++
-        
     }
 
     update(deltaTime)

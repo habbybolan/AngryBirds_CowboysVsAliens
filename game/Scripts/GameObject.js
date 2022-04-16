@@ -32,7 +32,7 @@ export default class GameObject {
     /**
      * Creates a game object with the given parameters
      * @param {JSON} gameObjectdata {id: int, shape: SHAPE, width: float(pixels), height: float(pixels), x: float(pixels), y: float(pixels),
-     *                               density: [0-1], resitution: [0-1], friction: [0-1], texure: string}
+     *                               density: [0-1], resitution: [0-1], friction: [0-1], texure: string, type: String}
      *                              Size and Position values in pixels
      * @param {Boolean} isStatic    If the gameObject is static or dynamic
      */

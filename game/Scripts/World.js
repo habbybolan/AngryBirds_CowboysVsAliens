@@ -31,6 +31,8 @@ export default class World {
         this.level.LoadLevel(filenameSelected)
 
         $("#back-to-menu-button").on('click', event => {
+            this.$view.off()
+            this.$view.children().off()
             this.$view.empty();
             this.backToSplashCallback()
         })
