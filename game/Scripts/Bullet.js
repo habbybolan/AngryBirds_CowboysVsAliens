@@ -12,6 +12,8 @@ export default class Bullet {
         this.$worldView = $worldView
 
         this.id = id
+
+        
     }
 
     /**
@@ -63,4 +65,6 @@ export default class Bullet {
             this.bulletObject.render()
         }
     }
+
+    
 }

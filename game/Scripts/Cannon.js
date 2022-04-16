@@ -18,6 +18,8 @@ export default class Cannon {
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
 
         this.bulletList = []
+
+        this.maxBullets = 3;
         
         $('#game-area').on("click", this.OnShoot)
 
@@ -33,6 +35,7 @@ export default class Cannon {
         this.bulletList.forEach(element => {
             element.render(deltaTime);
         });
+        
     }
 
     update(deltaTime) {
@@ -43,31 +46,41 @@ export default class Cannon {
         this.bulletList.forEach(element => {
             element.update(deltaTime);
         });
+
+        
+        
     }
 
 
     OnShoot = () => {
 
-        //cannon pos x and y
-        let positionX = 30
-        let positionY = Point.HALF.HEIGHT + 200
+        if(this.maxBullets > 0)
+        {
+            //cannon pos x and y
+            let positionX = 30
+            let positionY = Point.HALF.HEIGHT + 200
+    
+            //cannon pos
+            const cannonPos = new Physics.Vec2(positionX, positionY)
+    
+            //create new bullet
+            let bullet = new Bullet(this.world, this.$worldView, this.id)
+            
+            //create bullet at cannons position
+            bullet.CreateBulletObject(cannonPos, 10)
+    
+            //add bullet to array
+            this.bulletList.push(bullet)
+    
+            console.log(this.bulletList)
+    
+            //apply impulse to bullet
+            bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
 
-        //cannon pos
-        const cannonPos = new Physics.Vec2(positionX, positionY)
+            this.maxBullets--
+        }
 
-        //create new bullet
-        let bullet = new Bullet(this.world, this.$worldView, this.id)
         
-        //create bullet at cannons position
-        bullet.CreateBulletObject(cannonPos, 10)
-
-        //add bullet to array
-        this.bulletList.push(bullet)
-
-        console.log(this.bulletList)
-
-        //apply impulse to bullet
-        bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
         
     }
 }
