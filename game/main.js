@@ -24,28 +24,33 @@ class Game {
     
     initSplash() {
         this.SplashScreen = new SplashScreen(this.selectLevelCallback)
+        this.SplashScreen.run()
     }
 
     
-    chooseLevel(levelname) {
+    chooseLevel(filename) {
         // TODO: Nick
         //      Get the level from the server if exists 
         //      Create separate class to deal with selecting a level that sends a callback on level selected back here
+        console.log(filename)
         this.$gameview = $("#game-area")
-        this.world = new World(this.$gameview, levelname)
+        this.world = new World(this.$gameview, filename)
         this.run()
     }
 
     /**
      * Callback when level chosen from SplashScreen
-     * @param {String} levelname    Name of level chosen to play
+     * @param {String} filename    filename of level chosen to play
      */
-    selectLevelCallback = levelname => {
-        this.chooseLevel(levelname)
+    selectLevelCallback = filename => {
+        this.chooseLevel(filename)
     }
 
-    
-    
+    // Either shows editor or game screen
+    ShowEditor(bShowEditor) {
+        // TODO:
+    }
+        
     
     update(deltaTime) {
 

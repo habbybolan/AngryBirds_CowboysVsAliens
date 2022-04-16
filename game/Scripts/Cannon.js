@@ -41,6 +41,7 @@ export default class Cannon {
     update(deltaTime) {
         // TODO: Andre
         //      Destroy any bullet based on some condition (like moving slowly, time...)
+        //IMPORTANT DO THIS FIRST - Andre
         
         this.bulletList.forEach(element => {
             element.update(deltaTime);
@@ -49,27 +50,22 @@ export default class Cannon {
 
 
     OnShoot = () => {
-        // TODO: Andre
-        //          Shoot with certain force and direction
 
-        // TODO: ANDRE: REMOVE THIS.BULLET, PLACE INSIDE ARRAY
-        
+        //cannon pos x and y
         let positionX = 30
         let positionY = Point.HALF.HEIGHT + 200
 
-        //this.id = this.bullet.index;
-        // let cannonPos = new b2Vec2(positionX, positionY)
+        //cannon pos
         const cannonPos = new Physics.Vec2(positionX, positionY)
 
-        //create bullet at cannons position
-        
+        //create new bullet
         let bullet = new Bullet(this.world, this.$worldView, this.id)
         
+        //create bullet at cannons position
         bullet.CreateBulletObject(cannonPos, 10)
-        this.bulletList.push(bullet)
 
-        //add the bullet to an array
-        //this.bulletList.push(this.bullet)
+        //add bullet to array
+        this.bulletList.push(bullet)
 
         console.log(this.bulletList)
 
