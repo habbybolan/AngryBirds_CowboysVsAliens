@@ -52,7 +52,7 @@ export default class Cannon {
     OnShoot = () => {
 
         //cannon pos x and y
-        let positionX = 30
+        let positionX = 10
         let positionY = Point.HALF.HEIGHT + 200
 
         //cannon pos
