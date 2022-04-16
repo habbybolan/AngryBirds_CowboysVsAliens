@@ -59,7 +59,7 @@ export default class Cannon {
         const cannonPos = new Physics.Vec2(positionX, positionY)
 
         //create new bullet
-        let bullet = new Bullet(this.world, this.$worldView, this.id)
+        let bullet = new Bullet(this.world, this.$worldView, this.id++)
         
         //create bullet at cannons position
         bullet.CreateBulletObject(cannonPos, 10)
