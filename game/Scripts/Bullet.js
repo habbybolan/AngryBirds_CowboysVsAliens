@@ -50,9 +50,8 @@ export default class Bullet {
         
     }
 
-    update()
+    update(deltaTime)
     {
-        //console.log(this.bulletObject.body.GetPosition())
     }
     
    
@@ -63,7 +62,7 @@ export default class Bullet {
         this.bulletObject.body.ApplyForce(force, newP);
     }
 
-    render() {
+    render(deltaTime) {
         if(this.bulletObject != null)
             this.bulletObject.render()
     }

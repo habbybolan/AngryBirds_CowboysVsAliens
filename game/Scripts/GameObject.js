@@ -113,7 +113,7 @@ export default class GameObject {
         return false;
     }
 
-    render() {
+    render(deltaTime) {
         // if a view exists, then render it
         if (this.$view) {
             // position of b2Body in world

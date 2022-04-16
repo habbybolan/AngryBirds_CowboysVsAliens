@@ -71,18 +71,7 @@ export default class World {
         return boundaryObject
     }
 
-    update() {
-        // TODO: simulate for a periiod of time
-
-        // run a single step of the simulation
-        this.model.Step(1/60, 10, 10)
-
-        // TODO: remove later - for early testing how things are moving
-        this.model.ClearForces()
-
-        this.level.update()
-    }
-
+    
     /**
      * Gets the current game state, either lost, won, or running
      * @returns {JSON}  State of game 
@@ -93,9 +82,21 @@ export default class World {
         // TODO: Andre
         //          Check the level for the current game state of being won/lost/running
     }
+    
+    update(deltaTime) {
+        // TODO: simulate for a periiod of time
 
-    render() {
-        this.level.render()
+        // run a single step of the simulation
+        this.model.Step(1/60, 10, 10)
+
+        // TODO: remove later - for early testing how things are moving
+        this.model.ClearForces()
+
+        this.level.update(deltaTime)
+    }
+
+    render(deltaTime) {
+        this.level.render(deltaTime)
     }
     
     /**

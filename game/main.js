@@ -18,36 +18,42 @@ class Game {
         // Choose a level
         this.chooseLevel()
 
+        this.prevTimestamp;
+        this.start;
+
         // TODO: Nick
         //      Run simulation after selecting a level to load inside ChooseLevel
         this.run()
     }
 
-    update( deltaTime ) {
-
-        // update the world positions of everything
-        this.world.update()
-    }
-
+    
     chooseLevel() {
         // TODO: Nick
         //      Get the level from the server if exists 
         //      Create separate class to deal with selecting a level that sends a callback on level selected back here
     }
-
+    
     initSplash() {
-
+        
         // TODO: Nick
         //      Initialize the splash screen, wait for play now pressed
     }
+    
+    update(deltaTime) {
 
-    render( deltaTime ) {
+        // update the world positions of everything
+        this.world.update(deltaTime)
+    }
+    render(deltaTime) {
 
         // redraw the entire scene by telling each thing in the scene to render itself
-        this.world.render()
+        this.world.render(deltaTime)
     }
 
-    run( deltaTime ) {
+    run(timestamp) {
+
+        const elapsed = timestamp - this.prevTimestamp
+        this.prevTimestamp = timestamp
 
         let currgameState = this.world.CurrGameState()
         // TODO: Andre
@@ -55,10 +61,14 @@ class Game {
         //            Send to methods gotoLoseScreen() or gotoWinScreen() based on state of game
         //            Stop game from simulating/rendering if won/lost
 
-        this.update( deltaTime );
-        this.render( deltaTime );
+        // only calculate if time passed between calculations
+        if (elapsed) {
+            this.update(elapsed);
+            this.render(elapsed);
+        }
+        
 
-        window.requestAnimationFrame( deltaTime => { this.run( deltaTime )})
+        window.requestAnimationFrame( timestamp => { this.run(timestamp) })
     }
 
     gotoLoseScreen() {

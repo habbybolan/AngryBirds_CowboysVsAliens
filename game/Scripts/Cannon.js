@@ -27,23 +27,23 @@ export default class Cannon {
     }
 
         
-    render() {
+    render(deltaTime) {
         // TODO: Nick
         //      Render movement on arrow keys held down / follow mouse to have (Gun?) visually follow
         //      Create graphic for the level of power to use (or functionality to choose)
         //      Stop cannon movement if no projectiles left 
         
         this.bulletList.forEach(element => {
-            element.render();
+            element.render(deltaTime);
         });
     }
 
-    update() {
+    update(deltaTime) {
         // TODO: Andre
         //      Destroy any bullet based on some condition (like moving slowly, time...)
         
         this.bulletList.forEach(element => {
-            element.update();
+            element.update(deltaTime);
         });
     }
 

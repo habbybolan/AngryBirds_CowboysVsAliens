@@ -86,23 +86,23 @@ export default class Level {
         }
     }
 
-    update() {
+    update(deltaTime) {
 
-        this.cannon.update();
+        this.cannon.update(deltaTime);
         // check for all collisions and proceess them
         this.CheckCollisions()
     }
 
-    render() {
+    render(deltaTime) {
         // render collidables
         for (let collidable of this.data.collidableList) {
-            collidable.render();
+            collidable.render(deltaTime);
         }
         // render targets
         for (let target of this.data.targetList) {
-            target.render();
+            target.render(deltaTime);
         }
-        this.cannon.render()
+        this.cannon.render(deltaTime)
     }
 
     /**
