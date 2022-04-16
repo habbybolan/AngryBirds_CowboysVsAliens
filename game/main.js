@@ -8,17 +8,11 @@ import World from './scripts/World.js';
 class Game {
 
     constructor() {
-
-        
         this.prevTimestamp;
 
         // Initialize the app behind a splash screen
-        this.initSplash()
-
-        
-
-        // TODO: Nick
-        //      Run simulation after selecting a level to load inside ChooseLevel
+        this.initSplash();
+        this.requestIDAnimFrame = 0;
         
     }
     
@@ -32,10 +26,9 @@ class Game {
         // TODO: Nick
         //      Get the level from the server if exists 
         //      Create separate class to deal with selecting a level that sends a callback on level selected back here
-        this.ShowEditor(false)
-        console.log(filename)
+        this.showEditor(false)
         this.$gameview = $("#game-area")
-        this.world = new World(this.$gameview, filename)
+        this.world = new World(this.$gameview, filename, this.backToSplashCallback)
         this.run()
     }
 
@@ -47,8 +40,14 @@ class Game {
         this.chooseLevel(filename)
     }
 
+    backToSplashCallback = () => {
+        console.log("back to splash screen")
+        window.cancelAnimationFrame(this.requestIDAnimFrame);
+        this.showEditor(true);
+    }
+
     // Either shows splash screen or game screen
-    ShowEditor(bShowSplash) {
+    showEditor(bShowSplash) {
         if (bShowSplash) {
             $("#splash-screen").removeAttr('style')
             $("#play-game-screen").css('display', 'none')
@@ -88,7 +87,7 @@ class Game {
         }
         
 
-        window.requestAnimationFrame( timestamp => { this.run(timestamp) })
+        this.requestIDAnimFrame = window.requestAnimationFrame( timestamp => { this.run(timestamp) })
     }
 
     gotoLoseScreen() {

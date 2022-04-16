@@ -9,16 +9,18 @@ import GameObject from './GameObject.js';
 export default class World {
 
     /**
-     * @param {JQuery} $view                GameScreen view
-     * @param {String} filenameSelected     Filename of selected level to load
+     * @param {JQuery} $view                    GameScreen view
+     * @param {String} filenameSelected         Filename of selected level to load
+     * @param {Function} backToSplashCallback   Callback for returning to splash screen
      */
-    constructor($view, filenameSelected) {
+    constructor($view, filenameSelected, backToSplashCallback) {
 
         // Setup view and model and properties
         this.$view = $view
 
         const gravityVector = new Physics.Vec2(0, Physics.GRAVITY)
         this.model = new Physics.World(gravityVector)
+        this.backToSplashCallback = backToSplashCallback;
 
         // create walls and floor
         this.createBoundaries()
@@ -27,6 +29,11 @@ export default class World {
         console.log("world created")
         this.level = new Level(this.$view, this.model)
         this.level.LoadLevel(filenameSelected)
+
+        $("#back-to-menu-button").on('click', event => {
+            this.$view.empty();
+            this.backToSplashCallback()
+        })
 
         // TODL Future - add listeners for physical collisions
     }
@@ -84,7 +91,7 @@ export default class World {
     }
     
     update(deltaTime) {
-        // TODO: simulate for a periiod of time
+        console.log("World update")
 
         // run a single step of the simulation
         this.model.Step(1/60, 10, 10)
