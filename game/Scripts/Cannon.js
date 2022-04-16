@@ -13,7 +13,7 @@ export default class Cannon {
         this.$worldView = $worldView
         this.numProjectiles = numProjectiles
         this.angle = 45;
-        this.id = 0;
+        this.id = 0
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
 
@@ -61,6 +61,7 @@ export default class Cannon {
         {
             //removes bullet from bulletList
             this.bulletList.pop()
+            $(`#${this.id}`).remove()
             //reset timer
             this.timer = 0;
         }        

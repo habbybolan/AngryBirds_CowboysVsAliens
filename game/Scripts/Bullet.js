@@ -45,6 +45,7 @@ export default class Bullet {
         this.bulletObject = new GameObject(this.world, this.$worldView)
         //create bullet
         this.bulletObject.CreateGameObject(cannonData, false)
+        
     }
 
     update(deltaTime)
