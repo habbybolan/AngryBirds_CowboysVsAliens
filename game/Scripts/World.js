@@ -30,14 +30,15 @@ export default class World {
         this.level = new Level(this.$view, this.model)
         this.level.LoadLevel(filenameSelected)
 
-        $("#back-to-menu-button").on('click', event => {
-            this.$view.off()
-            this.$view.children().off()
-            this.$view.empty();
-            this.backToSplashCallback()
-        })
+        $("#back-to-menu-button").on('click', event => this.gotoSplashScreen())
 
         // TODL Future - add listeners for physical collisions
+    }
+
+    gotoSplashScreen() {
+        $("#play-game-screen *").children().off()
+        this.$view.empty();
+        this.backToSplashCallback()
     }
 
     createBoundaries() {
@@ -93,7 +94,6 @@ export default class World {
     }
     
     update(deltaTime) {
-        console.log("World update")
 
         // run a single step of the simulation
         this.model.Step(1/60, 10, 10)

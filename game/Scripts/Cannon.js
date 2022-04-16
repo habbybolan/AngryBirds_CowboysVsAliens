@@ -48,7 +48,6 @@ export default class Cannon {
 
     OnShoot = () => {
 
-        console.log(this.bulletList)
         //cannon pos x and y
         let positionX = 30
         let positionY = Point.HALF.HEIGHT + 200
@@ -64,8 +63,6 @@ export default class Cannon {
 
         //add bullet to array
         this.bulletList.push(bullet)
-
-        console.log(this.bulletList)
 
         //apply impulse to bullet
         bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
