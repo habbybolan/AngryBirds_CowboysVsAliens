@@ -56,13 +56,15 @@ export default class Cannon {
         const cannonPos = new Physics.Vec2(positionX, positionY)
 
         //create new bullet
-        let bullet = new Bullet(this.world, this.$worldView, this.id++)
+        let bullet = new Bullet(this.world, this.$worldView, this.id)
         
         //create bullet at cannons position
         bullet.CreateBulletObject(cannonPos, 10)
 
         //add bullet to array
         this.bulletList.push(bullet)
+
+        console.log(this.bulletList)
 
         //apply impulse to bullet
         bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)

@@ -39,7 +39,9 @@ export default class Bullet {
             friction: .7,
             bounce: 0.5
         }
+        //make bullet a gameobject
         this.bulletObject = new GameObject(this.world, this.$worldView)
+        //create bullet
         this.bulletObject.CreateGameObject(cannonData, false)
     }
 
@@ -57,6 +59,8 @@ export default class Bullet {
 
     render(deltaTime) {
         if(this.bulletObject != null)
+        {
             this.bulletObject.render()
+        }
     }
 }
