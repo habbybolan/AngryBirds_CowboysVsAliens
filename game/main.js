@@ -32,6 +32,7 @@ class Game {
         // TODO: Nick
         //      Get the level from the server if exists 
         //      Create separate class to deal with selecting a level that sends a callback on level selected back here
+        this.ShowEditor(false)
         console.log(filename)
         this.$gameview = $("#game-area")
         this.world = new World(this.$gameview, filename)
@@ -46,9 +47,15 @@ class Game {
         this.chooseLevel(filename)
     }
 
-    // Either shows editor or game screen
-    ShowEditor(bShowEditor) {
-        // TODO:
+    // Either shows splash screen or game screen
+    ShowEditor(bShowSplash) {
+        if (bShowSplash) {
+            $("#splash-screen").removeAttr('style')
+            $("#play-game-screen").css('display', 'none')
+        } else {
+            $("#play-game-screen").removeAttr('style')
+            $("#splash-screen").css('display', 'none')
+        }
     }
         
     
