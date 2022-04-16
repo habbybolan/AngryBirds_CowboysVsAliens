@@ -20,6 +20,8 @@ export default class Cannon {
         this.bulletList = []
 
         this.maxBullets = 3;
+
+        this.timer = 0;
         
         $('#game-area').on("click", this.OnShoot)
 
@@ -35,6 +37,8 @@ export default class Cannon {
         this.bulletList.forEach(element => {
             element.render(deltaTime);
         });
+
+        
         
     }
 
@@ -47,14 +51,26 @@ export default class Cannon {
             element.update(deltaTime);
         });
 
-        
-        
+
+        //bullet life timer
+        this.timer += deltaTime
+        console.log(this.timer)
+
+        //remove bullet time
+        if(this.timer > 10000)
+        {
+            //removes bullet from bulletList
+            this.bulletList.pop()
+            //reset timer
+            this.timer = 0;
+        }        
     }
 
 
     OnShoot = () => {
 
-        if(this.maxBullets > 0)
+        //will only create and shoot a new bullet if there is no active bullet and the player has ammo
+        if(this.maxBullets > 0 && this.bulletList.length == 0)
         {
             //cannon pos x and y
             let positionX = 30
@@ -77,7 +93,11 @@ export default class Cannon {
             //apply impulse to bullet
             bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
 
+            //remove 1 ammo
             this.maxBullets--
+
+            //reset timer to zero
+            this.timer = 0;
         }
 
         
