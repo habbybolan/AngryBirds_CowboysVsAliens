@@ -10,20 +10,42 @@
 
         <link rel="icon" type="image/ico" href="/common/images/favicon.ico" />
         <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" type="text/css" href="./css/splash-screen.css">
     </head>
 
-    <body id="whole-game-screen" class="game-grid-wrapper">
+    <body id="whole-game-screen" >
+        <!-- Screen for playing the game with physical simulations -->
+        <div id="play-game-screen" style="display: none;" class="game-grid-wrapper">
+            <div class="grid-column-left grid-row-top"></div>
+            <div class="grid-column-right grid-row-top"></div>
+    
+            <div class="grid-column-left grid-row-main"></div>
+            <div class="grid-column-right grid-row-main"></div>
+    
+            <section id="game-screen" class="grid-column-middle grid-row-main">
+                <div id="game-area">
+                </div>
+            </section>
+        </div>
 
-        <div class="grid-column-left grid-row-top"></div>
-        <div class="grid-column-right grid-row-top"></div>
+        <!-- Screen for the splash screen and level selector -->
+        <div id="splash-screen">
+            <section id="level-selector-section">
 
-        <div class="grid-column-left grid-row-main"></div>
-        <div class="grid-column-right grid-row-main"></div>
+                <div id="title-name">Cowboys vs Aliens</div>
+                <!-- List of levels -->
+                <div style="background-color: rgb(125, 125, 250);" class="flex-wrapper-column "> 
+                    <button id="load-level-button">Play level</button>
+                    <div id="level-list" class="selector ">
+                        <div>level1</div>
+                        <div>level2</div>
+                    </div>
+                    
+                </div>
+            </section>
+        </div>
 
-        <section id="game-screen" class="grid-column-middle grid-row-main">
-            <div id="game-area">
-            </div>
-        </section>
+
 
         <script type="module" src="./main.js"></script>
     </body>

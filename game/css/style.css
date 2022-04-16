@@ -1,4 +1,5 @@
-/** Styles for Angry Pigs COpyright (C) 2022 Scott Henshaw */
+/** Copyright (C) Nicholas Johnson 2022 */
+
 #game-screen {
     display: flex;
     align-items: center;
@@ -14,6 +15,11 @@
     width: 100%;
     height: 100%;
     background-color: rgb(183, 184, 233);
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
 }
 
 .gameobject {
@@ -68,5 +74,8 @@
 }
 
 #whole-game-screen {
-    background-color: rgb(175, 218, 255);
+    background-color: rgb(113, 175, 230);
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }

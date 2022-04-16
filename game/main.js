@@ -2,42 +2,50 @@
 'use strict';
 
 import '../common/libs/jquery-3.6.0.min.js';
+import SplashScreen from './Scripts/SplashScreen.js';
 import World from './scripts/World.js';
 
 class Game {
 
     constructor() {
 
-        this.$view = $("#game-area")
-        this.world = new World(this.$view, 'level-0');
         
+        this.prevTimestamp;
 
         // Initialize the app behind a splash screen
         this.initSplash()
 
-        // Choose a level
-        this.chooseLevel()
-
-        this.prevTimestamp;
-        this.start;
+        
 
         // TODO: Nick
         //      Run simulation after selecting a level to load inside ChooseLevel
-        this.run()
-    }
-
-    
-    chooseLevel() {
-        // TODO: Nick
-        //      Get the level from the server if exists 
-        //      Create separate class to deal with selecting a level that sends a callback on level selected back here
+        
     }
     
     initSplash() {
-        
-        // TODO: Nick
-        //      Initialize the splash screen, wait for play now pressed
+        this.SplashScreen = new SplashScreen(this.selectLevelCallback)
     }
+
+    
+    chooseLevel(levelname) {
+        // TODO: Nick
+        //      Get the level from the server if exists 
+        //      Create separate class to deal with selecting a level that sends a callback on level selected back here
+        this.$gameview = $("#game-area")
+        this.world = new World(this.$gameview, levelname)
+        this.run()
+    }
+
+    /**
+     * Callback when level chosen from SplashScreen
+     * @param {String} levelname    Name of level chosen to play
+     */
+    selectLevelCallback = levelname => {
+        this.chooseLevel(levelname)
+    }
+
+    
+    
     
     update(deltaTime) {
 
@@ -83,6 +91,5 @@ class Game {
 // Main entry point for application
 //$(window).on('DOMContentLoaded', event => {
 
-    const game = new Game();
-    game.run();
+const game = new Game();
 //})

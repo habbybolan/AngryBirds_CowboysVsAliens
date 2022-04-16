@@ -1,0 +1,19 @@
+/* Copyright (C) Nicholas Johnson 2022 */
+
+#splash-screen {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+#title-name {
+    margin-top: 50px;
+    font-size: 5em;
+}
+
+#level-list {
+    display: flex;
+    flex-direction: row;
+}
