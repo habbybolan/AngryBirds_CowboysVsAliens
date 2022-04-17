@@ -138,6 +138,7 @@ export default class Cannon {
 
             //reset timer to zero
             this.timer = 0;
+            
         }
 
         
