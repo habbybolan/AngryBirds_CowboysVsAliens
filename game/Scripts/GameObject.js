@@ -97,20 +97,8 @@ export default class GameObject {
         gameObjectBody.CreateFixture(fixtureDef)
 
         this._body = gameObjectBody
-    }
-
-    /**
-     * Deals with OnHit Event, dealing damage to GameObject
-     * @param {b2Vec2} direction    Direction vector of object that hit this 
-     * @param {float} velocity      Vecloty of object that hit this (will velocity data be stored in direction???)
-     * @param {float} mass          Mass of object that hit this 
-     * @returns {Boolean}           True if object was destroyed, false otherwise
-     */
-    OnHit(direction, velocity, mass) {
-        // TODO: Andre
-        //  Im not sure if this OnHit will be usedful, but I was thinking the level would call this when finding a collision that happened
-        //  Could maybe pass an object that hit it, or b2WorldManifold that I believe holds the contact point and normal if you need it
-        return false;
+        if (!isBoundary)
+            this._body.SetUserData(this)
     }
 
     render(deltaTime) {
@@ -129,7 +117,15 @@ export default class GameObject {
             this.$view.offset({ left: x, top: y})
             this.$view.css('transform', `rotate(${this.body.GetAngle() * Physics.RAD_2_DEG}deg)`)
         }
-        
+    }
+
+    /**
+     * Deals with collision event between two GameObjects
+     * @param {GameObject} obj1 Collided with obj2
+     * @param {GameObject} obj2 Collided with obj1
+     */
+    static startContact(obj1, obj2) {
+        console.log(`${obj1.data.id} collided with ${obj2.data.id}`)
     }
 
     get id() { return this.data.id }
