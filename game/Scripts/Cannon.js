@@ -11,7 +11,7 @@ export default class Cannon {
     constructor(world, $worldView, numProjectiles) {
         this.world = world;
         this.$worldView = $worldView
-        this.numProjectiles = numProjectiles
+        this.numProjectiles = 10 //Change to "numProjectiles" when numPorjectiles actually gets grabbed from server/level data
         this.id = 0
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
@@ -19,6 +19,10 @@ export default class Cannon {
         this.bulletList = []
 
         this.timer = 0;
+
+        //Power and angle
+        this.power = 1
+        this.angle = 0
         
         $('#game-area').on("click", this.OnShoot)
 
@@ -27,28 +31,32 @@ export default class Cannon {
             var name = event.key;
             
 
-            //angle up
-            if(name === 'w')
+            //angle down
+            if(name === 's' && this.angle != 10)
             {
-                
+                this.angle += 1
+                console.log(this.angle)
             }
 
-            //angle down
-            if(name === 's')
+            //angle up
+            if(name === 'w' && this.angle != -10)
             {
-                
+                this.angle -= 1
+                console.log(this.angle)
             }
 
             //power up
-            if(name === 'q')
+            if(name === 'q' && this.power != 10)
             {
-                
+                this.power += 1
+                console.log(this.power)
             }
 
             //power down
-            if(name === 'e')
+            if(name === 'e' && this.power != -10)
             {
-                
+                this.power -= 1
+                console.log(this.power)
             }
             
           }, false);
@@ -123,7 +131,7 @@ export default class Cannon {
             console.log(this.bulletList)
     
             //apply impulse to bullet
-            bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
+            bullet.ShootBullet(new Physics.Vec2(this.power * 10000, this.angle * 10000), cannonPos)
 
             //remove 1 ammo
             this.numProjectiles--
