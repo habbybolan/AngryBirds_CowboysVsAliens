@@ -3,7 +3,6 @@
 
 import Cannon from "./Cannon.js";
 import GameObject from "./GameObject.js"
-import Physics from "../../common/libs/Physics.js";
 import { enitityTypesEnum } from "./GameObject.js"
 
 export default class Level {
@@ -18,15 +17,11 @@ export default class Level {
         this.data = {}
         this.data.collidableList = []  // Collidable GameObjects
         this.data.targetList = []      // target GameObjects
-        this.data.projectilesList = [] //porjectile data
-        
-        var contactListener = new Physics.Listener();
-        this.world.SetContactListener(contactListener)
 
-        this.contact = contactListener
+        this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
 
+        //this.cannon.OnShoot();
 
-        console.log(contactListener)
         
     }
 
@@ -37,7 +32,6 @@ export default class Level {
     async LoadLevel(filename) {
         let collidablesData = [];   // Level collidables data from server
         let targetsData = [];       // level targets data from server
-       // let projectilesData = [];
 
         let data = JSON.stringify({type: "level", name: filename})
         let resLevel = await $.post('/api/load', { data })
@@ -50,12 +44,6 @@ export default class Level {
         }
         this.addGameObjectsFromData(collidablesData)
         this.addGameObjectsFromData(targetsData)
-        //this.addGameObjectsFromData(projectilesData)
-
-        
-        this.cannon = new Cannon(this.world, this.$view)
-        
-
     }
 
     
@@ -92,24 +80,15 @@ export default class Level {
             newGameObject.initiateFromRawData(gameObjectData)
             if (type == enitityTypesEnum.COLLIDABLE) {
                 this.data.collidableList.push(newGameObject)
-            } 
-            else if(type == enitityTypesEnum.TARGET)
-            {
+            } else {
                 this.data.targetList.push(newGameObject)
-            }
-            else {
-                this.data.projectileList.push(newGameObject)
             }
         }
     }
 
     update(deltaTime) {
 
-        if(this.cannon != null)
-        {
-            this.cannon.update(deltaTime);
-        }
-            
+        this.cannon.update(deltaTime);
         
         // update collidables
         for (let collidable of this.data.collidableList) {
@@ -130,10 +109,6 @@ export default class Level {
         for (let target of this.data.targetList) {
             target.render(deltaTime);
         }
-        if (this.cannon != null)
-        {
-            this.cannon.render(deltaTime)
-        }
-        
+        this.cannon.render(deltaTime)
     }
 }
