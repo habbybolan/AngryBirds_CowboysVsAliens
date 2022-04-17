@@ -23,9 +23,6 @@ class Game {
 
     
     chooseLevel(filename) {
-        // TODO: Nick
-        //      Get the level from the server if exists 
-        //      Create separate class to deal with selecting a level that sends a callback on level selected back here
         this.showEditor(false)
         this.$gameview = $("#game-area")
         this.world = new World(this.$gameview, filename, this.backToSplashCallback)
@@ -91,11 +88,11 @@ class Game {
     }
 
     gotoLoseScreen() {
-        // TODO: Nick
+        //window.cancelAnimationFrame(this.requestIDAnimFrame);
     }   
 
-     gotoWinScreen() {
-         // TODO: Nick
+     gotoWinScreen(score) {
+        //window.cancelAnimationFrame(this.requestIDAnimFrame);
      }
 }
 

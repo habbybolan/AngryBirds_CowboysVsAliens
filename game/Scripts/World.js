@@ -5,6 +5,7 @@ import Physics from '../common/libs/Physics.js'
 import Point from './Point.js'
 import Level from './Level.js'
 import GameObject from './GameObject.js';
+import ContactListener from './ContactListener.js';
 
 export default class World {
 
@@ -21,6 +22,10 @@ export default class World {
         const gravityVector = new Physics.Vec2(0, Physics.GRAVITY)
         this.model = new Physics.World(gravityVector)
         this.backToSplashCallback = backToSplashCallback;
+
+        // Create and set collision listener
+        this.contactListener = new ContactListener()
+        this.model.SetContactListener(this.contactListener)
 
         // create walls and floor
         this.createBoundaries()

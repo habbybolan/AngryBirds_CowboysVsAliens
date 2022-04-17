@@ -105,12 +105,16 @@ export default class Level {
 
     update(deltaTime) {
 
-        if (this.cannon != null)
-        {
-            this.cannon.update(deltaTime);
+        this.cannon.update(deltaTime);
+        
+        // update collidables
+        for (let collidable of this.data.collidableList) {
+            collidable.update(deltaTime);
         }
-        // check for all collisions and proceess them
-        //this.CheckCollisions()
+        // update targets
+        for (let target of this.data.targetList) {
+            target.update(deltaTime);
+        }
     }
 
     render(deltaTime) {
@@ -127,29 +131,5 @@ export default class Level {
             this.cannon.render(deltaTime)
         }
         
-    }
-
-    /**
-     * Check for any collisions between gameObjects as well as bullets.
-     * Send collion data to the gameObjects to deal with damage
-     */
-    CheckCollisions() {
-        // TODO: Andre
-        //      Check for collisions of all gameObjects and bullets 
-        //      Apply collision with OnHit() method in GameObject??
-        //      Deal with if object is destroyed, remove from world and remove from list in this class
-        //      This collision logic and dealing with it is probably going to be your bigget task
-
-        //this.listener = new Physics.Listener;
-
-        this.contactListener.BeginContact( (event) => {
-
-            var fixA = event.GetFixtureA().GetBody().GetUserData();
-            var fixB = event.GetFixtureB().GetBody().GetUserData();
-
-            console.log(event)
-	
-
-        })
     }
 }

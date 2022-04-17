@@ -14,6 +14,8 @@ export default class GameObject {
         this.world = world;
         this.$worldView = $worldView
 
+        this.contactObjs = []    // After each simluation, store the objects that collided with this obj for calculation in Update
+
         // TODO: Nick or Andre 
         //      Based on Mass?
         this.health = 10
@@ -132,7 +134,31 @@ export default class GameObject {
             this.$view.offset({ left: x, top: y})
             this.$view.css('transform', `rotate(${this.body.GetAngle() * Physics.RAD_2_DEG}deg)`)
         }
-        
+    }
+
+    update(deltaTime) {
+
+       
+        // TODO: Andre - Do hit logic, using contactObj if not undefined
+        for (let i in this.contactObjs) { 
+            console.log(`do logic on ${this.data.id} that collided with ${this.contactObjs[i].data.id}`)
+            // collision logic and destroy if needed here
+        }
+
+        // reset collided objects list once collision dealth with
+        this.contactObjs = [];
+    }
+
+    /**
+     * Deals with collision event between two GameObjects
+     * @param {GameObject} obj1 Collided with obj2
+     * @param {GameObject} obj2 Collided with obj1
+     */
+    static startContact(obj1, obj2) {
+
+        // Set contact
+        obj1.contactObjs.push(obj2)
+        obj2.contactObjs.push(obj1)
     }
 
     get id() { return this.data.id }
