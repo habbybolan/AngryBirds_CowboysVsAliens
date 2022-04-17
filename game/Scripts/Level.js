@@ -105,7 +105,11 @@ export default class Level {
 
     update(deltaTime) {
 
-        this.cannon.update(deltaTime);
+        if(this.cannon != null)
+        {
+            this.cannon.update(deltaTime);
+        }
+        
         
         // update collidables
         for (let collidable of this.data.collidableList) {
