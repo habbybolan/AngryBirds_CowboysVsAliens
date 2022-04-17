@@ -37,7 +37,7 @@ export default class Level {
     async LoadLevel(filename) {
         let collidablesData = [];   // Level collidables data from server
         let targetsData = [];       // level targets data from server
-        let projectilesData = [];
+       // let projectilesData = [];
 
         let data = JSON.stringify({type: "level", name: filename})
         let resLevel = await $.post('/api/load', { data })
@@ -50,10 +50,10 @@ export default class Level {
         }
         this.addGameObjectsFromData(collidablesData)
         this.addGameObjectsFromData(targetsData)
-        this.addGameObjectsFromData(projectilesData)
+        //this.addGameObjectsFromData(projectilesData)
 
         
-        this.cannon = new Cannon(this.world, this.$view, this.data.projectilesData)
+        this.cannon = new Cannon(this.world, this.$view)
         
 
     }
@@ -109,7 +109,7 @@ export default class Level {
         {
             this.cannon.update(deltaTime);
         }
-        
+            
         
         // update collidables
         for (let collidable of this.data.collidableList) {
