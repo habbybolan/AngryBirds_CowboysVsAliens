@@ -79,10 +79,6 @@ export default class Cannon {
     }
 
     update(deltaTime) {
-        // TODO: Andre
-        //      Destroy any bullet based on some condition (like moving slowly, time...)
-        //IMPORTANT DO THIS FIRST - Andre
-        
         this.bulletList.forEach(element => {
             element.update(deltaTime);
         });
