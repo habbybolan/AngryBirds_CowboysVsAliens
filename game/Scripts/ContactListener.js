@@ -16,6 +16,7 @@ export default class ContactListener extends Physics.Listener {
       }
     
     EndContact(contact) {
-        // TODO: End contact logic?
+        
+        // TODO if needed?
     }
 }
