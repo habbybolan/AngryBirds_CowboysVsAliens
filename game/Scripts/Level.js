@@ -17,11 +17,7 @@ export default class Level {
         this.data = {}
         this.data.collidableList = []  // Collidable GameObjects
         this.data.targetList = []      // target GameObjects
-
-        this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
-
-        //this.cannon.OnShoot();
-
+        this.data.projectilesList = [] //porjectile data
         
     }
 
@@ -32,6 +28,7 @@ export default class Level {
     async LoadLevel(filename) {
         let collidablesData = [];   // Level collidables data from server
         let targetsData = [];       // level targets data from server
+        let projectilesData = [];
 
         let data = JSON.stringify({type: "level", name: filename})
         let resLevel = await $.post('/api/load', { data })
@@ -44,6 +41,12 @@ export default class Level {
         }
         this.addGameObjectsFromData(collidablesData)
         this.addGameObjectsFromData(targetsData)
+        this.addGameObjectsFromData(projectilesData)
+
+        
+        this.cannon = new Cannon(this.world, this.$view, this.data.projectilesData)
+        
+
     }
 
     
@@ -80,15 +83,23 @@ export default class Level {
             newGameObject.initiateFromRawData(gameObjectData)
             if (type == enitityTypesEnum.COLLIDABLE) {
                 this.data.collidableList.push(newGameObject)
-            } else {
+            } 
+            else if(type == enitityTypesEnum.TARGET)
+            {
                 this.data.targetList.push(newGameObject)
+            }
+            else {
+                this.data.projectileList.push(newGameObject)
             }
         }
     }
 
     update(deltaTime) {
 
-        this.cannon.update(deltaTime);
+        if (this.cannon != null)
+        {
+            this.cannon.update(deltaTime);
+        }
         // check for all collisions and proceess them
         this.CheckCollisions()
     }
@@ -102,7 +113,11 @@ export default class Level {
         for (let target of this.data.targetList) {
             target.render(deltaTime);
         }
-        this.cannon.render(deltaTime)
+        if (this.cannon != null)
+        {
+            this.cannon.render(deltaTime)
+        }
+        
     }
 
     /**

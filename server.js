@@ -153,6 +153,7 @@ class Server {
                 
                 this.combineLevelObjectWithPrefabs(result.payload.entities.targets)
                 this.combineLevelObjectWithPrefabs(result.payload.entities.collidables)
+                this.combineLevelObjectWithPrefabs(result.payload.entities.projectiles)
 
             // convert resititution to bounce
             } else {

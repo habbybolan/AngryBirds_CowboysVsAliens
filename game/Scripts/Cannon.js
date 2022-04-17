@@ -12,18 +12,46 @@ export default class Cannon {
         this.world = world;
         this.$worldView = $worldView
         this.numProjectiles = numProjectiles
-        this.angle = 45;
         this.id = 0
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
 
         this.bulletList = []
 
-        this.maxBullets = 3;
-
         this.timer = 0;
         
         $('#game-area').on("click", this.OnShoot)
+
+        //Keyboard Listener
+        document.addEventListener('keypress', (event) => {
+            var name = event.key;
+            
+
+            //angle up
+            if(name === 'w')
+            {
+                
+            }
+
+            //angle down
+            if(name === 's')
+            {
+                
+            }
+
+            //power up
+            if(name === 'q')
+            {
+                
+            }
+
+            //power down
+            if(name === 'e')
+            {
+                
+            }
+            
+          }, false);
 
     }
 
@@ -54,7 +82,7 @@ export default class Cannon {
 
         //bullet life timer
         this.timer += deltaTime
-        console.log(this.timer)
+        //console.log(this.timer)
 
         //remove bullet time
         if(this.timer > 10000)
@@ -65,13 +93,16 @@ export default class Cannon {
             //reset timer
             this.timer = 0;
         }        
+
+
+       
     }
 
 
     OnShoot = () => {
 
         //will only create and shoot a new bullet if there is no active bullet and the player has ammo
-        if(this.maxBullets > 0 && this.bulletList.length == 0)
+        if(this.numProjectiles > 0 && this.bulletList.length == 0)
         {
             //cannon pos x and y
             let positionX = 30
@@ -95,7 +126,7 @@ export default class Cannon {
             bullet.ShootBullet(new Physics.Vec2(30000, -8000), cannonPos)
 
             //remove 1 ammo
-            this.maxBullets--
+            this.numProjectiles--
 
             //reset timer to zero
             this.timer = 0;
