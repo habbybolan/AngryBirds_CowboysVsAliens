@@ -3,6 +3,7 @@
 
 import Cannon from "./Cannon.js";
 import GameObject from "./GameObject.js"
+import Physics from "../../common/libs/Physics.js";
 import { enitityTypesEnum } from "./GameObject.js"
 
 export default class Level {
@@ -18,6 +19,14 @@ export default class Level {
         this.data.collidableList = []  // Collidable GameObjects
         this.data.targetList = []      // target GameObjects
         this.data.projectilesList = [] //porjectile data
+        
+        var contactListener = new Physics.Listener();
+        this.world.SetContactListener(contactListener)
+
+        this.contact = contactListener
+
+
+        console.log(contactListener)
         
     }
 
@@ -101,7 +110,7 @@ export default class Level {
             this.cannon.update(deltaTime);
         }
         // check for all collisions and proceess them
-        this.CheckCollisions()
+        //this.CheckCollisions()
     }
 
     render(deltaTime) {
@@ -132,5 +141,15 @@ export default class Level {
         //      This collision logic and dealing with it is probably going to be your bigget task
 
         //this.listener = new Physics.Listener;
+
+        this.contactListener.BeginContact( (event) => {
+
+            var fixA = event.GetFixtureA().GetBody().GetUserData();
+            var fixB = event.GetFixtureB().GetBody().GetUserData();
+
+            console.log(event)
+	
+
+        })
     }
 }

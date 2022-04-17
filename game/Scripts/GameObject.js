@@ -91,12 +91,15 @@ export default class GameObject {
             // TODO: Nick or Andre: 
             //      Triangle creation
         }     
-    
+        
+
         // Add to world
         let gameObjectBody = this.world.CreateBody(bodyDef)
         gameObjectBody.CreateFixture(fixtureDef)
-
+        
         this._body = gameObjectBody
+
+        
     }
 
     /**
