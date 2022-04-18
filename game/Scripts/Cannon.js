@@ -93,6 +93,15 @@ export default class Cannon {
         {
             //removes bullet from bulletList
             this.bulletList.pop()
+            if(this.bullet != null)
+            {
+                console.log("gone?")
+                delete this.bullet
+                if(this.bullet = null)
+                {
+                    console.log("gone")
+                }
+            }
             $(`#${this.id}`).remove()
             //reset timer
             this.timer = 0;
