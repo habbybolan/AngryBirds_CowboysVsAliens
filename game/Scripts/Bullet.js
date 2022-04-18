@@ -12,7 +12,9 @@ export default class Bullet {
         this.$worldView = $worldView
 
         this.id = id
+        this.bulletObject;
 
+        this.cannonData;
         
     }
 
@@ -23,7 +25,7 @@ export default class Bullet {
      */
     CreateBulletObject(position, mass) {
         
-        let cannonData = {
+        this.cannonData = {
             shape: "circle",
             id: this.id,
             type: "bullet",
@@ -39,20 +41,29 @@ export default class Bullet {
         //make bullet a gameobject
         this.bulletObject = new GameObject(this.world, this.$worldView)
         //create bullet
-        this.bulletObject.CreateGameObject(cannonData, false)
+        this.bulletObject.CreateGameObject(this.cannonData, false)
         
     }
 
+    //delete bullet physics body
+    destroyBody()
+    {
+        this.world.DestroyBody(this.bulletObject._body)
+    }
+    
     update(deltaTime)
     {
     }
     
    
-    ShootBullet(force, position) {
-        let p = Point.pixelsToMeters(position.x, position.y)
+    ShootBullet(force) {
+        let p = Point.pixelsToMeters(this.cannonData.x, this.cannonData.y)
         let newP = new Physics.Vec2(p.left, p.top)
         
+        
+        console.log(newP)
         this.bulletObject.body.ApplyForce(force, newP);
+        
     }
 
     render(deltaTime) {

@@ -18,7 +18,7 @@ export default class GameObject {
 
         // TODO: Nick or Andre 
         //      Based on Mass?
-        this.health = 10
+        this.health = 2
     }
 
      /**
@@ -127,10 +127,15 @@ export default class GameObject {
         // TODO: Andre - Do hit logic, using contactObj if not undefined
         for (let i in this.contactObjs) { 
             console.log(`do logic on ${this.data.id} that collided with ${this.contactObjs[i].data.id}`)
-            
-            $(`#${this.data.id}`).remove()
-           
-            // collision logic and destroy if needed here
+
+            //minus health on contact
+            this.health--
+            console.log(this.health)
+            if (this.health <= 0){
+                console.log(this.contactObjs[i])
+                $(`#${this.data.id}`).remove()
+                this.world.DestroyBody(this._body)
+            }
         }
 
         // reset collided objects list once collision dealth with

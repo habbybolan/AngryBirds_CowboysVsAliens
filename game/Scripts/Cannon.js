@@ -20,6 +20,8 @@ export default class Cannon {
 
         this.timer = 0;
 
+        
+
         //Power and angle
         this.power = 1
         this.angle = 0
@@ -35,14 +37,14 @@ export default class Cannon {
             if(name === 's' && this.angle != 10)
             {
                 this.angle += 1
-                console.log(this.angle)
+                console.log(this.angle * (180 / Math.PI))
             }
 
             //angle up
             if(name === 'w' && this.angle != -10)
             {
                 this.angle -= 1
-                console.log(this.angle)
+                console.log(this.angle * (180 / Math.PI))
             }
 
             //power up
@@ -89,20 +91,12 @@ export default class Cannon {
         //console.log(this.timer)
 
         //remove bullet time
-        if(this.timer > 10000)
+        if(this.timer > 10000 && this.bulletList.length != 0)
         {
-            //removes bullet from bulletList
-            this.bulletList.pop()
-            if(this.bullet != null)
-            {
-                console.log("gone?")
-                delete this.bullet
-                if(this.bullet = null)
-                {
-                    console.log("gone")
-                }
-            }
+            //delete bullet
             $(`#${this.id}`).remove()
+            //removes bullet from bulletList and calls function to remove physics body
+            this.bulletList.pop().destroyBody()
             //reset timer
             this.timer = 0;
         }        
@@ -136,13 +130,18 @@ export default class Cannon {
             console.log(this.bulletList)
     
             //apply impulse to bullet
-            bullet.ShootBullet(new Physics.Vec2(this.power * 10000, this.angle * 10000), cannonPos)
+            let XPower = Math.cos(this.angle) * this.power * 1000
+            let YPower = Math.sin(this.angle) * this.power * 1000
+
+            bullet.ShootBullet(new Physics.Vec2(XPower, YPower))
 
             //remove 1 ammo
             this.numProjectiles--
 
             //reset timer to zero
             this.timer = 0;
+
+            
         }
 
         
