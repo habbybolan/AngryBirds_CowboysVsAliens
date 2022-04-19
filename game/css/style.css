@@ -84,3 +84,10 @@ html {
     width: 150px;
     height: 50px;
 }
+
+.gun-image {
+    position:absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform-origin: bottom left
+}
