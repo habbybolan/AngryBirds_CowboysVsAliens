@@ -12,40 +12,33 @@ export default class Cannon {
         this.world = world;
         this.$worldView = $worldView
         this.numProjectiles = numProjectiles //Change to "numProjectiles" when numPorjectiles actually gets grabbed from server/level data
-        console.log(numProjectiles)
         this.id = 0
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces
 
         this.bulletList = []
 
-        this.timer = 0;
-
-        
-
         //Power and angle
         this.power = 1
-        this.angle = 0
+        this.angle = 45     // Angle in degrees
         
         $('#game-area').on("click", this.OnShoot)
 
-        //Keyboard Listener
-        document.addEventListener('keypress', (event) => {
+        $(document).on('keypress', event => {
             var name = event.key;
             
-
             //angle down
             if(name === 's' && this.angle != 10)
             {
-                this.angle += 1
-                console.log(this.angle * (180 / Math.PI))
+                this.angle -= 10
+                console.log(this.angle)
             }
 
             //angle up
             if(name === 'w' && this.angle != -10)
             {
-                this.angle -= 1
-                console.log(this.angle * (180 / Math.PI))
+                this.angle += 10
+                console.log(this.angle)
             }
 
             //power up
@@ -61,9 +54,7 @@ export default class Cannon {
                 this.power -= 1
                 console.log(this.power)
             }
-            
-          }, false);
-
+        })
     }
 
         
@@ -73,44 +64,30 @@ export default class Cannon {
         //      Create graphic for the level of power to use (or functionality to choose)
         //      Stop cannon movement if no projectiles left 
         
-        this.bulletList.forEach(element => {
-            element.render(deltaTime);
+        this.bulletList.forEach(bullet => {
+            bullet.render(deltaTime);
         });
-
-        
-        
     }
 
     update(deltaTime) {
-        this.bulletList.forEach(element => {
-            element.update(deltaTime);
+        this.bulletList.forEach(bullet => {
+            bullet.update(deltaTime);
         });
 
-
-        //bullet life timer
-        this.timer += deltaTime
-        //console.log(this.timer)
-
-        //remove bullet time
-        if(this.timer > 10000 && this.bulletList.length != 0)
-        {
+        let lastBullet = this.bulletList[this.bulletList.length - 1]
+        if (this.bulletList.length != 0 && lastBullet.timer > 10000) {
             //delete bullet
-            $(`#${this.id}`).remove()
+            console.log(lastBullet.id)
+            $(`#${lastBullet.id}`).remove()
             //removes bullet from bulletList and calls function to remove physics body
             this.bulletList.pop().destroyBody()
-            //reset timer
-            this.timer = 0;
-        }        
-
-
-       
+        }
     }
-
 
     OnShoot = () => {
 
-        //will only create and shoot a new bullet if there is no active bullet and the player has ammo
-        if(this.numProjectiles > 0 && this.bulletList.length == 0)
+        // Only shoot if there are remaining projectiles and the last bullet shot has collided
+        if(this.numProjectiles > 0 && (this.bulletList.length == 0 || this.bulletList[this.bulletList.length - 1].getIsCollided()))
         {
             //cannon pos x and y
             let positionX = 30
@@ -120,7 +97,7 @@ export default class Cannon {
             const cannonPos = new Physics.Vec2(positionX, positionY)
     
             //create new bullet
-            let bullet = new Bullet(this.world, this.$worldView, this.id)
+            let bullet = new Bullet(this.world, this.$worldView, this.id++)
             
             //create bullet at cannons position
             bullet.CreateBulletObject(cannonPos, 10)
@@ -138,14 +115,6 @@ export default class Cannon {
 
             //remove 1 ammo
             this.numProjectiles--
-
-            //reset timer to zero
-            this.timer = 0;
-
-            
-        }
-
-        
-        
+        }  
     }
 }

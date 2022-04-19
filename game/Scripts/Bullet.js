@@ -11,11 +11,11 @@ export default class Bullet {
         this.world = world
         this.$worldView = $worldView
 
-        this.id = id
+        this.id = `bullet-${id}`
         this.bulletObject;
 
         this.cannonData;
-        
+        this.timer = 0;
     }
 
     /**
@@ -27,7 +27,7 @@ export default class Bullet {
         
         this.cannonData = {
             shape: "circle",
-            id: this.id,
+            id: `${this.id}`,
             type: "bullet",
             width: 30,
             height: 30,
@@ -48,11 +48,12 @@ export default class Bullet {
     //delete bullet physics body
     destroyBody()
     {
-        this.world.DestroyBody(this.bulletObject._body)
+        this.world.DestroyBody(this.bulletObject.body)
     }
     
     update(deltaTime)
     {
+        this.timer += deltaTime
     }
     
    
@@ -63,7 +64,6 @@ export default class Bullet {
         
         console.log(newP)
         this.bulletObject.body.ApplyForce(force, newP);
-        
     }
 
     render(deltaTime) {
@@ -73,5 +73,8 @@ export default class Bullet {
         }
     }
 
-    
+    getIsCollided()
+    {
+        return this.bulletObject.IsCollided
+    }
 }

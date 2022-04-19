@@ -19,6 +19,8 @@ export default class GameObject {
         // TODO: Nick or Andre 
         //      Based on Mass?
         this.health = 2
+
+        this.IsCollided = false;
     }
 
      /**
@@ -152,6 +154,8 @@ export default class GameObject {
         // Set contact
         obj1.contactObjs.push(obj2)
         obj2.contactObjs.push(obj1)
+        obj1.IsCollided = true;
+        obj2.IsCollided = true;
     }
 
     get id() { return this.data.id }
