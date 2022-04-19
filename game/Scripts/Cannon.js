@@ -19,11 +19,15 @@ export default class Cannon {
         this.bulletList = []
 
         //Power and angle
-        this.power = 1
+        this.power = 1.5
         this.angle = 0     // Angle in degrees
+        
+        this.setupKeyboardHandlers()
 
-        
-        
+        this.createGun()
+    }
+
+    setupKeyboardHandlers() {
         $('#game-area').on("click", this.OnShoot)
 
         $(document).on('keypress', event => {
@@ -44,20 +48,22 @@ export default class Cannon {
             }
 
             //power up
-            if(name === 'q' && this.power != 10)
+            if(name === 'q' && this.power <= 2)
             {
-                this.power += 1
+                this.power += .1
                 console.log(this.power)
             }
 
             //power down
-            if(name === 'e' && this.power != -10)
+            if(name === 'e' && this.power >= 1)
             {
-                this.power -= 1
+                this.power -= .1
                 console.log(this.power)
             }
         })
+    }
 
+    createGun() {
         this.gunHeight = 60
         this.gunWidth = 150
         this.$view = $(`<div id="pistol" 
