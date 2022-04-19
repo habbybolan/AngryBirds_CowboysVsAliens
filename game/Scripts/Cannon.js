@@ -90,10 +90,7 @@ export default class Cannon {
 
         let firstbullet = this.bulletList[0]
         if (this.bulletList.length != 0 && firstbullet.timer > 10000) {
-            //delete bullet
-            $(`#${firstbullet.id}`).remove()
-            //removes bullet from bulletList and calls function to remove physics body
-            this.bulletList.shift().destroyBody()
+            this.bulletList.shift().destroyBullet()
         }
     }
 

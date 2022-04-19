@@ -47,14 +47,15 @@ export default class Bullet {
         
     }
 
-    //delete bullet physics body
-    destroyBody()
-    {
+    // Delete a bullet from the game
+    destroyBullet() {
+        // remove from HTML
+        $(`#${this.id}`).remove()
+        // remove physics body
         this.world.DestroyBody(this.bulletObject.body)
     }
     
-    update(deltaTime)
-    {
+    update(deltaTime) {
         this.timer += deltaTime
     }
     
