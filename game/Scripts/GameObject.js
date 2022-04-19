@@ -20,7 +20,7 @@ export default class GameObject {
         //      Based on Mass?
         this.health = 2
 
-        this.IsCollided = false;
+        this.IsCollided = false;    // If object has collided with anything, including game objects or boundaries
     }
 
      /**
@@ -156,6 +156,11 @@ export default class GameObject {
         obj2.contactObjs.push(obj1)
         obj1.IsCollided = true;
         obj2.IsCollided = true;
+    }
+
+    // Called when objects connects with a boundary
+    contactWithBoundary() {
+        this.IsCollided = true;
     }
 
     get id() { return this.data.id }

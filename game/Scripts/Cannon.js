@@ -74,13 +74,12 @@ export default class Cannon {
             bullet.update(deltaTime);
         });
 
-        let lastBullet = this.bulletList[this.bulletList.length - 1]
-        if (this.bulletList.length != 0 && lastBullet.timer > 10000) {
+        let firstbullet = this.bulletList[0]
+        if (this.bulletList.length != 0 && firstbullet.timer > 10000) {
             //delete bullet
-            console.log(lastBullet.id)
-            $(`#${lastBullet.id}`).remove()
+            $(`#${firstbullet.id}`).remove()
             //removes bullet from bulletList and calls function to remove physics body
-            this.bulletList.pop().destroyBody()
+            this.bulletList.shift().destroyBody()
         }
     }
 
@@ -108,8 +107,8 @@ export default class Cannon {
             console.log(this.bulletList)
     
             //apply impulse to bullet
-            let XPower = Math.cos(this.angle) * this.power * 1000
-            let YPower = Math.sin(this.angle) * this.power * 1000
+            let XPower = Math.cos(this.angle * Physics.DEG_2_RAD) * this.power * 100000
+            let YPower = Math.sin(this.angle * Physics.DEG_2_RAD) * this.power * 100000
 
             bullet.ShootBullet(new Physics.Vec2(XPower, YPower))
 
