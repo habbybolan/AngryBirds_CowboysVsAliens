@@ -11,7 +11,8 @@ export default class Cannon {
     constructor(world, $worldView, numProjectiles) {
         this.world = world;
         this.$worldView = $worldView
-        this.numProjectiles = 10 //Change to "numProjectiles" when numPorjectiles actually gets grabbed from server/level data
+        this.numProjectiles = numProjectiles //Change to "numProjectiles" when numPorjectiles actually gets grabbed from server/level data
+        console.log(numProjectiles)
         this.id = 0
 
         this.direction = Physics.Vec2(1, 1) // Direction cannon faces

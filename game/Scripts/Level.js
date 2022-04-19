@@ -18,7 +18,7 @@ export default class Level {
         this.data.collidableList = []  // Collidable GameObjects
         this.data.targetList = []      // target GameObjects
 
-        this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
+        //this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
 
         //this.cannon.OnShoot();
 
@@ -36,6 +36,7 @@ export default class Level {
         let data = JSON.stringify({type: "level", name: filename})
         let resLevel = await $.post('/api/load', { data })
         resLevel = JSON.parse(resLevel);
+        console.log(resLevel)
         
         if (!resLevel.error) {
             //this.level = new Level(resLevel.payload);
@@ -44,6 +45,8 @@ export default class Level {
         }
         this.addGameObjectsFromData(collidablesData)
         this.addGameObjectsFromData(targetsData)
+
+        this.cannon = new Cannon(this.world, this.$view, resLevel.payload.projectiles)
     }
 
     
@@ -88,7 +91,11 @@ export default class Level {
 
     update(deltaTime) {
 
-        this.cannon.update(deltaTime);
+        if(this.cannon != null)
+        {
+            this.cannon.update(deltaTime);
+        }
+       
         
         // update collidables
         for (let collidable of this.data.collidableList) {
@@ -109,6 +116,11 @@ export default class Level {
         for (let target of this.data.targetList) {
             target.render(deltaTime);
         }
-        this.cannon.render(deltaTime)
+
+        if(this.cannon != null)
+        {
+            this.cannon.render(deltaTime)
+        }
+        
     }
 }
