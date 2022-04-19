@@ -20,7 +20,7 @@ export default class Cannon {
 
         //Power and angle
         this.power = 1
-        this.angle = 45     // Angle in degrees
+        this.angle = -45     // Angle in degrees
         
         $('#game-area').on("click", this.OnShoot)
 
@@ -30,14 +30,14 @@ export default class Cannon {
             //angle down
             if(name === 's' && this.angle != 10)
             {
-                this.angle -= 10
+                this.angle += 10
                 console.log(this.angle)
             }
 
             //angle up
             if(name === 'w' && this.angle != -10)
             {
-                this.angle += 10
+                this.angle -= 10
                 console.log(this.angle)
             }
 
@@ -107,8 +107,8 @@ export default class Cannon {
             console.log(this.bulletList)
     
             //apply impulse to bullet
-            let XPower = Math.cos(this.angle * Physics.DEG_2_RAD) * this.power * 100000
-            let YPower = Math.sin(this.angle * Physics.DEG_2_RAD) * this.power * 100000
+            let XPower = Math.cos(this.angle * Physics.DEG_2_RAD) * this.power * 20000
+            let YPower = Math.sin(this.angle * Physics.DEG_2_RAD) * this.power * 20000
 
             bullet.ShootBullet(new Physics.Vec2(XPower, YPower))
 
