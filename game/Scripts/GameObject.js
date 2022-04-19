@@ -132,9 +132,7 @@ export default class GameObject {
 
             //minus health on contact
             this.health--
-            console.log(this.health)
             if (this.health <= 0){
-                console.log(this.contactObjs[i])
                 $(`#${this.data.id}`).remove()
                 this.world.DestroyBody(this._body)
             }
