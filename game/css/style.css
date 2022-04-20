@@ -31,7 +31,7 @@ html {
 .game-grid-wrapper {
     display: grid;
     grid-template-columns: 1fr 1280px 1fr;
-    grid-template-rows: 1fr 720px;
+    grid-template-rows: 1fr 720px 1fr;
 }
 
     .grid-column-left {
@@ -57,6 +57,11 @@ html {
     .grid-row-main {
         grid-row-start: 2;
         grid-row-end: 3;
+    }
+
+    .grid-row-bottom {
+        grid-row-start: 3;
+        grid-row-end: 4;
     }
 
     .grid-column-full {
@@ -90,4 +95,33 @@ html {
     background-repeat: no-repeat;
     background-size: cover;
     transform-origin: bottom left
+}
+
+#left-main-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#projectile-number-container {
+    flex-flow: row wrap;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    max-width: 150px;
+}
+
+.bullet-filled {
+    background-image: url(/images/cannonball.png);
+}
+
+.bullet-empty {
+    background-image: url(/images/cannonball_empty.png);
+}
+
+.projectile-number-display {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
 }

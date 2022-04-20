@@ -79,22 +79,15 @@ export default class Cannon {
     }
 
     addCannonUI() {
-        this.$projectilesView = $(`<div id="projectiles" 
-                                    class="gun-image"
-                                    style="height: 60px; 
-                                        width: 150px;" >
-                                    ${this.numProjectiles}
+        for (let i = 0; i < this.numProjectiles; i++) {
+            let $projectileUI =  $(`<div id="projectile-ui-${i}" 
+                                    class="projectile-number-display bullet-filled">
                                     </div>`)
-
-        this.$worldView.append(this.$projectilesView)
+            $("#projectile-number-container").append($projectileUI)
+        }
     }
         
     render(deltaTime) {
-        // TODO: Nick
-        //      Render movement on arrow keys held down / follow mouse to have (Gun?) visually follow
-        //      Create graphic for the level of power to use (or functionality to choose)
-        //      Stop cannon movement if no projectiles left 
-
         this.$gunview.css('transform', ``)
         this.$gunview.css('transform', `rotate(${this.angle}deg)`)
         
@@ -152,7 +145,10 @@ export default class Cannon {
             //remove 1 ammo
             this.numProjectiles--
 
-            this.$projectilesView.text(this.numProjectiles)
+            // TODO: Update list of projectiles displayed
+            let $projectileViewToAlter = $("#projectile-number-container").children().eq(this.numProjectiles)
+            $projectileViewToAlter.removeClass("bullet-filled")
+            $projectileViewToAlter.addClass("bullet-empty")
         }  
     }
 }
