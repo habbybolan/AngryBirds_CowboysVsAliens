@@ -18,6 +18,7 @@ export default class Level {
         this.data.collidableList = []  // Collidable GameObjects
         this.data.targetList = []      // target GameObjects
         
+        this.isLoaded = false
 
         //this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
 
@@ -48,6 +49,8 @@ export default class Level {
         this.addGameObjectsFromData(targetsData)
 
         this.cannon = new Cannon(this.world, this.$view, resLevel.payload.projectiles)
+
+        this.isLoaded = true
     }
 
     
@@ -102,7 +105,6 @@ export default class Level {
         return true;
     }
 
-
     allTargetsDestroyed()
     {
         for(let i = 0; i < this.data.targetList.length; i++)
@@ -110,7 +112,9 @@ export default class Level {
             if(!this.data.targetList[i].isDeleted)
                 return false
         }
-        return true
+        //check if the level has loaded first
+        if(this.isLoaded == true)
+            return true
     }
 
     outOfPorjectiles()
@@ -122,8 +126,7 @@ export default class Level {
                 return true
             }
         }
-        return false
-        
+        return false    
     }
 
     /**

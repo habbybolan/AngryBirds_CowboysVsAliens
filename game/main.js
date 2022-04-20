@@ -13,6 +13,8 @@ class Game {
         // Initialize the app behind a splash screen
         this.initSplash();
         this.requestIDAnimFrame = 0;
+
+        
         
     }
     

@@ -37,6 +37,7 @@ export default class World {
 
         $("#back-to-menu-button").on('click', event => this.gotoSplashScreen())
 
+
         // TODL Future - add listeners for physical collisions
     }
 
@@ -118,6 +119,9 @@ export default class World {
     
     update(deltaTime) {
 
+        let startGameTimer = 0
+
+        startGameTimer += deltaTime
         // run a single step of the simulation
         this.model.Step(1/60, 10, 10)
 
@@ -125,7 +129,7 @@ export default class World {
         this.model.ClearForces()
 
         this.level.update(deltaTime)
-
+        
         this.CurrGameState();
     }
 
