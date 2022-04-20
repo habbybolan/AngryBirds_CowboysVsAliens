@@ -125,3 +125,14 @@ html {
     height: 20px;
     width: 20px;
 }
+
+#game-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#power-meter {
+    height: 40px;
+    width: 250px;
+}

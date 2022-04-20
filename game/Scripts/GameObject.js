@@ -128,7 +128,7 @@ export default class GameObject {
        
         // TODO: Andre - Do hit logic, using contactObj if not undefined
         for (let i in this.contactObjs) { 
-            console.log(`do logic on ${this.data.id} that collided with ${this.contactObjs[i].data.id}`)
+            //console.log(`do logic on ${this.data.id} that collided with ${this.contactObjs[i].data.id}`)
 
             //minus health on contact
             this.health--

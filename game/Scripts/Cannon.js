@@ -19,7 +19,9 @@ export default class Cannon {
 
         this.bulletList = []                        // List of currently spawned projectiles
 
-        
+        this.maxPower = 2
+        this.minPower = 1
+        this.powerChangeAmount = .1
         this.power = 1.5    // Power of shot
         this.angle = 0      // Angle of shot in degrees
         
@@ -51,19 +53,28 @@ export default class Cannon {
             }
 
             //power up
-            if(name === 'q' && this.power <= 2)
+            if(name === 'q' && this.power < this.maxPower)
             {
-                this.power += .1
-                console.log(this.power)
+                this.power += this.powerChangeAmount
+                this.updatePowerBar()
+                //console.log(this.power)
             }
 
             //power down
-            if(name === 'e' && this.power >= 1)
+            if(name === 'e' && this.power > this.minPower)
             {
-                this.power -= .1
-                console.log(this.power)
+                this.power -= this.powerChangeAmount
+                this.updatePowerBar()
+                //console.log(this.power)
             }
         })
+    }
+
+    updatePowerBar() {
+        console.log(`${this.power - this.minPower} / ${this.maxPower - this.minPower}`)
+        console.log((this.power - this.minPower) / (this.maxPower - this.minPower))
+        //console.log(this.maxPower - this.minPower)
+        $("#power-meter").attr("value", 100 * (this.power - this.minPower) / (this.maxPower - this.minPower))
     }
 
     createGun() {
