@@ -83,8 +83,8 @@ export default class Level {
         {
             for(let i = 0; i < this.cannon.bulletList.length; i++)
             {
-                if(this.cannon.bulletList[i]._body.GetLinearVelocity().Length() > 0)
-                    return false;
+                if(this.cannon.bulletList[i].body.GetLinearVelocity().Length() > 0)
+                    return false
             }
         }
         
@@ -100,6 +100,15 @@ export default class Level {
                 return false
         }
         return true
+    }
+
+    outOfPorjectiles()
+    {
+        if(this.cannon.numProjectiles <= 0)
+        {
+            return true
+        }
+        return false
     }
 
     /**

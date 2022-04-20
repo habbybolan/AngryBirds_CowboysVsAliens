@@ -142,7 +142,7 @@ export default class GameObject {
                 console.log(this._body.GetLinearVelocity())
                 $(`#${this.data.id}`).remove()
                 this.world.DestroyBody(this._body)
-                this.isDeleted = false;
+                this.isDeleted = true;
             }
         }
 
