@@ -90,12 +90,14 @@ export default class Cannon {
     }
 
     addCannonUI() {
+        $("#projectile-number-container").empty()
         for (let i = 0; i < this.numProjectiles; i++) {
             let $projectileUI =  $(`<div id="projectile-ui-${i}" 
                                     class="projectile-number-display bullet-filled">
                                     </div>`)
             $("#projectile-number-container").append($projectileUI)
         }
+        this.updatePowerBar()
     }
         
     render(deltaTime) {
