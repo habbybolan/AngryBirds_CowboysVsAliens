@@ -130,13 +130,19 @@ export default class GameObject {
         for (let i in this.contactObjs) { 
             console.log(`do logic on ${this.data.id} that collided with ${this.contactObjs[i].data.id}`)
 
-            //minus health on contact
-            this.health--
-            console.log(this.health)
+            console.log(this.contactObjs[i]._body.GetLinearVelocity().Length())
+
+            //minus health on contact as long as the collidable is going fast enough
+            if(this._body.GetLinearVelocity().Length() >= 25 || this.contactObjs[i]._body.GetLinearVelocity().Length() >= 25)
+                this.health--
+            //console.log(this.health)
+            console.log()
             if (this.health <= 0){
                 console.log(this.contactObjs[i])
+                console.log(this._body.GetLinearVelocity())
                 $(`#${this.data.id}`).remove()
                 this.world.DestroyBody(this._body)
+                this.isDeleted = false;
             }
         }
 

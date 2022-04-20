@@ -77,6 +77,12 @@ class Game {
         //            Send to methods gotoLoseScreen() or gotoWinScreen() based on state of game
         //            Stop game from simulating/rendering if won/lost
 
+        if(currgameState == World.GAME_STATE.WON)
+        {
+            this.gotoWinScreen()
+            console.log("WINED")
+        }
+
         // only calculate if time passed between calculations
         if (elapsed) {
             this.update(elapsed);

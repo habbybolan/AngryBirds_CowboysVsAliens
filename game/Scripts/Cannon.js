@@ -88,6 +88,7 @@ export default class Cannon {
         // Only shoot if there are remaining projectiles and the last bullet shot has collided
         if(this.numProjectiles > 0 && (this.bulletList.length == 0 || this.bulletList[this.bulletList.length - 1].getIsCollided()))
         {
+            
             //cannon pos x and y
             let positionX = 30
             let positionY = Point.HALF.HEIGHT + 200
@@ -112,8 +113,11 @@ export default class Cannon {
 
             bullet.ShootBullet(new Physics.Vec2(XPower, YPower))
 
+            
+
             //remove 1 ammo
             this.numProjectiles--
+            
         }  
     }
 }

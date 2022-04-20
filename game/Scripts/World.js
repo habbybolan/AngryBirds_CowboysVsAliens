@@ -96,6 +96,18 @@ export default class World {
     CurrGameState() {
         // TODO: Andre
         //          Check the level for the current game state of being won/lost/running
+
+        //in theroy: 
+        //if projectiles < 0 lose
+        //
+        
+
+        if(this.level.allTargetsDestroyed() == true)
+        {   
+            if(this.level.IsAllObjectsStopped())
+                return World.GAME_STATE.WON;
+        }
+       
     }
     
     update(deltaTime) {
@@ -107,6 +119,8 @@ export default class World {
         this.model.ClearForces()
 
         this.level.update(deltaTime)
+
+        this.CurrGameState();
     }
 
     render(deltaTime) {

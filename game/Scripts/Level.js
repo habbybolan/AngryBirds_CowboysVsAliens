@@ -69,7 +69,37 @@ export default class Level {
     IsAllObjectsStopped() {
         // TODO: Andre
         //      Check if all game objects are not moving
+        for(let i = 0; i < this.data.collidableList.length; i++)
+        {
+
+        }
+
+        for(let i = 0; i < this.data.targetList.length; i++)
+        {
+
+        }
+
+        if(this.cannon != null)
+        {
+            for(let i = 0; i < this.cannon.bulletList.length; i++)
+            {
+                if(this.cannon.bulletList[i]._body.GetLinearVelocity().Length() > 0)
+                    return false;
+            }
+        }
+        
         return true;
+    }
+
+
+    allTargetsDestroyed()
+    {
+        for(let i = 0; i < this.data.targetList.length; i++)
+        {
+            if(!this.data.targetList[i].isDeleted)
+                return false
+        }
+        return true
     }
 
     /**
