@@ -17,6 +17,7 @@ export default class Level {
         this.data = {}
         this.data.collidableList = []  // Collidable GameObjects
         this.data.targetList = []      // target GameObjects
+        
 
         //this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
 
@@ -56,9 +57,16 @@ export default class Level {
      * @returns {Float}   Calculated final score
      */
     CalcScore() {
-        // TODO: Andre
-        //      get the score based on number of projectiles left, and perhaps the number of gameObjects that were destroyed
-        //          You would have to keep track of number of destoyed and perhaps their mass to get a final score, up to you...
+        if(this.cannon != null)
+        {   
+            let score = 0;
+            for(let i = 0; i < this.cannon.bulletList.length; i++)
+            {
+                score += 100;
+            }
+
+            return score
+        }
     }
 
     /**
@@ -67,24 +75,27 @@ export default class Level {
      * @returns {Boolean} True if all objects stopped
      */
     IsAllObjectsStopped() {
-        // TODO: Andre
         //      Check if all game objects are not moving
         for(let i = 0; i < this.data.collidableList.length; i++)
         {
-
+            if(this.data.collidableList[i].body.GetLinearVelocity().Length() >= 0.3)
+                return false
         }
 
         for(let i = 0; i < this.data.targetList.length; i++)
         {
-
+            if(this.data.targetList[i].body.GetLinearVelocity().Length() >= 0.3)
+                return false
         }
 
         if(this.cannon != null)
         {
             for(let i = 0; i < this.cannon.bulletList.length; i++)
             {
-                if(this.cannon.bulletList[i].body.GetLinearVelocity().Length() > 0)
+                if(this.cannon.bulletList[i].bulletObject.body.GetLinearVelocity().Length() >= 0.3)
+                {
                     return false
+                }
             }
         }
         
@@ -104,11 +115,15 @@ export default class Level {
 
     outOfPorjectiles()
     {
-        if(this.cannon.numProjectiles <= 0)
+        if(this.cannon != null)
         {
-            return true
+            if(this.cannon.numProjectiles <= 0)
+            {
+                return true
+            }
         }
         return false
+        
     }
 
     /**

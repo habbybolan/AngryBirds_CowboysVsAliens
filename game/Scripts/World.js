@@ -98,16 +98,12 @@ export default class World {
         //Check the level for the current game state of being won/lost/running
         if(this.level.allTargetsDestroyed() == true)
         {   
-            if(this.level.IsAllObjectsStopped())
-            {
-                return World.GAME_STATE.WON;
-            }
-
+            return World.GAME_STATE.WON;
         }
 
         if(this.level.outOfPorjectiles() == true)
         {
-            if(this.level.IsAllObjectsStopped() && this.level.allTargetsDestroyed() == false)
+            if(this.level.IsAllObjectsStopped())
             {
                 return World.GAME_STATE.LOST
             }

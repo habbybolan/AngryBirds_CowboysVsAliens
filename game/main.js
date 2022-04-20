@@ -72,15 +72,21 @@ class Game {
         this.prevTimestamp = timestamp
 
         let currgameState = this.world.CurrGameState()
-        // TODO: Andre
-        //      Check Curr state if game
-        //            Send to methods gotoLoseScreen() or gotoWinScreen() based on state of game
-        //            Stop game from simulating/rendering if won/lost
 
+        //go to win screen
         if(currgameState == World.GAME_STATE.WON)
         {
             this.gotoWinScreen()
             console.log("WINED")
+            this.world.level.CalcScore()
+        }
+
+        //go to lose screen
+        if(currgameState == World.GAME_STATE.LOST)
+        {
+            this.gotoLoseScreen()
+            console.log("LOST")
+            this.world.level.CalcScore()
         }
 
         // only calculate if time passed between calculations
