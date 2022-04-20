@@ -31,7 +31,7 @@ html {
 .game-grid-wrapper {
     display: grid;
     grid-template-columns: 1fr 1280px 1fr;
-    grid-template-rows: 1fr 720px 1fr;
+    grid-template-rows: 1fr 720px 3fr;
 }
 
     .grid-column-left {
@@ -99,8 +99,9 @@ html {
 
 #left-main-bar {
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
-    justify-content: center;
+    justify-content: bottom;
 }
 
 #projectile-number-container {
@@ -128,11 +129,17 @@ html {
 
 #game-bottom-bar {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 #power-meter {
-    height: 40px;
-    width: 250px;
+    height: 60px;
+    width: 300px;
+}
+
+#play-game-screen {
+    height: 100%;
+    width: 100%;
 }
