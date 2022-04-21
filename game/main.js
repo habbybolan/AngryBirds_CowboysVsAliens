@@ -13,9 +13,7 @@ class Game {
         // Initialize the app behind a splash screen
         this.initSplash();
         this.requestIDAnimFrame = 0;
-
-        
-        
+        this.endGameState = World.GAME_STATE.RUNNING
     }
     
     initSplash() {
@@ -45,7 +43,7 @@ class Game {
         this.showEditor(true);
         this.showLoseScreen(false)
         this.showWinScreen(false)
-        this.isGameFinished = false
+        this.endGameState = World.GAME_STATE.RUNNING
     }
 
     // Either shows splash screen or game screen
@@ -59,7 +57,6 @@ class Game {
         }
     }
         
-    
     update(deltaTime) {
 
         // update the world positions of everything
@@ -77,19 +74,25 @@ class Game {
         this.prevTimestamp = timestamp
 
         // check game state only if game not yet reached a finished game state
-        if (!this.isGameFinished) {
+        if (this.endGameState == World.GAME_STATE.RUNNING) {
             let currgameState = this.world.CurrGameState()
 
             //go to win screen
             if(currgameState == World.GAME_STATE.WON)
             {
+                this.endGameState = currgameState
                 this.gotoWinScreen(this.world.level.CalcScore())
             }
 
             //go to lose screen
             if(currgameState == World.GAME_STATE.LOST)
             {
+                this.endGameState = currgameState
                 this.gotoLoseScreen()
+            }
+        } else {
+            if (this.endGameState == World.GAME_STATE.WON) {
+                // Count up until
             }
         }
         
@@ -103,14 +106,14 @@ class Game {
     }
 
     gotoLoseScreen() {
-        this.isGameFinished = true
+        
         this.showLoseScreen(true)
     }   
 
-     gotoWinScreen(score) {
-        this.isGameFinished = true
+    gotoWinScreen(score) {
+        
         this.showWinScreen(true, score)
-     }
+    }
 
     showLoseScreen(isShowScreen) {
         if (isShowScreen) {

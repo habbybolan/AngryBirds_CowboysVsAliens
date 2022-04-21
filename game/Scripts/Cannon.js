@@ -154,9 +154,7 @@ export default class Cannon {
             let YPower = Math.sin(this.angle * Physics.DEG_2_RAD) * this.power * 50000
 
             bullet.ShootBullet(new Physics.Vec2(XPower, YPower))
-
             
-
             //remove 1 ammo
             this.numProjectiles--
 
