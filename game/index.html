@@ -19,15 +19,22 @@
             <div class="grid-column-left grid-row-top">
                 <button id="back-to-menu-button">Menu</button>
             </div>
+            <div class="grid-row-top grid-column-main"></div>
             <div class="grid-column-right grid-row-top"></div>
     
-            <div class="grid-column-left grid-row-main"></div>
+            <div id="left-main-bar" class="grid-column-left grid-row-main">
+                <div id="projectile-number-container"></div>
+            </div>
             <div class="grid-column-right grid-row-main"></div>
     
             <section id="game-screen" class="grid-column-middle grid-row-main">
                 <div id="game-area">
                 </div>
             </section>
+
+            <div id="game-bottom-bar" class="grid-column-full grid-row-bottom">
+                <meter id="power-meter" min="0" max="100"></meter>
+            </div>
         </div>
 
         <!-- Screen for the splash screen and level selector -->

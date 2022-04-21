@@ -11,58 +11,98 @@ export default class Cannon {
     constructor(world, $worldView, numProjectiles) {
         this.world = world;
         this.$worldView = $worldView
-        this.numProjectiles = numProjectiles //Change to "numProjectiles" when numPorjectiles actually gets grabbed from server/level data
-        this.id = 0
+        this.maxNumProjectiles = numProjectiles;    // Keep track of max number of projectiles
+        this.numProjectiles = numProjectiles        // remaining projectiles
+        this.id = 0                                 // id count for number of projectiles spawned
 
-        this.direction = Physics.Vec2(1, 1) // Direction cannon faces
+        this.direction = Physics.Vec2(1, 1)         // Direction cannon faces
 
-        this.bulletList = []
+        this.bulletList = []                        // List of currently spawned projectiles
 
-        //Power and angle
-        this.power = 1
-        this.angle = -45     // Angle in degrees
+        this.maxPower = 2
+        this.minPower = 1
+        this.powerChangeAmount = .1
+        this.power = 1.5    // Power of shot
+        this.angle = 0      // Angle of shot in degrees
         
+        this.setupKeyboardHandlers()
+
+        this.createGun()
+
+        this.addCannonUI()
+    }
+
+    setupKeyboardHandlers() {
         $('#game-area').on("click", this.OnShoot)
 
         $(document).on('keypress', event => {
             var name = event.key;
             
             //angle down
-            if(name === 's' && this.angle != 10)
+            if(name === 's' && this.angle < 0)
             {
                 this.angle += 10
                 console.log(this.angle)
             }
 
-            //angle up
-            if(name === 'w' && this.angle != -10)
+            //angle ups
+            if(name === 'w' && this.angle > -55)
             {
                 this.angle -= 10
                 console.log(this.angle)
             }
 
             //power up
-            if(name === 'q' && this.power != 10)
+            if(name === 'q' && this.power < this.maxPower)
             {
-                this.power += 1
-                console.log(this.power)
+                this.power += this.powerChangeAmount
+                this.updatePowerBar()
+                //console.log(this.power)
             }
 
             //power down
-            if(name === 'e' && this.power != -10)
+            if(name === 'e' && this.power > this.minPower)
             {
-                this.power -= 1
-                console.log(this.power)
+                this.power -= this.powerChangeAmount
+                this.updatePowerBar()
+                //console.log(this.power)
             }
         })
     }
 
+    updatePowerBar() {
+        console.log(`${this.power - this.minPower} / ${this.maxPower - this.minPower}`)
+        console.log((this.power - this.minPower) / (this.maxPower - this.minPower))
+        //console.log(this.maxPower - this.minPower)
+        $("#power-meter").attr("value", 100 * (this.power - this.minPower) / (this.maxPower - this.minPower))
+    }
+
+    createGun() {
+        this.gunHeight = 60
+        this.gunWidth = 150
+        this.$gunview = $(`<div id="pistol" 
+                        class="gun-image"
+                        style="height: ${this.gunHeight}px; 
+                            width: ${this.gunWidth}px; 
+                            background-image: url(/images/pistol.png);" ></div>`)
+        this.$worldView.append(this.$gunview)  
+        this.$gunview.offset({left: $('#game-area').offset().left, top: $('#game-area').offset().top + Point.SCREEN.HEIGHT - this.gunHeight})
+    }
+
+    addCannonUI() {
+        $("#projectile-number-container").empty()
+        for (let i = 0; i < this.numProjectiles; i++) {
+            let $projectileUI =  $(`<div id="projectile-ui-${i}" 
+                                    class="projectile-number-display bullet-filled">
+                                    </div>`)
+            $("#projectile-number-container").append($projectileUI)
+        }
+        this.updatePowerBar()
+    }
         
     render(deltaTime) {
-        // TODO: Nick
-        //      Render movement on arrow keys held down / follow mouse to have (Gun?) visually follow
-        //      Create graphic for the level of power to use (or functionality to choose)
-        //      Stop cannon movement if no projectiles left 
+        this.$gunview.css('transform', ``)
+        this.$gunview.css('transform', `rotate(${this.angle}deg)`)
         
         this.bulletList.forEach(bullet => {
             bullet.render(deltaTime);
@@ -76,10 +116,7 @@ export default class Cannon {
 
         let firstbullet = this.bulletList[0]
         if (this.bulletList.length != 0 && firstbullet.timer > 10000) {
-            //delete bullet
-            $(`#${firstbullet.id}`).remove()
-            //removes bullet from bulletList and calls function to remove physics body
-            this.bulletList.shift().destroyBody()
+            this.bulletList.shift().destroyBullet()
         }
     }
 
@@ -88,19 +125,24 @@ export default class Cannon {
         // Only shoot if there are remaining projectiles and the last bullet shot has collided
         if(this.numProjectiles > 0 && (this.bulletList.length == 0 || this.bulletList[this.bulletList.length - 1].getIsCollided()))
         {
-            
-            //cannon pos x and y
-            let positionX = 30
-            let positionY = Point.HALF.HEIGHT + 200
+            // Get position cannon shot at given the rotation of the gun
+            let gunCenterRotX = 0
+            let gunCenterRotY = Point.SCREEN.HEIGHT
+
+            let originalXPos = gunCenterRotX + this.gunWidth
+            let originalYPos = gunCenterRotY - this.gunHeight
+
+            let xRot = gunCenterRotX + Math.cos(this.angle * Physics.DEG_2_RAD) * (originalXPos - gunCenterRotX) - Math.sin(this.angle * Physics.DEG_2_RAD) * (originalYPos - gunCenterRotY) 
+            let yRot = gunCenterRotY + Math.cos(this.angle * Physics.DEG_2_RAD) * (originalYPos - gunCenterRotY) + Math.sin(this.angle * Physics.DEG_2_RAD) * (originalXPos - gunCenterRotX) 
     
-            //cannon pos
-            const cannonPos = new Physics.Vec2(positionX, positionY)
+            // cannon barrel position
+            const cannonBarrelPos = new Physics.Vec2(xRot - 15, yRot - 15)
     
             //create new bullet
             let bullet = new Bullet(this.world, this.$worldView, this.id++)
             
             //create bullet at cannons position
-            bullet.CreateBulletObject(cannonPos, 10)
+            bullet.CreateBulletObject(cannonBarrelPos, 10)
     
             //add bullet to array
             this.bulletList.push(bullet)
@@ -117,7 +159,11 @@ export default class Cannon {
 
             //remove 1 ammo
             this.numProjectiles--
-            
+
+            // TODO: Update list of projectiles displayed
+            let $projectileViewToAlter = $("#projectile-number-container").children().eq(this.numProjectiles)
+            $projectileViewToAlter.removeClass("bullet-filled")
+            $projectileViewToAlter.addClass("bullet-empty")
         }  
     }
 }

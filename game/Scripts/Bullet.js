@@ -47,28 +47,26 @@ export default class Bullet {
         
     }
 
-    //delete bullet physics body
-    destroyBody()
-    {
+    // Delete a bullet from the game
+    destroyBullet() {
+        // remove from HTML
+        $(`#${this.id}`).remove()
+        // remove physics body
         this.world.DestroyBody(this.bulletObject.body)
     }
     
-    update(deltaTime)
-    {
+    update(deltaTime) {
         this.timer += deltaTime
        
     }
     
    
     ShootBullet(force) {
-        console.log(`(${this.cannonData.x}, ${this.cannonData.y})`)
-        let cp = Point.metersToPixels(this.bulletObject.body.GetPosition().x, this.bulletObject.body.GetPosition().y)
-        console.log(`(${cp.left}, ${cp.top})`)
         let p = Point.pixelsToMeters(this.cannonData.x + this.diameter / 2, this.cannonData.y + this.diameter / 2)
         let newP = new Physics.Vec2(p.left, p.top)
         
-        
-        console.log(newP)
+        let abc = Point.metersToPixels(this.bulletObject.body.GetPosition().x, this.bulletObject.body.GetPosition().y)
+        console.log(`(${abc.left}, ${abc.top})`)
         this.bulletObject.body.ApplyForce(force, newP);
     }
 
