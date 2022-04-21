@@ -1,4 +1,4 @@
-/* @copyright 2014-2022, Vancouver Film School */
+/* Copyright (C) 2022 Nicholas Johnson */
 .grid-wrapper {
     display: grid;
     grid-template-columns: 1fr 1280px 1fr;

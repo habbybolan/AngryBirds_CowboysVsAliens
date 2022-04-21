@@ -1,3 +1,4 @@
+// Copyright (C) Nicholas Johnson
 import Physics from "../../common/libs/Physics.js";
 import GameObject from "./GameObject.js";
 

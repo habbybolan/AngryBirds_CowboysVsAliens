@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Scott Henshaw
+// Copyright (C) 2022 Nicholas Johnson
 'use strict';
 
 import Physics from "../../common/libs/Physics.js";

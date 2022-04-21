@@ -1,3 +1,4 @@
+// Copyright (C) 2022 Nicholas Johnson
 'use strict'
 
 export default class GameObject {

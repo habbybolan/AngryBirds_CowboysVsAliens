@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Nicholas Johnson
+// Copyright (C) 2022 Nicholas Johnson, Andre Dupuis
 'use strict';
 
 import Physics from '../common/libs/Physics.js'
@@ -64,7 +64,6 @@ export default class Bullet {
         let p = Point.pixelsToMeters(this.cannonData.x + this.diameter / 2, this.cannonData.y + this.diameter / 2)
         let newP = new Physics.Vec2(p.left, p.top)
         
-        let abc = Point.metersToPixels(this.bulletObject.body.GetPosition().x, this.bulletObject.body.GetPosition().y)
         this.bulletObject.body.ApplyForce(force, newP);
     }
 

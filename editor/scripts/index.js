@@ -1,4 +1,4 @@
-// Copyright (C) Nicholas Johnson 2022
+// Copyright (C) 2022 Nicholas Johnson 
 'use strict';
 
 import App from "./app.js"

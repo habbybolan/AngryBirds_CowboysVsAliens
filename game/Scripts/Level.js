@@ -1,4 +1,4 @@
-// Copyright (C) Nicholas Johnson 2022
+// Copyright (C) Nicholas Johnson 2022, Andre Dupuis
 'use strict'
 
 import Cannon from "./Cannon.js";

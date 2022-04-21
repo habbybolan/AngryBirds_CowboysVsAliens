@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Scott Henshaw
+// Copyright (C) 2022 Nicholas Johnson, Andre Dupuis
 'use strict';
 
 import '../common/libs/jquery-3.6.0.min.js';
