@@ -18,7 +18,9 @@
         <!-- Screen for playing the game with physical simulations -->
         <div id="play-game-screen" style="display: none;" class="game-grid-wrapper">
             <div class="grid-column-left grid-row-top">
-                <button id="back-to-menu-button">Menu</button>
+                <div id="back-to-menu-button">
+                    <div style="margin-bottom: 5px">Menu</div>
+                </div>
             </div>
             <div class="grid-row-top grid-column-main"></div>
             <div class="grid-column-right grid-row-top"></div>
@@ -34,7 +36,7 @@
             </section>
 
             <div id="game-bottom-bar" class="grid-column-full grid-row-bottom">
-                <meter id="power-meter" min="0" max="100"></meter>
+                <meter id="power-meter" min="0" max="100" value="50"></meter>
             </div>
         </div>
 
@@ -57,7 +59,7 @@
 
         <div id="lose-screen-popup" class="floating-end-screen" style="display: none" >
             <div style="font-size: 3.5em;" class="end-condition-screen-font">You lose</div>
-            <button id="lose-play-again-button" class="end-game-play-again-button">Play Again</button>
+            <div id="lose-play-again-button" class="end-game-play-again-button"><div class="end-condition-screen-font end-game-button-text">Play Again</div></div>
         </div>
 
         <div id="win-screen-popup" class="floating-end-screen" style="display: none" >
@@ -66,7 +68,7 @@
                 <div class="score-text end-condition-screen-font">Score</div>
                 <div id="win-screen-score" class="score-text end-condition-screen-font"></div>
             </div>
-            <button id="win-play-again-button" class="end-game-play-again-button">Play Again</button>
+            <div id="win-play-again-button" class="end-game-play-again-button"><div class="end-condition-screen-font end-game-button-text">Play Again</div></div>
             
         </div>
 

@@ -96,8 +96,18 @@ body {
 }
 
 #back-to-menu-button {
-    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 60px;
     height: 50px;
+    border: 0;
+    background-image: url(/images/wooden_button_back.png);
 }
 
 .gun-image {
@@ -144,10 +154,7 @@ body {
     justify-content: center;
 }
 
-#power-meter {
-    height: 60px;
-    width: 300px;
-}
+
 
 #play-game-screen {
     height: 100%;
@@ -189,7 +196,23 @@ body {
 }
 
 .end-game-play-again-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-top: 15px;
-    width: 100px;
-    height: 40px;
+    width: 150px;
+    height: 55px;
+    background-image: url(/images/wooden_button_oval.png);
+}
+
+.end-game-button-text {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+meter {
+    height: 60px;
+    width: 300px;
 }
