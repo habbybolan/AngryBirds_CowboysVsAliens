@@ -73,39 +73,44 @@ class Game {
         const elapsed = timestamp - this.prevTimestamp
         this.prevTimestamp = timestamp
 
-        let currgameState = this.world.CurrGameState()
+        // check game state only if game not yet reached a finished game state
+        if (!this.isGameFinished) {
+            let currgameState = this.world.CurrGameState()
 
-        //go to win screen
-        if(currgameState == World.GAME_STATE.WON)
-        {
-            this.gotoWinScreen()
-            console.log("WINED")
-            this.world.level.CalcScore()
+            //go to win screen
+            if(currgameState == World.GAME_STATE.WON)
+            {
+                this.gotoWinScreen(this.world.level.CalcScore())
+            }
+
+            //go to lose screen
+            if(currgameState == World.GAME_STATE.LOST)
+            {
+                this.gotoLoseScreen()
+            }
         }
-
-        //go to lose screen
-        if(currgameState == World.GAME_STATE.LOST)
-        {
-            this.gotoLoseScreen()
-            console.log("LOST")
-            this.world.level.CalcScore()
-        }
-
+        
         // only calculate if time passed between calculations
         if (elapsed) {
             this.update(elapsed);
             this.render(elapsed);
         }
-        
 
         this.requestIDAnimFrame = window.requestAnimationFrame( timestamp => { this.run(timestamp) })
     }
 
     gotoLoseScreen() {
+        console.log("show lose screen")
+        this.isGameFinished = true
+        $("#lose-screen-popup").removeAttr('style')
+        //$("#lose-screen-popup").css('display', 'none')
         //window.cancelAnimationFrame(this.requestIDAnimFrame);
     }   
 
      gotoWinScreen(score) {
+         console.log("show win screen")
+        this.isGameFinished = true
+        $("#win-screen-popup").removeAttr('style')
         //window.cancelAnimationFrame(this.requestIDAnimFrame);
      }
 }

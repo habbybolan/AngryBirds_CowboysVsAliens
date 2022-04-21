@@ -36,9 +36,6 @@ export default class World {
         this.level.LoadLevel(filenameSelected)
 
         $("#back-to-menu-button").on('click', event => this.gotoSplashScreen())
-
-
-        // TODL Future - add listeners for physical collisions
     }
 
     gotoSplashScreen() {
