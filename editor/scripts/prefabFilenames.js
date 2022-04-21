@@ -10,8 +10,8 @@ export default class prefabFilenames {
     static circleCollidables = []
     static triangleCollidables = []
 
-    static squareTargets = []
-    static circletTargets = ['/images/angry-pig-1.png', '/images/angry-pig-2.png']
+    static squareTargets = ['/images/alien-square.png']
+    static circletTargets = ['/images/angry-pig-1.png', '/images/angry-pig-2.png', '/images/alien-circle.png']
     static triangleTargets = ['/images/alien-triangle.png']
 
     /**

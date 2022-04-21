@@ -95,7 +95,6 @@ export default class GameObject {
             listOfPoints.push(new Physics.Vec2(0, -height/2))       // top middle
             listOfPoints.push(new Physics.Vec2(width/2, height/2))  // Bottom right
             listOfPoints.push(new Physics.Vec2(-width/2, height/2)) // Bottom left
-            console.log(listOfPoints)
             fixtureDef.shape.SetAsArray(listOfPoints, 3)
             
         }     

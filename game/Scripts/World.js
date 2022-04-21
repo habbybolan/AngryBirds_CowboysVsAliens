@@ -48,7 +48,6 @@ export default class World {
     reloadCurrentLevel() {
         // destroy all level bodies
         let currBody = this.model.GetBodyList();
-        console.log(currBody)
         while (currBody) {
             this.model.DestroyBody(currBody)
             currBody = currBody.m_next
