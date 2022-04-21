@@ -133,7 +133,7 @@ export default class GameObject {
             console.log(this.contactObjs[i]._body.GetLinearVelocity().Length())
 
             //minus health on contact as long as the collidable is going fast enough
-            if(this._body.GetLinearVelocity().Length() >= 25 || this.contactObjs[i]._body.GetLinearVelocity().Length() >= 25)
+            if(this._body.GetLinearVelocity().Length() >= 15 || this.contactObjs[i]._body.GetLinearVelocity().Length() >= 15)
                 this.health--
             //console.log(this.health)
             console.log()

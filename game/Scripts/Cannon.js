@@ -150,8 +150,8 @@ export default class Cannon {
             console.log(this.bulletList)
     
             //apply impulse to bullet
-            let XPower = Math.cos(this.angle * Physics.DEG_2_RAD) * this.power * 20000
-            let YPower = Math.sin(this.angle * Physics.DEG_2_RAD) * this.power * 20000
+            let XPower = Math.cos(this.angle * Physics.DEG_2_RAD) * this.power * 50000
+            let YPower = Math.sin(this.angle * Physics.DEG_2_RAD) * this.power * 50000
 
             bullet.ShootBullet(new Physics.Vec2(XPower, YPower))
 
