@@ -43,6 +43,9 @@ class Game {
         console.log("back to splash screen")
         window.cancelAnimationFrame(this.requestIDAnimFrame);
         this.showEditor(true);
+        this.showLoseScreen(false)
+        this.showWinScreen(false)
+        this.isGameFinished = false
     }
 
     // Either shows splash screen or game screen
@@ -100,23 +103,31 @@ class Game {
     }
 
     gotoLoseScreen() {
-        console.log("show lose screen")
         this.isGameFinished = true
-        $("#lose-screen-popup").removeAttr('style')
-        //$("#lose-screen-popup").css('display', 'none')
-        //window.cancelAnimationFrame(this.requestIDAnimFrame);
+        this.showLoseScreen(true)
     }   
 
      gotoWinScreen(score) {
-         console.log("show win screen")
         this.isGameFinished = true
-        $("#win-screen-popup").removeAttr('style')
-        //window.cancelAnimationFrame(this.requestIDAnimFrame);
+        this.showWinScreen(true, score)
      }
+
+    showLoseScreen(isShowScreen) {
+        if (isShowScreen) {
+            $("#lose-screen-popup").removeAttr('style')
+        } else {
+            $("#lose-screen-popup").css('display', 'none')
+        }
+    }
+
+    showWinScreen(isShowScreen, score) {
+        if (isShowScreen) {
+            // TODO: show score
+            $("#win-screen-popup").removeAttr('style')
+        } else {
+            $("#win-screen-popup").css('display', 'none')
+        }
+    }
 }
 
-// Main entry point for application
-//$(window).on('DOMContentLoaded', event => {
-
 const game = new Game();
-//})
