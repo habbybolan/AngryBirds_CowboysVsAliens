@@ -16,8 +16,6 @@ export default class GameObject {
 
         this.contactObjs = []    // After each simluation, store the objects that collided with this obj for calculation in Update
 
-        // TODO: Nick or Andre 
-        //      Based on Mass?
         this.health = 2
 
         this.IsCollided = false;    // If object has collided with anything, including game objects or boundaries
@@ -118,26 +116,20 @@ export default class GameObject {
 
             // Rotate and translate
             this.$view.css('transform', ``)
-            this.$view.offset({ left: x, top: y})
+            this.$view.offset({ left: x, top: y })
             this.$view.css('transform', `rotate(${this.body.GetAngle() * Physics.RAD_2_DEG}deg)`)
         }
     }
 
     update(deltaTime) {
 
-        // TODO: Andre - Do hit logic, using contactObj if not undefined
         for (let i in this.contactObjs) { 
-            //console.log(`do logic on ${this.data.id} that collided with ${this.contactObjs[i].data.id}`)
-
-            console.log(this.contactObjs[i]._body.GetLinearVelocity().Length())
 
             //minus health on contact as long as the collidable is going fast enough
             if(this._body.GetLinearVelocity().Length() >= 15 || this.contactObjs[i]._body.GetLinearVelocity().Length() >= 15)
                 this.health--
 
             if (this.health <= 0){
-                console.log(this.contactObjs[i])
-                console.log(this._body.GetLinearVelocity())
                 $(`#${this.data.id}`).remove()
                 this.world.DestroyBody(this._body)
                 this.isDeleted = true;

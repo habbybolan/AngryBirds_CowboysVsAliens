@@ -18,6 +18,16 @@ class Game {
         this.$winScreen = $("#win-screen-popup")
         this.winningScore = 0
         this.$loseScreen = $("#lose-screen-popup")
+
+        $("#win-play-again-button").on('click', event => {
+            this.world.reloadCurrentLevel()
+            this.resetGameState()
+        })
+
+        $("#lose-play-again-button").on('click', event => {
+            this.world.reloadCurrentLevel()
+            this.resetGameState()
+        })
     }
     
     initSplash() {
@@ -25,7 +35,6 @@ class Game {
         this.SplashScreen.run()
     }
 
-    
     chooseLevel(filename) {
         this.showEditor(false)
         this.$gameview = $("#game-area")
@@ -46,7 +55,6 @@ class Game {
         window.cancelAnimationFrame(this.requestIDAnimFrame)
         this.showEditor(true)
         this.resetGameState()
-        
     }
 
     resetGameState() {
@@ -54,7 +62,7 @@ class Game {
         this.showWinScreen(false)
         this.endGameState = World.GAME_STATE.RUNNING
         this.winningScore = 0
-        this.$winScreen.text(0)
+        $("#win-screen-score").text(0)
     }
 
     // Either shows splash screen or game screen

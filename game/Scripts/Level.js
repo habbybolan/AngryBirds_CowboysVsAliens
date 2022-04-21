@@ -18,13 +18,7 @@ export default class Level {
         this.data.collidableList = []  // Collidable GameObjects
         this.data.targetList = []      // target GameObjects
         
-        this.isLoaded = false
-
-        //this.cannon = new Cannon(this.world, this.$view, this.data.projectiles)
-
-        //this.cannon.OnShoot();
-
-        
+        this.isLoaded = false        
     }
 
     /**
@@ -32,13 +26,13 @@ export default class Level {
      * @param {String} filename     Filename of level to load
      */
     async LoadLevel(filename) {
+        this.filename = filename
         let collidablesData = [];   // Level collidables data from server
         let targetsData = [];       // level targets data from server
 
         let data = JSON.stringify({type: "level", name: filename})
         let resLevel = await $.post('/api/load', { data })
         resLevel = JSON.parse(resLevel);
-        console.log(resLevel)
         
         if (!resLevel.error) {
             //this.level = new Level(resLevel.payload);
@@ -55,8 +49,15 @@ export default class Level {
         this.isLoaded = true
     }
 
+    reloadLevel() {
+        this.data.collidableList = []  
+        this.data.targetList = []  
+        this.isLoaded = false 
+        this.LoadLevel(this.filename)
+    }
+
     /**
-     * Calculates the score based on the number of projectiles left (and number gameObjects destroyed?)
+     * Calculates the score based on the number of projectiles left
      * @returns {Float}   Calculated final score
      */
     CalcScore() {
@@ -147,8 +148,7 @@ export default class Level {
         {
             this.cannon.update(deltaTime);
         }
-       
-        
+
         // update collidables
         for (let collidable of this.data.collidableList) {
             collidable.update(deltaTime);

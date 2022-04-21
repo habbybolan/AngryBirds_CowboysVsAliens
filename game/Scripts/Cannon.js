@@ -42,14 +42,12 @@ export default class Cannon {
             if(name === 's' && this.angle < 0)
             {
                 this.angle += 10
-                console.log(this.angle)
             }
 
             //angle ups
             if(name === 'w' && this.angle > -55)
             {
                 this.angle -= 10
-                console.log(this.angle)
             }
 
             //power up
@@ -57,7 +55,6 @@ export default class Cannon {
             {
                 this.power += this.powerChangeAmount
                 this.updatePowerBar()
-                //console.log(this.power)
             }
 
             //power down
@@ -65,15 +62,11 @@ export default class Cannon {
             {
                 this.power -= this.powerChangeAmount
                 this.updatePowerBar()
-                //console.log(this.power)
             }
         })
     }
 
     updatePowerBar() {
-        console.log(`${this.power - this.minPower} / ${this.maxPower - this.minPower}`)
-        console.log((this.power - this.minPower) / (this.maxPower - this.minPower))
-        //console.log(this.maxPower - this.minPower)
         $("#power-meter").attr("value", 100 * (this.power - this.minPower) / (this.maxPower - this.minPower))
     }
 
@@ -146,8 +139,6 @@ export default class Cannon {
     
             //add bullet to array
             this.bulletList.push(bullet)
-    
-            console.log(this.bulletList)
     
             //apply impulse to bullet
             let XPower = Math.cos(this.angle * Physics.DEG_2_RAD) * this.power * 50000

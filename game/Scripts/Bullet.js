@@ -66,7 +66,6 @@ export default class Bullet {
         let newP = new Physics.Vec2(p.left, p.top)
         
         let abc = Point.metersToPixels(this.bulletObject.body.GetPosition().x, this.bulletObject.body.GetPosition().y)
-        console.log(`(${abc.left}, ${abc.top})`)
         this.bulletObject.body.ApplyForce(force, newP);
     }
 

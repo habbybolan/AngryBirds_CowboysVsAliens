@@ -163,8 +163,8 @@ body {
     margin-left: -150px;
     top: 50%;
     left: 50%;
-    width: 300px;
-    height: 175px;
+    width: fit-content;
+    height: fit-content;
 }
 
 #win-board-image {
@@ -183,9 +183,15 @@ body {
     font-size: 1.6em;
 }
 
-.win-screen-font {
+.end-condition-screen-font {
     font-family: 'Brush Script MT';
     font-weight: bold;
+}
+
+.end-game-play-again-button {
+    margin-top: 15px;
+    width: 100px;
+    height: 40px;
 }
 
 #lose-screen-popup {

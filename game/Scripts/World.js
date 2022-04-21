@@ -18,10 +18,16 @@ export default class World {
 
         // Setup view and model and properties
         this.$view = $view
-
         const gravityVector = new Physics.Vec2(0, Physics.GRAVITY)
         this.model = new Physics.World(gravityVector)
         this.backToSplashCallback = backToSplashCallback;
+
+        this.setupWorld()
+        this.initiateLevel(filenameSelected)
+    }
+
+    // setup world events and boundaries
+    setupWorld() {
 
         // Create and set collision listener
         this.contactListener = new ContactListener()
@@ -29,19 +35,38 @@ export default class World {
 
         // create walls and floor
         this.createBoundaries()
-
-        // initiate level
-        console.log("world created")
-        this.level = new Level(this.$view, this.model)
-        this.level.LoadLevel(filenameSelected)
-
         $("#back-to-menu-button").on('click', event => this.gotoSplashScreen())
     }
 
+    // initiate the selected level by filename
+    initiateLevel(filenameSelected) {
+        this.level = new Level(this.$view, this.model)
+        this.level.LoadLevel(filenameSelected)
+    }
+    
+    // reload the current level inside world
+    reloadCurrentLevel() {
+        // destroy all level bodies
+        let currBody = this.model.GetBodyList();
+        while (currBody) {
+            this.model.DestroyBody(currBody)
+            currBody = currBody.m_next
+        }
+        // reset world and reload level
+        this.resetWorld()
+        this.setupWorld()
+        this.level.reloadLevel()
+    }
+
     gotoSplashScreen() {
+        this.resetWorld()
+        this.backToSplashCallback()
+    }
+
+    // remove elements and event handlers inside game area
+    resetWorld() {
         $("#play-game-screen *").children().off()
         this.$view.empty();
-        this.backToSplashCallback()
     }
 
     createBoundaries() {
@@ -124,8 +149,6 @@ export default class World {
         this.model.ClearForces()
 
         this.level.update(deltaTime)
-        
-        this.CurrGameState();
     }
 
     render(deltaTime) {
