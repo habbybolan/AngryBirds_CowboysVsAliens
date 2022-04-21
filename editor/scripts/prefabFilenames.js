@@ -12,7 +12,7 @@ export default class prefabFilenames {
 
     static squareTargets = []
     static circletTargets = ['/images/angry-pig-1.png', '/images/angry-pig-2.png']
-    static triangleTargets = []
+    static triangleTargets = ['/images/alien-triangle.png']
 
     /**
      * Get the list of filenames associated with the specific shape and type

@@ -90,8 +90,14 @@ export default class GameObject {
             fixtureDef.shape = new Physics.CircleShape()
             fixtureDef.shape.m_radius = width / 2
         } else {
-            // TODO: Nick or Andre: 
-            //      Triangle creation
+            fixtureDef.shape = new Physics.PolygonShape()
+            let listOfPoints = []
+            listOfPoints.push(new Physics.Vec2(0, -height/2))       // top middle
+            listOfPoints.push(new Physics.Vec2(width/2, height/2))  // Bottom right
+            listOfPoints.push(new Physics.Vec2(-width/2, height/2)) // Bottom left
+            console.log(listOfPoints)
+            fixtureDef.shape.SetAsArray(listOfPoints, 3)
+            
         }     
     
         // Add to world
