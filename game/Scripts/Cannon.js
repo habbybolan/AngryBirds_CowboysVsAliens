@@ -20,10 +20,10 @@ export default class Cannon {
         this.bulletList = []                        // List of currently spawned projectiles
 
         this.maxPower = 2
-        this.minPower = 1
+        this.minPower = .8
         this.powerChangeAmount = .1
-        this.power = 1.5    // Power of shot
-        this.angle = 0      // Angle of shot in degrees
+        this.power = this.minPower + (this.maxPower - this.minPower) / 2    // Power of shot
+        this.angle = 0                                                      // Angle of shot in degrees
         
         this.setupKeyboardHandlers()
 
@@ -41,24 +41,30 @@ export default class Cannon {
             //angle down
             if(name === 's' && this.angle < 0)
             {
-                this.angle += 10
+                this.angle += 1
+                // prevent over rotation
+                if (this.angle > 0)
+                    this.angle = 0
             }
 
             //angle ups
             if(name === 'w' && this.angle > -55)
             {
-                this.angle -= 10
+                this.angle -= 1
+                // prevent over rotation
+                if (this.angle < -55)
+                    this.angle = -55
             }
 
             //power up
-            if(name === 'q' && this.power < this.maxPower)
+            if(name === 'e' && this.power < this.maxPower)
             {
                 this.power += this.powerChangeAmount
                 this.updatePowerBar()
             }
 
             //power down
-            if(name === 'e' && this.power > this.minPower)
+            if(name === 'q' && this.power > this.minPower)
             {
                 this.power -= this.powerChangeAmount
                 this.updatePowerBar()

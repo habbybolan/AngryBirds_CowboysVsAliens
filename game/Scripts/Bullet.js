@@ -57,7 +57,6 @@ export default class Bullet {
     
     update(deltaTime) {
         this.timer += deltaTime
-       
     }
     
    

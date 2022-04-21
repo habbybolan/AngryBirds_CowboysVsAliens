@@ -130,8 +130,9 @@ export default class GameObject {
 
         for (let i in this.contactObjs) { 
 
+            console.log(`${this.calcMagnitudeSquared()} hit with ${this.contactObjs[i].calcMagnitudeSquared()}`)
             //minus health on contact as long as the collidable is going fast enough
-            if(this._body.GetLinearVelocity().Length() >= 15 || this.contactObjs[i]._body.GetLinearVelocity().Length() >= 15)
+            if(this.calcMagnitudeSquared() >= 150 || this.contactObjs[i].calcMagnitudeSquared() >= 150) 
                 this.health--
 
             if (this.health <= 0){
@@ -143,6 +144,10 @@ export default class GameObject {
 
         // reset collided objects list once collision dealth with
         this.contactObjs = [];
+    }
+
+    calcMagnitudeSquared() {
+        return Math.pow(this._body.GetLinearVelocity().x, 2) + Math.pow(this._body.GetLinearVelocity().y, 2)
     }
 
     /**
