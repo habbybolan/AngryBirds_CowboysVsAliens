@@ -81,22 +81,30 @@ export default class Level {
         //      Check if all game objects are not moving
         for(let i = 0; i < this.data.collidableList.length; i++)
         {
-            if(this.data.collidableList[i].body.GetLinearVelocity().Length() >= 0.3)
+            let collidable = this.data.collidableList[i]
+            if(!collidable.isDeleted && collidable.body.GetLinearVelocity().Length() >= 1) {
+                console.log(`${this.data.collidableList[i].id} moving ${this.data.collidableList[i].body.GetLinearVelocity().Length()}`)
                 return false
+            }
+                
         }
 
         for(let i = 0; i < this.data.targetList.length; i++)
         {
-            if(this.data.targetList[i].body.GetLinearVelocity().Length() >= 0.3)
+            let target = this.data.targetList[i]
+            if(!target.isDeleted && this.data.targetList[i].body.GetLinearVelocity().Length() >= 1) {
+                console.log("target not stopped")
                 return false
+            }
         }
 
         if(this.cannon != null)
         {
             for(let i = 0; i < this.cannon.bulletList.length; i++)
             {
-                if(this.cannon.bulletList[i].bulletObject.body.GetLinearVelocity().Length() >= 0.3)
+                if(this.cannon.bulletList[i].bulletObject.body.GetLinearVelocity().Length() >= 1)
                 {
+                    console.log("bullet not stopped")
                     return false
                 }
             }
@@ -117,7 +125,7 @@ export default class Level {
             return true
     }
 
-    outOfPorjectiles()
+    outOfProjectiles()
     {
         if(this.cannon != null)
         {

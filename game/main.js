@@ -137,17 +137,17 @@ class Game {
 
     showLoseScreen(isShowScreen) {
         if (isShowScreen) {
-            $("#lose-screen-popup").removeAttr('style')
+            this.$loseScreen.removeAttr('style')
         } else {
-            $("#lose-screen-popup").css('display', 'none')
+            this.$loseScreen.css('display', 'none')
         }
     }
 
     showWinScreen(isShowScreen) {
         if (isShowScreen) {
-            $("#win-screen-popup").removeAttr('style')
+            this.$winScreen.removeAttr('style')
         } else {
-            $("#win-screen-popup").css('display', 'none')
+            this.$winScreen.css('display', 'none')
         }
     }
 }
