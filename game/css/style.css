@@ -154,12 +154,41 @@ body {
 }
 
 .floating-end-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: fixed;
     margin-top: -150px;
     margin-left: -150px;
     top: 50%;
     left: 50%;
     width: 300px;
-    height: 300px;
-    background-color: blueviolet;
+    height: 175px;
+}
+
+#win-board-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90px;
+    width: 160px;
+    background-image: url(/images/score-board.png);
+}
+
+.score-text {
+    font-size: 1.6em;
+}
+
+.win-screen-font {
+    font-family: 'Brush Script MT';
+    font-weight: bold;
+}
+
+#lose-screen-popup {
+}
+
+#win-screen-popup {
 }

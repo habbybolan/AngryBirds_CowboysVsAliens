@@ -104,14 +104,15 @@ class Game {
             }
         } else {
             if (this.endGameState == World.GAME_STATE.WON) {
-                console.log("check1")
-                if (this.$winScreen.text() * 1 < this.winningScore)  {
-                    console.log("check2")
-                    let newScore = this.$winScreen.text() * 1 + 3
-                    this.$winScreen.text(newScore)
+                
+                let $scoreView = $("#win-screen-score")
+                if ($scoreView.text() * 1 < this.winningScore)  {
+  
+                    let newScore = $scoreView.text() * 1 + 3
+                    $scoreView.text(newScore)
                     // prevent diplaying over winning score
-                    if (this.$winScreen.text() > this.winningScore)
-                        this.$winScreen.text(this.winningScore)
+                    if ($scoreView.text() > this.winningScore)
+                        $scoreView.text(this.winningScore)
                 }
             }
         }

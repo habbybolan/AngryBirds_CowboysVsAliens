@@ -53,8 +53,6 @@ export default class Level {
         this.isLoaded = true
     }
 
-    
-
     /**
      * Calculates the score based on the number of projectiles left (and number gameObjects destroyed?)
      * @returns {Float}   Calculated final score
@@ -62,13 +60,7 @@ export default class Level {
     CalcScore() {
         if(this.cannon != null)
         {   
-            let score = 0;
-            for(let i = 0; i < this.cannon.bulletList.length; i++)
-            {
-                score += 100;
-            }
-
-            return score
+            return this.cannon.numProjectiles * 100
         }
     }
 
@@ -78,7 +70,6 @@ export default class Level {
      * @returns {Boolean} True if all objects stopped
      */
     IsAllObjectsStopped() {
-        //      Check if all game objects are not moving
         for(let i = 0; i < this.data.collidableList.length; i++)
         {
             let collidable = this.data.collidableList[i]

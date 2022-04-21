@@ -125,7 +125,6 @@ export default class GameObject {
 
     update(deltaTime) {
 
-       
         // TODO: Andre - Do hit logic, using contactObj if not undefined
         for (let i in this.contactObjs) { 
             //console.log(`do logic on ${this.data.id} that collided with ${this.contactObjs[i].data.id}`)
@@ -135,8 +134,7 @@ export default class GameObject {
             //minus health on contact as long as the collidable is going fast enough
             if(this._body.GetLinearVelocity().Length() >= 15 || this.contactObjs[i]._body.GetLinearVelocity().Length() >= 15)
                 this.health--
-            //console.log(this.health)
-            console.log()
+
             if (this.health <= 0){
                 console.log(this.contactObjs[i])
                 console.log(this._body.GetLinearVelocity())
