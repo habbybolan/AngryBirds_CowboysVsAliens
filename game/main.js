@@ -14,6 +14,10 @@ class Game {
         this.initSplash();
         this.requestIDAnimFrame = 0;
         this.endGameState = World.GAME_STATE.RUNNING
+
+        this.$winScreen = $("#win-screen-popup")
+        this.winningScore = 0
+        this.$loseScreen = $("#lose-screen-popup")
     }
     
     initSplash() {
@@ -39,11 +43,18 @@ class Game {
 
     backToSplashCallback = () => {
         console.log("back to splash screen")
-        window.cancelAnimationFrame(this.requestIDAnimFrame);
-        this.showEditor(true);
+        window.cancelAnimationFrame(this.requestIDAnimFrame)
+        this.showEditor(true)
+        this.resetGameState()
+        
+    }
+
+    resetGameState() {
         this.showLoseScreen(false)
         this.showWinScreen(false)
         this.endGameState = World.GAME_STATE.RUNNING
+        this.winningScore = 0
+        this.$winScreen.text(0)
     }
 
     // Either shows splash screen or game screen
@@ -81,7 +92,8 @@ class Game {
             if(currgameState == World.GAME_STATE.WON)
             {
                 this.endGameState = currgameState
-                this.gotoWinScreen(this.world.level.CalcScore())
+                this.gotoWinScreen()
+                this.winningScore = this.world.level.CalcScore()
             }
 
             //go to lose screen
@@ -92,14 +104,22 @@ class Game {
             }
         } else {
             if (this.endGameState == World.GAME_STATE.WON) {
-                // Count up until
+                console.log("check1")
+                if (this.$winScreen.text() * 1 < this.winningScore)  {
+                    console.log("check2")
+                    let newScore = this.$winScreen.text() * 1 + 3
+                    this.$winScreen.text(newScore)
+                    // prevent diplaying over winning score
+                    if (this.$winScreen.text() > this.winningScore)
+                        this.$winScreen.text(this.winningScore)
+                }
             }
         }
         
         // only calculate if time passed between calculations
         if (elapsed) {
-            this.update(elapsed);
-            this.render(elapsed);
+            this.update(elapsed)
+            this.render(elapsed)
         }
 
         this.requestIDAnimFrame = window.requestAnimationFrame( timestamp => { this.run(timestamp) })
@@ -110,9 +130,9 @@ class Game {
         this.showLoseScreen(true)
     }   
 
-    gotoWinScreen(score) {
-        
-        this.showWinScreen(true, score)
+    gotoWinScreen() {
+
+        this.showWinScreen(true)
     }
 
     showLoseScreen(isShowScreen) {
@@ -123,9 +143,8 @@ class Game {
         }
     }
 
-    showWinScreen(isShowScreen, score) {
+    showWinScreen(isShowScreen) {
         if (isShowScreen) {
-            // TODO: show score
             $("#win-screen-popup").removeAttr('style')
         } else {
             $("#win-screen-popup").css('display', 'none')
