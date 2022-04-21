@@ -83,17 +83,14 @@ export default class Level {
         {
             let collidable = this.data.collidableList[i]
             if(!collidable.isDeleted && collidable.body.GetLinearVelocity().Length() >= 1) {
-                console.log(`${this.data.collidableList[i].id} moving ${this.data.collidableList[i].body.GetLinearVelocity().Length()}`)
                 return false
-            }
-                
+            }  
         }
 
         for(let i = 0; i < this.data.targetList.length; i++)
         {
             let target = this.data.targetList[i]
             if(!target.isDeleted && this.data.targetList[i].body.GetLinearVelocity().Length() >= 1) {
-                console.log("target not stopped")
                 return false
             }
         }
@@ -104,7 +101,6 @@ export default class Level {
             {
                 if(this.cannon.bulletList[i].bulletObject.body.GetLinearVelocity().Length() >= 1)
                 {
-                    console.log("bullet not stopped")
                     return false
                 }
             }
@@ -120,9 +116,7 @@ export default class Level {
             if(!this.data.targetList[i].isDeleted)
                 return false
         }
-        //check if the level has loaded first
-        if(this.isLoaded == true)
-            return true
+        return true
     }
 
     outOfProjectiles()

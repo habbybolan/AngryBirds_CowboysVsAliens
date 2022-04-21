@@ -93,20 +93,21 @@ export default class World {
      */
     CurrGameState() {
      
+        // Don't set lose/win state if level not yet loaded
+        if (!this.level.isLoaded)
+            return World.GAME_STATE.RUNNING
+
         //Check the level for the current game state of being won/lost/running
         if(this.level.allTargetsDestroyed())
         {   
-            console.log("won")
             return World.GAME_STATE.WON;
         }
 
         if(this.level.outOfProjectiles() && this.level.IsAllObjectsStopped())
         {
-            console.log("lost")
             return World.GAME_STATE.LOST
         }
 
-        console.log("running")
         return World.GAME_STATE.RUNNING
        
     }
