@@ -48,6 +48,8 @@ export default class Level {
         this.addGameObjectsFromData(collidablesData)
         this.addGameObjectsFromData(targetsData)
 
+        this.$view.css("background-image", `url(${resLevel.payload.background})`)
+
         this.cannon = new Cannon(this.world, this.$view, resLevel.payload.projectiles)
 
         this.isLoaded = true
