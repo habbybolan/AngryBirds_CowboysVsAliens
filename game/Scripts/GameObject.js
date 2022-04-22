@@ -130,7 +130,6 @@ export default class GameObject {
 
         for (let i in this.contactObjs) { 
 
-            console.log(`${this.calcMagnitudeSquared()} hit with ${this.contactObjs[i].calcMagnitudeSquared()}`)
             //minus health on contact as long as the collidable is going fast enough
             if(this.calcMagnitudeSquared() >= 150 || this.contactObjs[i].calcMagnitudeSquared() >= 150) 
                 this.health--

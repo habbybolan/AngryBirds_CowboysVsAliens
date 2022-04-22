@@ -59,12 +59,11 @@ export default class Bullet {
         this.timer += deltaTime
     }
     
-   
     ShootBullet(force) {
         let p = Point.pixelsToMeters(this.cannonData.x + this.diameter / 2, this.cannonData.y + this.diameter / 2)
         let newP = new Physics.Vec2(p.left, p.top)
         
-        this.bulletObject.body.ApplyForce(force, newP);
+        this.bulletObject.body.ApplyForce(force, newP)
     }
 
     render(deltaTime) {

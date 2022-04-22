@@ -76,7 +76,8 @@ export default class Level {
         for(let i = 0; i < this.data.collidableList.length; i++)
         {
             let collidable = this.data.collidableList[i]
-            if(!collidable.isDeleted && collidable.body.GetLinearVelocity().Length() >= 1) {
+            // if collidable is moving too fast and is not deleted
+            if(!collidable.isDeleted && collidable.calcMagnitudeSquared() >= 1) {
                 return false
             }  
         }
@@ -84,7 +85,8 @@ export default class Level {
         for(let i = 0; i < this.data.targetList.length; i++)
         {
             let target = this.data.targetList[i]
-            if(!target.isDeleted && this.data.targetList[i].body.GetLinearVelocity().Length() >= 1) {
+            // if target is moving too fast and is not deleted
+            if(!target.isDeleted && target.calcMagnitudeSquared() >= 1) {
                 return false
             }
         }
@@ -93,13 +95,15 @@ export default class Level {
         {
             for(let i = 0; i < this.cannon.bulletList.length; i++)
             {
-                if(this.cannon.bulletList[i].bulletObject.body.GetLinearVelocity().Length() >= 1)
+                let bullet = this.cannon.bulletList[i]
+                // if there exists a bullet moving too fast
+                if(bullet.bulletObject.calcMagnitudeSquared() >= 1)
                 {
                     return false
                 }
             }
         }
-        
+        // world is stopped/slow enough to end game
         return true;
     }
 
