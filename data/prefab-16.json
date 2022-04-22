@@ -1,0 +1,1 @@
+{"name":"dirt_square","mass":"10","height":"70","width":"70","friction":"0.2","shape":"square","texture":"/images/dirt_square.png","type":"collidable","id":16,"value":0,"restitution":"0.5","filename":"prefab-16"}

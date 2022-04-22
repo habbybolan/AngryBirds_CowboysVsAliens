@@ -1,0 +1,1 @@
+{"name":"circle alien","mass":"10","height":"70","width":"70","friction":"0.2","shape":"circle","texture":"/images/alien-circle.png","type":"target","id":5,"value":0,"restitution":"0.5","filename":"prefab-5"}

@@ -1,0 +1,1 @@
+{"name":"dirt_circle","mass":"10","height":"70","width":"70","friction":"0.2","shape":"circle","texture":"/images/dirt_circle.png","type":"collidable","id":18,"value":0,"restitution":"0.5","filename":"prefab-18"}
