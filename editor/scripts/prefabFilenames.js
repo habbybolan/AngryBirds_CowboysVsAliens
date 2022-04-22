@@ -6,9 +6,9 @@ import { shapesEnum } from "./prefab.js"
 
 // Data class holding all target and collidable prefab filenames
 export default class prefabFilenames {
-    static squareCollidables = ['/images/brick-square.png', '/images/stone-square.jpg']
-    static circleCollidables = []
-    static triangleCollidables = []
+    static squareCollidables = ['/images/ice_square.png', '/images/stone_square.png', '/images/dirt_square.png']
+    static circleCollidables = ['/images/ice_circle.png', '/images/stone_circle.png', '/images/dirt_circle.png']
+    static triangleCollidables = ['/images/ice_triangle.png', '/images/stone_triangle.png', '/images/dirt_triangle.png']
 
     static squareTargets = ['/images/alien-square.png']
     static circletTargets = ['/images/alien-circle.png']
